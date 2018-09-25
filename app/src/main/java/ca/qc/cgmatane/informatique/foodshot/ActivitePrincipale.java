@@ -3,9 +3,6 @@ package ca.qc.cgmatane.informatique.foodshot;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -16,27 +13,21 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import java.util.ArrayList;
-
 public class ActivitePrincipale extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
-
-    private ArrayList<String> lNames = new ArrayList<>();
-    private ArrayList<String> lURL = new ArrayList<>();
-    private ArrayList<String> lUserNames = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.vue_activite_principale);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.barre_outils);
         setSupportActionBar(toolbar);
 
-        FloatingActionButton boutonNouveauPoste = (FloatingActionButton) findViewById(R.id.boutonNouveauPoste);
-        boutonNouveauPoste.setOnClickListener(new View.OnClickListener() {
+        FloatingActionButton boutonCreerNouvellePublication = (FloatingActionButton) findViewById(R.id.bouton_creer_nouvelle_publication);
+        boutonCreerNouvellePublication.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intentionNaviguerVersVueNouveauPoste = new Intent(getApplicationContext(), ActiviteNouveauPoste.class);
+                Intent intentionNaviguerVersVueNouveauPoste = new Intent(getApplicationContext(), ActiviteNouvellePublication.class);
                 startActivity(intentionNaviguerVersVueNouveauPoste);
             }
         });
@@ -63,21 +54,16 @@ public class ActivitePrincipale extends AppCompatActivity
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.activite_principale, menu);
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
         if (id == R.id.action_search) {
-            return true;
+            // TODO do something
         }
 
         return super.onOptionsItemSelected(item);
@@ -86,17 +72,16 @@ public class ActivitePrincipale extends AppCompatActivity
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
-        // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.profile) {
-            // Handle the camera action
-        } else if (id == R.id.liked) {
-
-        } else if (id == R.id.settings) {
-
-        } else if (id == R.id.disconnect) {
-
+        if (id == R.id.profil) {
+            // TODO do something
+        } else if (id == R.id.aime) {
+            // TODO do something
+        } else if (id == R.id.parametres) {
+            // TODO do something
+        } else if (id == R.id.deconnexion) {
+            // TODO do something
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

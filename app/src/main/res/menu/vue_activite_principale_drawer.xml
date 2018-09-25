@@ -5,20 +5,20 @@
 
 
     <item
-        android:id="@+id/profile"
-        android:title="Profile" />
+        android:id="@+id/profil"
+        android:title="@string/drawer_cat_profil" />
     <item
-        android:id="@+id/liked"
-        android:title="Liked posts" />
+        android:id="@+id/aime"
+        android:title="@string/drawer_cat_aime" />
 
-    <item android:title="Manage">
+    <item android:title="@string/drawer_cat_outil">
         <menu>
             <item
-                android:id="@+id/settings"
-                android:title="Settings" />
+                android:id="@+id/parametres"
+                android:title="@string/drawer_cat_parametres" />
             <item
-                android:id="@+id/disconnect"
-                android:title="Disconnect" />
+                android:id="@+id/deconnexion"
+                android:title="@string/drawer_cat_deconnexion" />
         </menu>
     </item>
 

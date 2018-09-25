@@ -1,9 +1,17 @@
 <resources>
     <string name="app_name">FoodShot</string>
-    <string name="navigation_drawer_open">Open navigation drawer</string>
-    <string name="navigation_drawer_close">Close navigation drawer</string>
-    <string name="nav_header_title">Name / Nickname</string>
-    <string name="nav_header_subtitle">android.studio@android.com</string>
-    <string name="nav_header_desc">Navigation header</string>
-    <string name="action_search">Search</string>
+    <string name="navigation_drawer_open">Ouvrir le Drawer de navigation</string>
+    <string name="navigation_drawer_close">Fermer le Drawer de navigation</string>
+    <string name="nav_header_title">Nom / Pseudonyme</string>
+    <string name="nav_header_subtitle">\@Pseudonyme</string>
+    <string name="nav_header_second_subtitle">"?? ??? LIKES"</string>
+    <string name="nav_header_desc">Header de navigation</string>
+    <string name="action_rechercher">Rechercher</string>
+
+    <string name="drawer_cat_profil">Profil</string>
+    <string name="drawer_cat_aime">Publications aimées</string>
+    <string name="drawer_cat_outil">Outils</string>
+    <string name="drawer_cat_parametres">Paramètres</string>
+    <string name="drawer_cat_deconnexion">Déconnexion</string>
+
 </resources>
