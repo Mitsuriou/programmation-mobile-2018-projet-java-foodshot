@@ -17,6 +17,8 @@ import com.bumptech.glide.request.RequestOptions;
 
 import java.util.ArrayList;
 
+import de.hdodenhof.circleimageview.CircleImageView;
+
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder>{ //TYPE
 
     private static final String TAG = "RecyclerViewAdapter";
@@ -24,14 +26,16 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     private ArrayList<String> images = new ArrayList<>();
     private ArrayList<String> imageNames = new ArrayList<>();
     private ArrayList<String> userNames = new ArrayList<>();
+    private ArrayList<String> lPP = new ArrayList<>();
     private Context context;
 
-    public RecyclerViewAdapter( Context context,ArrayList<String> images,ArrayList<String> imageNames,ArrayList<String> userNames) {
+    public RecyclerViewAdapter( Context context,ArrayList<String> images,ArrayList<String> imageNames,ArrayList<String> userNames, ArrayList<String> lPP) {
 
         this.context = context;
         this.images = images;
         this.imageNames = imageNames;
         this.userNames=userNames;
+        this.lPP=lPP;
 
     }
 
@@ -50,8 +54,14 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         Glide.with(context)
                 .asBitmap()
                 .load(images.get(position))
-                .apply(new RequestOptions().fitCenter()).
-                        into(holder.image);
+                .apply(new RequestOptions().fitCenter().override(2000,600))
+                .into(holder.image);
+
+        Glide.with(context)
+                .asBitmap()
+                .load(lPP.get(position))
+                .apply(new RequestOptions().fitCenter().override(400, 400)).
+                into(holder.photo_profil);
 
         holder.image_name.setText(imageNames.get(position));
 
@@ -74,6 +84,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
     public class ViewHolder extends RecyclerView.ViewHolder{
 
+        CircleImageView photo_profil;
         ImageView image;
         TextView image_name,user_name;
         RelativeLayout parentLayout;
@@ -84,6 +95,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             image =  itemView.findViewById(R.id.imageView);
             user_name = itemView.findViewById(R.id.user_name);
             parentLayout = itemView.findViewById(R.id.parent_layout);
+            photo_profil = itemView.findViewById(R.id.profile_image);
         }
     }
 

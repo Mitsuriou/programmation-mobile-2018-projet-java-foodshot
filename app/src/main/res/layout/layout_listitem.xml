@@ -2,7 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:padding="15dp"
+    android:padding="3dp"
     android:id="@+id/parent_layout">
 
     <TextView
@@ -11,6 +11,8 @@
         android:layout_height="match_parent"
         android:layout_alignParentTop="true"
         android:paddingLeft="90dp"
+        android:paddingTop="15dp"
+        android:paddingBottom="5dp"
         android:text=""
         android:textColor="#000"
         android:textSize="17sp" />
@@ -21,7 +23,15 @@
         android:layout_height="wrap_content"
         android:contentDescription="@string/image"
         android:layout_below="@+id/user_name"
-        android:paddingLeft="45dp"/>
+        android:paddingLeft="45dp" />
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/profile_image"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:src="@mipmap/ic_launcher"
+        android:paddingTop="5dp"
+        android:paddingLeft="-265dp" />
 
     <TextView
         android:id="@+id/image_name"
@@ -29,6 +39,12 @@
         android:layout_height="match_parent"
         android:layout_alignParentBottom="true"
         android:layout_below="@+id/imageView"
+
+        android:paddingTop="10dp"
+        android:paddingRight="30dp"
+        android:paddingBottom="15dp"
+        android:paddingLeft="30dp"
+
         android:text=""
         android:textColor="#000"
         android:textSize="17sp" />
