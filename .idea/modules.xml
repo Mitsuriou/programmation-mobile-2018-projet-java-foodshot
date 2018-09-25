@@ -2,8 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/FoodShot.iml" filepath="$PROJECT_DIR$/FoodShot.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://$PROJECT_DIR$/programmation-mobile-2018-projet-java-foodshot.iml" filepath="$PROJECT_DIR$/programmation-mobile-2018-projet-java-foodshot.iml" />
     </modules>
   </component>
 </project>
