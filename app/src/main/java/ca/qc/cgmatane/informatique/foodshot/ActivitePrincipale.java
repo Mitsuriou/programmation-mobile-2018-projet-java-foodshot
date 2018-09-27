@@ -75,8 +75,12 @@ public class ActivitePrincipale extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.profil) {
-            // TODO do something
+            Intent intentionNaviguerVersMonProfil =
+                    new Intent(this, ActiviteMonProfil.class);
+            startActivity(intentionNaviguerVersMonProfil);
         } else if (id == R.id.aime) {
+            // TODO do something
+        } else if (id == R.id.personnes_suivies) {
             // TODO do something
         } else if (id == R.id.parametres) {
             // TODO do something

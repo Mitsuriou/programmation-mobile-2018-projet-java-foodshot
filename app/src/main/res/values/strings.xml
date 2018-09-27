@@ -10,8 +10,11 @@
 
     <string name="drawer_cat_profil">Profil</string>
     <string name="drawer_cat_aime">Publications aimées</string>
+    <string name="drawer_cat_personnes_suivies">Personnes suivies</string>
     <string name="drawer_cat_outil">Outils</string>
     <string name="drawer_cat_parametres">Paramètres</string>
     <string name="drawer_cat_deconnexion">Déconnexion</string>
+    <string name="title_activity_activite_profil">Mon Profil</string>
+    <string name="action_settings">Settings</string>
 
 </resources>
