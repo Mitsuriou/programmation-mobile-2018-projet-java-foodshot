@@ -63,7 +63,9 @@ public class ActivitePrincipale extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.action_search) {
-            // TODO do something
+            Intent intentionChercherProfil =
+                    new Intent(this, ActiviteRechercherProfil.class);
+            startActivity(intentionChercherProfil);
         }
 
         return super.onOptionsItemSelected(item);

@@ -6,9 +6,9 @@
     <string name="nav_header_subtitle">\@Pseudonyme</string>
     <string name="nav_header_second_subtitle">"?? ??? LIKES"</string>
     <string name="nav_header_desc">Header de navigation</string>
-    <string name="action_rechercher">Rechercher</string>
+    <string name="action_rechercher">Rechercher un profil</string>
 
-    <string name="drawer_cat_profil">Profil</string>
+    <string name="drawer_cat_profil">Mon Profil</string>
     <string name="drawer_cat_aime">Publications aimées</string>
     <string name="drawer_cat_personnes_suivies">Personnes suivies</string>
     <string name="drawer_cat_outil">Outils</string>
