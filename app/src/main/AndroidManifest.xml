@@ -3,6 +3,7 @@
     package="ca.qc.cgmatane.informatique.foodshot">
 
     <uses-feature android:name="android.hardware.camera" android:required="true" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
@@ -22,6 +23,18 @@
             </intent-filter>
         </activity>
         <activity android:name=".ActiviteNouvellePublication" />
+
+        <provider
+            android:name="android.support.v4.content.FileProvider"
+            android:authorities="com.foodshot.provider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <!-- ressource file to create -->
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths">
+            </meta-data>
+        </provider>
     </application>
 
 </manifest>
