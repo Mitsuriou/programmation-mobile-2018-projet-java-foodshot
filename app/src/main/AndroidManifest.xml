@@ -25,33 +25,19 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ActiviteNouvellePublication" />
 
-        <provider
-            android:name="android.support.v4.content.FileProvider"
-            android:authorities="com.foodshot.provider"
-            android:exported="false"
-            android:grantUriPermissions="true">
-
-            <!-- ressource file to create -->
-            <meta-data
-                android:name="android.support.FILE_PROVIDER_PATHS"
-                android:resource="@xml/file_paths" />
-        </provider>
-
+        <activity android:name=".ActiviteNouvellePublication"
+            android:label="@string/titre_activite_nouvelle_publication"/>
         <activity
             android:name=".ActiviteMonProfil"
-            android:label="@string/title_activity_activite_profil"
+            android:label="@string/titre_activite_profil"
             android:theme="@style/AppTheme.NoActionBar" />
-
         <activity android:name=".ActiviteRechercherProfil"
-            android:label="@string/title_activity_activite_rechercher_profil"/>
-
+            android:label="@string/titre_activite_rechercher_profil"/>
         <activity android:name=".ActivitePublicationsAimees"
-            android:label="@string/title_activity_activite_publications_aimees" />
-
+            android:label="@string/titre_activite_publications_aimees" />
         <activity android:name=".ActivitePersonnesSuivies"
-            android:label="@string/title_activity_activite_personnes_suivies" />
+            android:label="@string/titre_activite_personnes_suivies" />
     </application>
 
 </manifest>

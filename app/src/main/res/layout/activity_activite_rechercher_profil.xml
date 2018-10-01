@@ -6,23 +6,52 @@
     android:layout_height="match_parent"
     tools:context=".ActiviteRechercherProfil">
 
-    <TextView
-        android:id="@+id/arobase"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="\@"
-        android:textSize="20dp" />
-
-    <EditText
+    <TableLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:ems="10"
-        android:hint="@string/hint_rechercher_profil"
-        android:inputType="text" />
+        android:layout_height="match_parent">
 
-    <!--
-        ici une liste des utilisateurs interactive en fonction du texte tapé
-    -->
+        <TableRow
+            android:layout_width="120dp"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/arobase"
+                android:layout_width="3dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="13dp"
+                android:layout_weight="0.2"
+                android:text="\@"
+                android:textSize="20dp" />
+
+            <EditText
+                android:layout_weight="1"
+                android:id="@+id/champ_recherche_pseudonyme"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="@string/hint_rechercher_profil"
+                android:inputType="text"
+                tools:layout_editor_absoluteX="54dp"
+                tools:layout_editor_absoluteY="0dp" />
+
+        </TableRow>
+
+        <TableRow
+            android:layout_width="wrap_content"
+            android:layout_height="287dp">
+
+            <ListView
+                android:id="@+id/liste_pseudonymes_trouves"
+                android:layout_width="384dp"
+                android:layout_height="match_parent"
+                android:layout_span="2"
+                android:layout_weight="2"
+                android:paddingTop="1dp"
+                tools:layout_editor_absoluteX="0dp"
+                tools:layout_editor_absoluteY="658dp">
+
+            </ListView>
+        </TableRow>
+    </TableLayout>
 
 </LinearLayout>
