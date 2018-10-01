@@ -8,9 +8,15 @@
     <string name="nav_header_desc">Header de navigation</string>
     <string name="action_rechercher">Rechercher un profil</string>
 
+    <string name="drawer_cat_moi">Moi</string>
     <string name="drawer_cat_profil">Mon Profil</string>
     <string name="drawer_cat_aime">Publications aimées</string>
     <string name="drawer_cat_personnes_suivies">Personnes suivies</string>
+
+    <string name="drawer_cat_social">Social</string>
+    <string name="drawer_cat_map">Autour de moi</string>
+    <string name="drawer_cat_notifications">Notifications</string>
+
     <string name="drawer_cat_outil">Outils</string>
     <string name="drawer_cat_parametres">Paramètres</string>
     <string name="drawer_cat_deconnexion">Déconnexion</string>
