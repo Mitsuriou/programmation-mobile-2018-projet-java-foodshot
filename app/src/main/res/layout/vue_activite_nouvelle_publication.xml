@@ -1,65 +1,77 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="top|left"
-    android:orientation="vertical"
-    tools:context=".ActiviteNouvellePublication">
+    tools:context=".ActiviteNouvellePublication" >
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
-    <RelativeLayout
+    <TableRow
         android:layout_width="match_parent"
-        android:layout_height="315dp">
+        android:layout_height="match_parent" >
 
         <ImageView
             android:id="@+id/conteneur_photo_capturee"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="200dp"
             android:layout_marginStart="0dp"
             android:layout_marginTop="0dp"
-            android:layout_marginBottom="0dp" />
+            android:layout_marginBottom="0dp"
+            android:layout_weight="1" />
+    </TableRow>
+
+    <TableRow
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" >
 
         <Button
+            android:layout_weight="1"
             android:id="@+id/bouton_demarrer_appareil_photo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:backgroundTint="@color/colorAccent"
             android:text="Prendre une photo !" />
+    </TableRow>
 
-    </RelativeLayout>
-
-    <TextView
-        android:id="@+id/textView"
+    <TableRow
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Titre" />
+        android:layout_height="match_parent" >
 
-    <EditText
-        android:id="@+id/champ_titre_nouvelle_publication"
+        <EditText
+            android:id="@+id/champ_titre_nouvelle_publication"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:ems="10"
+            android:hint="Titre"
+            android:inputType="text" />
+    </TableRow>
+
+    <TableRow
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="text" />
+        android:layout_height="match_parent" >
 
-    <TextView
-        android:id="@+id/textView2"
+        <EditText
+            android:id="@+id/champ_description_nouvelle_publication"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:ems="10"
+            android:hint="Description"
+            android:inputType="text" />
+    </TableRow>
+
+    <TableRow
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Description" />
+        android:layout_height="match_parent" >
 
-    <EditText
-        android:id="@+id/champ_description_nouvelle_publication"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="text" />
-
-    <Button
-        android:id="@+id/poster_nouvelle_publication"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:backgroundTint="@color/colorAccent"
-        android:text="Publier !" />
-
-
-</LinearLayout>
+        <Button
+            android:layout_weight="1"
+            android:id="@+id/poster_nouvelle_publication"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/colorAccent"
+            android:text="Publier !" />
+    </TableRow>
+</TableLayout>
