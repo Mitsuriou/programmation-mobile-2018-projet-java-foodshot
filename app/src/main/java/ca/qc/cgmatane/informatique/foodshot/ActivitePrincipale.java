@@ -89,13 +89,17 @@ public class ActivitePrincipale extends AppCompatActivity
             Intent intentionNaviguerVersPersonnesSuivies =
                     new Intent(this, ActivitePersonnesSuivies.class);
             startActivity(intentionNaviguerVersPersonnesSuivies);
-        } else if (id == R.id.map) {
-            //TODO
+        } else if (id == R.id.autour_de_moi) {
+            Intent intentionNaviguerVersAutourDeMoi = new Intent(this, ActiviteCarte.class);
+            startActivity(intentionNaviguerVersAutourDeMoi);
         } else if (id == R.id.notifications) {
             //TODO
+            Toast.makeText(this, "A venir", Toast.LENGTH_SHORT).show();
         } else if (id == R.id.parametres) {
+            //TODO
             Toast.makeText(this, "A venir", Toast.LENGTH_SHORT).show();
         } else if (id == R.id.deconnexion) {
+            //TODO
             Toast.makeText(this, "A venir", Toast.LENGTH_SHORT).show();
         }
 

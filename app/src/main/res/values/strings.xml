@@ -29,5 +29,6 @@
     <string name="titre_activite_rechercher_profil">Rechercher un Profil</string>
     <string name="titre_activite_publications_aimees">Publications Aimées</string>
     <string name="titre_activite_personnes_suivies">Personnes Suivies</string>
+    <string name="title_activity_activite_carte">Autour de moi</string>
 
 </resources>

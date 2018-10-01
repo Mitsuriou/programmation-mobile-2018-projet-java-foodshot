@@ -20,7 +20,7 @@
     <item android:title="@string/drawer_cat_social">
         <menu>
             <item
-                android:id="@+id/map"
+                android:id="@+id/autour_de_moi"
                 android:title="@string/drawer_cat_map" />
             <item
                 android:id="@+id/notifications"
