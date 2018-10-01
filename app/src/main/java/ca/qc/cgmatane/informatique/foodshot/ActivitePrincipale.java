@@ -12,6 +12,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 public class ActivitePrincipale extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -81,13 +82,17 @@ public class ActivitePrincipale extends AppCompatActivity
                     new Intent(this, ActiviteMonProfil.class);
             startActivity(intentionNaviguerVersMonProfil);
         } else if (id == R.id.aime) {
-            // TODO do something
+            Intent intentionNaviguerVersPublicationAimees =
+                    new Intent(this, ActivitePublicationsAimees.class);
+            startActivity(intentionNaviguerVersPublicationAimees);
         } else if (id == R.id.personnes_suivies) {
-            // TODO do something
+            Intent intentionNaviguerVersPersonnesSuivies =
+                    new Intent(this, ActivitePersonnesSuivies.class);
+            startActivity(intentionNaviguerVersPersonnesSuivies);
         } else if (id == R.id.parametres) {
-            // TODO do something
+            Toast.makeText(this, "A venir", Toast.LENGTH_SHORT).show();
         } else if (id == R.id.deconnexion) {
-            // TODO do something
+            Toast.makeText(this, "A venir", Toast.LENGTH_SHORT).show();
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

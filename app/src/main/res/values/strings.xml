@@ -14,9 +14,13 @@
     <string name="drawer_cat_outil">Outils</string>
     <string name="drawer_cat_parametres">Paramètres</string>
     <string name="drawer_cat_deconnexion">Déconnexion</string>
-    <string name="title_activity_activite_profil">Mon Profil</string>
     <string name="action_settings">Settings</string>
 
     <string name="hint_rechercher_profil">Pseudonyme</string>
+
+    <string name="title_activity_activite_profil">Mon Profil</string>
+    <string name="title_activity_activite_rechercher_profil">Rechercher un Profil</string>
+    <string name="title_activity_activite_publications_aimees">Publications Aimées</string>
+    <string name="title_activity_activite_personnes_suivies">Personnes Suivies</string>
 
 </resources>
