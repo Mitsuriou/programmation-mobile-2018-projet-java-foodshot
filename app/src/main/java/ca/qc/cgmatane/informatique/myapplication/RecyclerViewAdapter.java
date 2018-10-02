@@ -27,15 +27,19 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     private ArrayList<String> imageNames = new ArrayList<>();
     private ArrayList<String> userNames = new ArrayList<>();
     private ArrayList<String> lPP = new ArrayList<>();
+    private ArrayList<String> nbCoeur = new ArrayList<>();
+    private String coeur;
     private Context context;
 
-    public RecyclerViewAdapter( Context context,ArrayList<String> images,ArrayList<String> imageNames,ArrayList<String> userNames, ArrayList<String> lPP) {
+    public RecyclerViewAdapter( Context context,ArrayList<String> images,ArrayList<String> imageNames,ArrayList<String> userNames, ArrayList<String> lPP,String coeur,ArrayList<String> nbCoeur) {
 
         this.context = context;
         this.images = images;
         this.imageNames = imageNames;
         this.userNames=userNames;
         this.lPP=lPP;
+        this.coeur=coeur;
+        this.nbCoeur=nbCoeur;
 
     }
 
@@ -54,23 +58,56 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         Glide.with(context)
                 .asBitmap()
                 .load(images.get(position))
-                .apply(new RequestOptions().fitCenter().override(2000,600))
+                .apply(new RequestOptions().fitCenter().override(2000,500))
                 .into(holder.image);
 
         Glide.with(context)
                 .asBitmap()
                 .load(lPP.get(position))
-                .apply(new RequestOptions().fitCenter().override(400, 400)).
+                .apply(new RequestOptions().fitCenter().override(400, 400)). // 400,400
                 into(holder.photo_profil);
 
-        holder.image_name.setText(imageNames.get(position));
+        Glide.with(context)
+                .asBitmap()
+                .load(R.drawable.ic_launcher_background)
+                .apply(new RequestOptions().fitCenter().override(60, 60)).
+                into(holder.coeur);
 
+        holder.image_name.setText(imageNames.get(position));
+        holder.nbCoeur.setText(nbCoeur.get(position));
         holder.user_name.setText(userNames.get(position));
 
-        holder.parentLayout.setOnClickListener(new View.OnClickListener() {
+        holder.photo_profil.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.d(TAG,"onClick: clicked on: "+userNames.get(position));
+                Log.d(TAG,"onClick: PP on: "+userNames.get(position));
+
+                //Toast.makeText(context,imageNames.get(position),Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        holder.image.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.d(TAG,"onClick: image on: "+userNames.get(position));
+
+                //Toast.makeText(context,imageNames.get(position),Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        holder.coeur.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.d(TAG,"onClick: coeur on: "+userNames.get(position));
+
+                //Toast.makeText(context,imageNames.get(position),Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        holder.user_name.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.d(TAG,"onClick: pseudo on: "+userNames.get(position));
 
                 //Toast.makeText(context,imageNames.get(position),Toast.LENGTH_SHORT).show();
             }
@@ -84,9 +121,9 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
     public class ViewHolder extends RecyclerView.ViewHolder{
 
-        CircleImageView photo_profil;
+        CircleImageView photo_profil,coeur;
         ImageView image;
-        TextView image_name,user_name;
+        TextView image_name,user_name,nbCoeur;
         RelativeLayout parentLayout;
 
         public ViewHolder(@NonNull View itemView) {
@@ -96,6 +133,8 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             user_name = itemView.findViewById(R.id.user_name);
             parentLayout = itemView.findViewById(R.id.parent_layout);
             photo_profil = itemView.findViewById(R.id.profile_image);
+            coeur = itemView.findViewById(R.id.coeur);
+            nbCoeur = itemView.findViewById(R.id.nb_coeur);
         }
     }
 
