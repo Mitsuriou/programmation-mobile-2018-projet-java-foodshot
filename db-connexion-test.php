@@ -9,7 +9,8 @@
 //ini_set('display_errors', 'On');
 //error_reporting(E_ALL);
 
-require_once 'Connection.php';
+require_once 'app/Connection.php';
+use ProjetMobile\Connection as Connection;
 
 try {
     Connection::get()->connect();

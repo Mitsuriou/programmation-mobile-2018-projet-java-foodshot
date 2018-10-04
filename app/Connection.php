@@ -7,6 +7,8 @@
  * Class from: http://www.postgresqltutorial.com/postgresql-php/connect/
  */
 
+namespace ProjetMobile;
+
 /**
  * Represent the Connection
  */
