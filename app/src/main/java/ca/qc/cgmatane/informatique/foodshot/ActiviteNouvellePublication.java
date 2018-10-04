@@ -2,8 +2,7 @@ package ca.qc.cgmatane.informatique.foodshot;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
+import android.icu.text.SimpleDateFormat;
 import android.net.Uri;
 import android.os.Environment;
 import android.provider.MediaStore;
@@ -17,124 +16,116 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
+import java.util.Date;
 
 public class ActiviteNouvellePublication extends AppCompatActivity {
-    private static final int DEMANDE_CAM = 111;
-    private Uri uriImageAUpload;
 
-    protected ImageView conteneurImage;
+    private static final int DEMANDE_CAM = 1102;
+    public static final String DOSSIER_PHOTO = "FoodShot";
+    String outputFilePath;
+
     protected Button boutonCaptureImage;
+    protected Button boutonPosterPublication;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.vue_activite_nouvelle_publication);
 
-        this.conteneurImage = (ImageView) findViewById(R.id.conteneur_photo_capturee);
-
         this.boutonCaptureImage = (Button)findViewById(R.id.bouton_demarrer_appareil_photo);
         this.boutonCaptureImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                capturerImageCamera();
+                onCamera();
+            }
+        });
+
+        this.boutonPosterPublication = (Button) findViewById(R.id.poster_nouvelle_publication);
+        this.boutonPosterPublication.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(ActiviteNouvellePublication.this, "Publication postée avec succès ! :D", Toast.LENGTH_SHORT).show();
+                finirActivite();
             }
         });
     }
 
     @Override
-    public void onActivityResult(int codeDeRequete, int codeDeResultat, Intent donnees) {
-        super.onActivityResult(codeDeRequete, codeDeResultat, donnees);
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == Activity.RESULT_OK && requestCode == DEMANDE_CAM)
+            onCaptureImageResult();
+    }
 
-        if (codeDeRequete == DEMANDE_CAM && codeDeResultat == Activity.RESULT_OK) {
-            if (uriImageAUpload != null) {
-                Uri imageSelectionnee = uriImageAUpload;
-                getContentResolver().notifyChange(imageSelectionnee, null);
-                Bitmap bitmapReduitEnTaille = getBitmap(uriImageAUpload.getPath());
-                if (bitmapReduitEnTaille != null) {
-                    conteneurImage.setImageBitmap(bitmapReduitEnTaille);
-                }
-                else {
-                    Toast.makeText(this, "Erreur lors de la capture de l'image 1", Toast.LENGTH_LONG).show();
-                }
-            }
-            else {
-                Toast.makeText(this, "Erreur lors de la capture de l'image 2", Toast.LENGTH_LONG).show();
+    private void finirActivite() {
+        this.finish();
+    }
+
+    private void onCamera() {
+        Intent intentionCapturerPhoto = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        if (intentionCapturerPhoto.resolveActivity(getPackageManager()) != null) {
+            File fichierPhoto = creerFichierImage();
+            Log.d("name", getPackageName());
+            Uri uriPhoto = FileProvider.getUriForFile(this, getPackageName() + ".fileprovider", fichierPhoto);
+            outputFilePath = fichierPhoto.getAbsolutePath();
+            intentionCapturerPhoto.putExtra(MediaStore.EXTRA_OUTPUT, uriPhoto);
+            startActivityForResult(intentionCapturerPhoto, DEMANDE_CAM);
+        }
+    }
+
+    private File creerFichierImage() {
+        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+        String nomFichierImage = "JPEG_" + timeStamp + "_";
+        File dossierStockage = new File(getExternalFilesDir(Environment.DIRECTORY_PICTURES), DOSSIER_PHOTO + "/");
+        if (!dossierStockage.exists())
+            dossierStockage.mkdir();
+        return new File(dossierStockage, nomFichierImage + ".jpg");
+    }
+
+    private void onCaptureImageResult() {
+        if (outputFilePath != null) {
+            File f = new File(outputFilePath);
+            try {
+                File publicFile = copyImageFile(f);
+                Uri finalUri = Uri.fromFile(publicFile);
+                galleryAddPic(finalUri);
+                ((ImageView) findViewById(R.id.conteneur_photo_capturee)).setImageURI(finalUri);
+            } catch (IOException e) {
+                e.printStackTrace();
             }
         }
     }
 
-    private Bitmap getBitmap(String path) {
+    public File copyImageFile(File fileToCopy) throws IOException {
+        File storageDir = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES), DOSSIER_PHOTO + "/");
+        if (!storageDir.exists())
+            storageDir.mkdir();
+        File copyFile = new File(storageDir, fileToCopy.getName());
+        copyFile.createNewFile();
+        copy(fileToCopy, copyFile);
+        return copyFile;
+    }
 
-        Uri uri = Uri.fromFile(new File(path));
-        InputStream in;
-        try {
-            final int IMAGE_MAX_SIZE = 1200000; //1.2MP
-            in = getContentResolver().openInputStream(uri);
-
-            // Decode image size
-            BitmapFactory.Options o = new BitmapFactory.Options();
-            o.inJustDecodeBounds = true;
-            BitmapFactory.decodeStream(in, null, o);
-            in.close();
-
-
-            int scale = 1;
-            while ((o.outWidth * o.outHeight) * (1 / Math.pow(scale, 2)) >
-                    IMAGE_MAX_SIZE) {
-                scale++;
-            }
-            Log.d("", "scale = " + scale + ", orig-width: " + o.outWidth + ", orig-height: " + o.outHeight);
-
-            Bitmap b = null;
-            in = getContentResolver().openInputStream(uri);
-            if (scale > 1) {
-                scale--;
-                // scale to max possible inSampleSize that still yields an image
-                // larger than target
-                o = new BitmapFactory.Options();
-                o.inSampleSize = scale;
-                b = BitmapFactory.decodeStream(in, null, o);
-
-                // resize to desired dimensions
-                int height = b.getHeight();
-                int width = b.getWidth();
-                Log.d("", "1th scale operation dimenions - width: " + width + ", height: " + height);
-
-                double y = Math.sqrt(IMAGE_MAX_SIZE
-                        / (((double) width) / height));
-                double x = (y / height) * width;
-
-                Bitmap scaledBitmap = Bitmap.createScaledBitmap(b, (int) x,
-                        (int) y, true);
-                b.recycle();
-                b = scaledBitmap;
-
-                System.gc();
-            } else {
-                b = BitmapFactory.decodeStream(in);
-            }
-            in.close();
-
-            Log.d("", "bitmap size - width: " + b.getWidth() + ", height: " +
-                    b.getHeight());
-            return b;
-        } catch (IOException e) {
-            Log.e("", e.getMessage(), e);
-            return null;
+    public static void copy(File src, File dst) throws IOException {
+        InputStream in = new FileInputStream(src);
+        OutputStream out = new FileOutputStream(dst);
+        byte[] buf = new byte[1024];
+        int len;
+        while ((len = in.read(buf)) > 0) {
+            out.write(buf, 0, len);
         }
+        in.close();
+        out.close();
     }
 
-    private void capturerImageCamera() {
-        Intent intentionChoix = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        File f = new File(Environment.getExternalStorageDirectory(), "POST_IMAGE.jpg");
-        Uri uriImage = FileProvider.getUriForFile(ActiviteNouvellePublication.this, "com.foodshot.provider", f);
-        intentionChoix.putExtra(MediaStore.EXTRA_OUTPUT, uriImage);
-        uriImageAUpload = uriImage;
-
-        Log.d("uri", uriImage.getPath());
-
-        startActivityForResult(intentionChoix, DEMANDE_CAM);
+    private void galleryAddPic(Uri contentUri) {
+        Intent mediaScanIntent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE, contentUri);
+        sendBroadcast(mediaScanIntent);
     }
+
 }

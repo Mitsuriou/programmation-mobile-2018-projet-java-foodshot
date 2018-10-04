@@ -3,15 +3,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="ca.qc.cgmatane.informatique.foodshot">
 
-    <uses-feature
-        android:name="android.hardware.camera"
-        android:required="true" />
 
-    <!--
-         The ACCESS_COARSE/FINE_LOCATION permissions are not required to use
-         Google Maps Android API v2, but you must specify either coarse or fine
-         location permissions for the 'MyLocation' functionality. 
-    -->
+    <uses-permission android:name="android.permission.CAMERA"/>
+    <uses-feature android:name="android.hardware.camera"/>
+
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+
+    <!-- Google Maps : -->
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
     <application
@@ -21,50 +20,67 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
-        tools:ignore="GoogleAppIndexingWarning">
+        tools:ignore="GoogleAppIndexingWarning" >
+
         <activity
             android:name=".ActivitePrincipale"
+            android:screenOrientation="portrait"
             android:label="@string/app_name"
-            android:theme="@style/AppTheme.NoActionBar">
+            android:theme="@style/AppTheme.NoActionBar" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity
             android:name=".ActiviteNouvellePublication"
+            android:screenOrientation="portrait"
             android:label="@string/titre_activite_nouvelle_publication" />
+
         <activity
             android:name=".ActiviteMonProfil"
+            android:screenOrientation="portrait"
             android:label="@string/titre_activite_profil"
             android:theme="@style/AppTheme.NoActionBar" />
+
         <activity
             android:name=".ActiviteRechercherProfil"
+            android:screenOrientation="portrait"
             android:label="@string/titre_activite_rechercher_profil" />
+
         <activity
             android:name=".ActivitePublicationsAimees"
+            android:screenOrientation="portrait"
             android:label="@string/titre_activite_publications_aimees" />
+
         <activity
             android:name=".ActivitePersonnesSuivies"
+            android:screenOrientation="portrait"
             android:label="@string/titre_activite_personnes_suivies" />
-        
-        <uses-library android:name="org.apache.http.legacy" android:required="false"/>
-        <!--
-             The API key for Google Maps-based APIs is defined as a string resource.
-             (See the file "res/values/google_maps_api.xml").
-             Note that the API key is linked to the encryption key used to sign the APK.
-             You need a different API key for each encryption key, including the release key that is used to
-             sign the APK for publishing.
-             You can define the keys for the debug and release targets in src/debug/ and src/release/. 
-        -->
+
+        <activity
+            android:name=".ActiviteCarte"
+            android:screenOrientation="portrait"
+            android:label="@string/title_activity_activite_carte" ></activity>
+
+        <!-- Google Maps : -->
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />
 
-        <activity
-            android:name=".ActiviteCarte"
-            android:label="@string/title_activity_activite_carte"></activity>
+        <uses-library android:name="org.apache.http.legacy" android:required="false"/>
+
+        <provider
+            android:name="android.support.v4.content.FileProvider"
+            android:authorities="${applicationId}.fileprovider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths" />
+        </provider>
     </application>
 
 </manifest>
