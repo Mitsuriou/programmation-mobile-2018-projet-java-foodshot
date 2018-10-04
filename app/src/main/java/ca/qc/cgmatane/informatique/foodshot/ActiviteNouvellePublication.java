@@ -1,11 +1,16 @@
 package ca.qc.cgmatane.informatique.foodshot;
 
+import android.Manifest;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.icu.text.SimpleDateFormat;
 import android.net.Uri;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.content.FileProvider;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -25,8 +30,11 @@ import java.util.Date;
 
 public class ActiviteNouvellePublication extends AppCompatActivity {
 
+    private static final int DEMANDE_PERMISSION_MULTIPLE = 1;
+
     private static final int DEMANDE_CAM = 1102;
-    public static final String DOSSIER_PHOTO = "FoodShot";
+    private static final String DOSSIER_PHOTO = "FoodShot";
+
     String outputFilePath;
 
     protected Button boutonCaptureImage;
@@ -37,6 +45,11 @@ public class ActiviteNouvellePublication extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.vue_activite_nouvelle_publication);
 
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED
+                && ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.ACCESS_FINE_LOCATION}, DEMANDE_PERMISSION_MULTIPLE);
+        }
+        
         this.boutonCaptureImage = (Button)findViewById(R.id.bouton_demarrer_appareil_photo);
         this.boutonCaptureImage.setOnClickListener(new View.OnClickListener() {
             @Override

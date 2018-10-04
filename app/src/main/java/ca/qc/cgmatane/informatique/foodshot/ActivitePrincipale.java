@@ -1,8 +1,12 @@
 package ca.qc.cgmatane.informatique.foodshot;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -16,6 +20,8 @@ import android.widget.Toast;
 
 public class ActivitePrincipale extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+
+    private static final int DEMANDE_PERMISSION_LOCALISATION = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
