@@ -2,7 +2,6 @@ package ca.qc.cgmatane.informatique.foodshot;
 
 import android.Manifest;
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.icu.text.SimpleDateFormat;
@@ -49,7 +48,7 @@ public class ActiviteNouvellePublication extends AppCompatActivity {
                 && ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.ACCESS_FINE_LOCATION}, DEMANDE_PERMISSION_MULTIPLE);
         }
-        
+
         this.boutonCaptureImage = (Button)findViewById(R.id.bouton_demarrer_appareil_photo);
         this.boutonCaptureImage.setOnClickListener(new View.OnClickListener() {
             @Override
