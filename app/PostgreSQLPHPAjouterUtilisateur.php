@@ -14,31 +14,35 @@ class PostgreSQLPHPAjouterUtilisateur
     private $pdo;
 
     /**
-     * insert a new row into the stocks table
-     * @param type $nom
-     * @param type $prenom
-     * @param type $pseudonyme
-     * @param type $mdp_hash
-     * @return the id of the inserted row
+     * Ajoute un nouvel enregistrement dans la table utilisateur
+     * @param string $nom
+     * @param string $prenom
+     * @param string $pseudonyme
+     * @param string $mdp_hash
+     * @return integer l'id de l'enregistrement inséré
      */
     public function ajouterUtilisateur($nom, $prenom, $pseudonyme, $mdp_hash) {
-        // prepare statement for insert
+        // prepare statement pour l'insertion
         $sql = 'INSERT INTO utilisateur(nom,prenom,pseudonyme,mdp_hash) VALUES(:nom,:prenom,:pseudonyme,:mdp_hash)';
         $stmt = $this->pdo->prepare($sql);
 
-        // pass values to the statement
+        // passer les valeurs au statement
         $stmt->bindValue(':nom', $nom);
         $stmt->bindValue(':prenom', $prenom);
         $stmt->bindValue(':pseudonyme', $pseudonyme);
         $stmt->bindValue(':mdp_hash', $mdp_hash);
 
-        // execute the insert statement
+        // exécuter le statement d'insertion
         $stmt->execute();
 
-        // return generated id
+        // retourne l'identifiant généré
         return $this->pdo->lastInsertId();
     }
 
+    /**
+     * Constructeur de PostgreSQLPHPAjouterUtilisateur.
+     * @param $pdo
+     */
     public function __construct($pdo) {
         $this->pdo = $pdo;
     }

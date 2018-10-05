@@ -6,22 +6,22 @@
  * Time: 18:01
  */
 
-ini_set('display_errors', 'On');
-error_reporting(E_ALL);
+//ini_set('display_errors', 'On');
+//error_reporting(E_ALL);
 
-require_once 'app/Connection.php';
+require_once 'api/config/Connexion.php';
 require_once 'app/PostgreSQLPHPAjouterUtilisateur.php';
 
-use ProjetMobile\Connection as Connection;
-use ProjetMobile\PostgreSQLPHPAjouterUtilisateur as PostgreSQLPHPAjouterUtilisateur;
+use ProjetMobileAPI\Connexion;
+use ProjetMobile\PostgreSQLPHPAjouterUtilisateur;
 
 try {
-    // connect to the PostgreSQL database
-    $pdo = Connection::get()->connect();
+    // connexion à la base de données PostgreSQL
+    $pdo = Connexion::get()->connect();
     //
     $insertDemo = new PostgreSQLPHPAjouterUtilisateur($pdo);
 
-    // insert a stock into the stocks table
+    // insérer un utilisateur dans la table utilisateur
     $id = $insertDemo->ajouterUtilisateur('Nom', 'Prenom', 'Pseudonyme', 'MDP');
     echo 'L\'utilisateur a été ajouté avec l\'id ' . $id . '<br>';
 } catch (\PDOException $e) {

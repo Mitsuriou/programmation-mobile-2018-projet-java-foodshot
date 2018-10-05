@@ -7,32 +7,32 @@
  * Class from: http://www.postgresqltutorial.com/postgresql-php/connect/
  */
 
-namespace ProjetMobile;
+namespace ProjetMobileAPI;
 
 /**
- * Represent the Connection
+ * Représente la Connexion
  */
-class Connection {
+class Connexion {
 
     /**
-     * Connection
+     * Connexion
      * @var type
      */
     private static $conn;
 
     /**
-     * Connect to the database and return an instance of \PDO object
+     * Connexion à la base de données et retourne une instance de l'objet \PDO
      * @return \PDO
      * @throws \Exception
      */
     public function connect() {
 
-        // read parameters in the ini configuration file
+        // Lecture des paramètres dans le fichier de configuration ini
         $params = parse_ini_file('identifiants_bdd.ini');
         if ($params === false) {
             throw new \Exception("Erreur lors de la lecture du fichier de configuration de la base de données");
         }
-        // connect to the postgresql database
+        // connexion à la base de données postgresql
         $conStr = sprintf("pgsql:host=%s;port=%d;dbname=%s;user=%s;password=%s",
             $params['host'],
             $params['port'],
@@ -47,7 +47,7 @@ class Connection {
     }
 
     /**
-     * return an instance of the Connection object
+     * Retourne une instance de l'objet Connexion
      * @return type
      */
     public static function get() {
