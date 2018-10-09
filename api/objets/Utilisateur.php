@@ -54,13 +54,13 @@ class Utilisateur
     function creer(){
 
         // query to insert record
-        $query = "INSERT INTO
-                " . $this->table_name . "
+        $requete = "INSERT INTO
+                " . $this->nom_table . "
             SET
                 nom=:nom, prenom=:prenom, pseudonyme=:pseudonyme, mdp_hash=:mdp_hash, creation=:creation";
 
         // prepare query
-        $stmt = $this->conn->prepare($query);
+        $stmt = $this->conn->prepare($requete);
 
         // sanitize
         $this->name=htmlspecialchars(strip_tags($this->nom));
@@ -82,5 +82,36 @@ class Utilisateur
         }
 
         return false;
+    }
+
+    // used when filling up the update product form
+    function lireUn(){
+
+        // query to read single record
+        $requete = "SELECT
+                u.id_utilisateur, u.nom, u.prenom, u.pseudonyme, u.mdp_hash, u.creation
+            FROM
+                " . $this->nom_table . " u
+            WHERE
+                u.id_utilisateur = ?
+            LIMIT
+                1";
+
+        // prepare query statement
+        $stmt = $this->conn->prepare($requete);
+
+        // bind id of product to be updated
+        $stmt->bindParam(1, $this->id_utilisateur);
+
+        // execute query
+        $stmt->execute();
+
+        // get retrieved row
+        $row = $stmt->fetch(\PDO::FETCH_ASSOC);
+
+        // set values to object properties
+        $this->nom = $row['nom'];
+        $this->prenom = $row['prenom'];
+        $this->pseudonyme = $row['pseudonyme'];
     }
 }

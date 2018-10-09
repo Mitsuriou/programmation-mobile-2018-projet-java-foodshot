@@ -18,10 +18,10 @@ use ProjetMobileAPI\Connexion;
 use ProjetMobileAPI\Utilisateur;
 
 // instantiate database and product object
-$db = Connexion::get()->connect();
+$bdd = Connexion::get()->connect();
 
 // initialize object
-$utilisateur = new Utilisateur($db);
+$utilisateur = new Utilisateur($bdd);
 
 // query products
 $stmt = $utilisateur->lire();
