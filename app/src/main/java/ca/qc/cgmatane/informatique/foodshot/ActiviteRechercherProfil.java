@@ -20,7 +20,7 @@ public class ActiviteRechercherProfil extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_activite_rechercher_profil);
+        setContentView(R.layout.vue_activite_rechercher_profil);
         gererChampRecherche();
 
         ListView listePseudonymesTrouves = (ListView) findViewById(R.id.liste_pseudonymes_trouves);

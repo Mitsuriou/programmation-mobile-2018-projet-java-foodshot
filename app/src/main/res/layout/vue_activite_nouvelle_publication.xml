@@ -69,6 +69,7 @@
             android:id="@+id/poster_nouvelle_publication"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:textColor="#fff"
             android:backgroundTint="@color/colorAccent"
             android:text="Publier !" />
     </TableRow>

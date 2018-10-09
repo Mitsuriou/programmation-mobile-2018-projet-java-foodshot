@@ -8,6 +8,6 @@ public class ActivitePersonnesSuivies extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_activite_personnes_suivies);
+        setContentView(R.layout.vue_activite_personnes_suivies);
     }
 }

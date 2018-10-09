@@ -20,7 +20,7 @@
 
     </android.support.design.widget.AppBarLayout>
 
-    <include layout="@layout/content_activite_principale" />
+    <include layout="@layout/contenu_activite_principale" />
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/bouton_creer_nouvelle_publication"

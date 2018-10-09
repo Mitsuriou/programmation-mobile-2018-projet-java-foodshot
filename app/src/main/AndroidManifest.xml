@@ -3,13 +3,19 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="ca.qc.cgmatane.informatique.foodshot">
 
-    <uses-permission android:name="android.permission.CAMERA"/>
-    <uses-feature android:name="android.hardware.camera"/>
+    <uses-permission android:name="android.permission.CAMERA" />
 
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-feature android:name="android.hardware.camera" />
+
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <!-- Google Maps : -->
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+
+    <!-- To auto-complete the email text field in the login form with the user's emails -->
+    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
+    <uses-permission android:name="android.permission.READ_PROFILE" />
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
 
     <application
         android:allowBackup="true"
@@ -18,57 +24,52 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
-        tools:ignore="GoogleAppIndexingWarning" >
-
+        tools:ignore="GoogleAppIndexingWarning">
         <activity
             android:name=".ActivitePrincipale"
-            android:screenOrientation="portrait"
             android:label="@string/app_name"
-            android:theme="@style/AppTheme.NoActionBar" >
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".ActiviteNouvellePublication"
-            android:screenOrientation="portrait"
-            android:label="@string/titre_activite_nouvelle_publication" />
-
+            android:label="@string/titre_vue_nouvelle_publication"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".ActiviteMonProfil"
+            android:label="@string/titre_vue_profil"
             android:screenOrientation="portrait"
-            android:label="@string/titre_activite_profil"
             android:theme="@style/AppTheme.NoActionBar" />
-
         <activity
             android:name=".ActiviteRechercherProfil"
-            android:screenOrientation="portrait"
-            android:label="@string/titre_activite_rechercher_profil" />
-
+            android:label="@string/titre_vue_rechercher_profil"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".ActivitePublicationsAimees"
-            android:screenOrientation="portrait"
-            android:label="@string/titre_activite_publications_aimees" />
-
+            android:label="@string/titre_vue_publications_aimees"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".ActivitePersonnesSuivies"
-            android:screenOrientation="portrait"
-            android:label="@string/titre_activite_personnes_suivies" />
-
+            android:label="@string/titre_vue_personnes_suivies"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".ActiviteCarte"
-            android:screenOrientation="portrait"
-            android:label="@string/title_activity_activite_carte" ></activity>
+            android:label="@string/titre_vue_activite_carte"
+            android:screenOrientation="portrait" />
 
         <!-- Google Maps : -->
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />
 
-        <uses-library android:name="org.apache.http.legacy" android:required="false"/>
+        <uses-library
+            android:name="org.apache.http.legacy"
+            android:required="false" />
 
         <provider
             android:name="android.support.v4.content.FileProvider"
@@ -79,6 +80,9 @@
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/file_paths" />
         </provider>
+
+        <activity android:name=".ActiviteConnexion"
+            android:exported="true" />
     </application>
 
 </manifest>

@@ -8,6 +8,6 @@ public class ActivitePublicationsAimees extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_activite_publications_aimees);
+        setContentView(R.layout.vue_activite_publications_aimees);
     }
 }

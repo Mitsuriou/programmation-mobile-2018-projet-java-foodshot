@@ -33,7 +33,7 @@
         </android.support.design.widget.CollapsingToolbarLayout>
     </android.support.design.widget.AppBarLayout>
 
-    <include layout="@layout/content_activite_mon_profil" />
+    <include layout="@layout/contenu_activite_mon_profil" />
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab"
