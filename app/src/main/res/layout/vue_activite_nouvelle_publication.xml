@@ -28,8 +28,9 @@
             android:id="@+id/bouton_demarrer_appareil_photo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:backgroundTint="@color/colorAccent"
-            android:text="Prendre une photo !" />
+            android:text="Prendre une photo !"
+            android:textColor="#fff"
+            android:backgroundTint="@color/colorAccent" />
     </TableRow>
 
     <TableRow

@@ -12,21 +12,6 @@
         android:layout_height="wrap_content">
 
         <EditText
-            android:id="@+id/connexion_champ_nom"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/hint_connexion_champ_nom"
-            android:inputType="text"
-            android:maxLines="1"
-            android:singleLine="true" />
-
-    </android.support.design.widget.TextInputLayout>
-
-    <android.support.design.widget.TextInputLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <EditText
             android:id="@+id/connexion_champ_pseudoynme"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -65,5 +50,19 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textColor="#f00"/>
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="end|bottom">
+
+        <Button
+            android:id="@+id/bouton_creer_nouveau_compte"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/colorAccent"
+            android:text="Créer un compte"
+            android:textColor="#fff" />
+    </android.support.constraint.ConstraintLayout>
 
 </LinearLayout>

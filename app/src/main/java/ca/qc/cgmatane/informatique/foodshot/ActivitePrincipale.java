@@ -22,6 +22,7 @@ public class ActivitePrincipale extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     private static final int DEMANDE_PERMISSION_LOCALISATION = 1;
+    public static boolean IS_CONNECTE = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +48,13 @@ public class ActivitePrincipale extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        // TODO : Gérer si l'utilisateur est déjà connecté
+        if (!IS_CONNECTE) {
+            Intent intentionSeConnecter = new Intent(this, ActiviteConnexion.class);
+            startActivity(intentionSeConnecter);
+            finish();
+        }
     }
 
     @Override
@@ -78,7 +86,6 @@ public class ActivitePrincipale extends AppCompatActivity
         return super.onOptionsItemSelected(item);
     }
 
-    @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         int id = item.getItemId();

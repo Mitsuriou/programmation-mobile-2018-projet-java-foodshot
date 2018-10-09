@@ -32,11 +32,17 @@
     <string name="titre_vue_activite_carte">Autour de moi</string>
 
 
-    <string name="titre_vue_activite_connexion">Se connecter</string>
-    <string name="hint_connexion_champ_nom">Nom</string>
+    <string name="titre_vue_activite_connexion">Se connecter à FoodShot</string>
     <string name="hint_connexion_champ_pseudonyme">Pseudonyme</string>
-    <string name="hint_connexion_champ_mot_de_passe">Mot de passe (5 cara. min.)</string>
+    <string name="hint_connexion_champ_mot_de_passe">Mot de passe</string>
 
 
+    <!--Creation Compte-->
+    <string name="titre_vue_activite_creation_compte">Créer un compte FoodShot</string>
+    <string name="hint_creation_compte_champ_nom">Nom (4 caractères min.)</string>
+    <string name="hint_creation_compte_champ_pseudonyme">Pseudonyme (4 caractères min.)</string>
+    <string name="hint_creation_compte_champ_mot_de_passe">Mot de passe (5 caractères min.)</string>
+    <string name="hint_creation_compte_champ_mot_de_passe_2">Répéter mot de passe</string>
+    <string name="texte_bouton_creation_compte">Créer un compte</string>
 
 </resources>
