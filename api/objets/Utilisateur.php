@@ -49,4 +49,38 @@ class Utilisateur
 
         return $stmt;
     }
+
+    // créer un utilisateur
+    function creer(){
+
+        // query to insert record
+        $query = "INSERT INTO
+                " . $this->table_name . "
+            SET
+                nom=:nom, prenom=:prenom, pseudonyme=:pseudonyme, mdp_hash=:mdp_hash, creation=:creation";
+
+        // prepare query
+        $stmt = $this->conn->prepare($query);
+
+        // sanitize
+        $this->name=htmlspecialchars(strip_tags($this->nom));
+        $this->price=htmlspecialchars(strip_tags($this->prenom));
+        $this->description=htmlspecialchars(strip_tags($this->pseudonyme));
+        $this->category_id=htmlspecialchars(strip_tags($this->mdp_hash));
+        $this->created=htmlspecialchars(strip_tags($this->creation));
+
+        // bind values
+        $stmt->bindParam(":nom", $this->nom);
+        $stmt->bindParam(":prenom", $this->prenom);
+        $stmt->bindParam(":pseudonyme", $this->pseudonyme);
+        $stmt->bindParam(":mdp_hash", $this->mdp_hash);
+        $stmt->bindParam(":creation", $this->creation);
+
+        // execute query
+        if($stmt->execute()){
+            return true;
+        }
+
+        return false;
+    }
 }
