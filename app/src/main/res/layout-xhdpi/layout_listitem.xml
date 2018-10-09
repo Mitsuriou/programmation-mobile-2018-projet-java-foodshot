@@ -15,22 +15,22 @@
         android:layout_marginTop="15dp"
 
         android:text=""
-        android:textColor="#000"
+        android:textColor="#0055ff"
         android:textSize="17sp" />
 
     <TextView
 
         android:id="@+id/nb_coeur"
-        android:layout_width="60dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
 
         android:layout_alignLeft="@id/image_name"
 
         android:layout_marginLeft="200dp"
         android:layout_marginTop="15dp"
-        android:textAlignment="textEnd"
-
         android:text=""
+
+        android:textAlignment="textEnd"
         android:textColor="#000"
         android:textSize="17sp" />
 

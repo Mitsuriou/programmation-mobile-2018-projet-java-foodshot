@@ -1,8 +1,11 @@
 package ca.qc.cgmatane.informatique.myapplication;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.util.Base64;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,16 +13,21 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.ArrayList;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
-public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder>{ //TYPE
+public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder>{//TYPE
 
     private static final String TAG = "RecyclerViewAdapter";
 
@@ -30,16 +38,26 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     private ArrayList<String> nbCoeur = new ArrayList<>();
     private String coeur;
     private Context context;
+    private int height;
+    private int width;
+    private ImageView image;
+    private BitmapUtils bitmapUtils;
 
-    public RecyclerViewAdapter( Context context,ArrayList<String> images,ArrayList<String> imageNames,ArrayList<String> userNames, ArrayList<String> lPP,String coeur,ArrayList<String> nbCoeur) {
+
+    private String imageBitmap;
+    private String imageProfil;
+
+    public RecyclerViewAdapter( Context context,ArrayList<String> URL,ArrayList<String> imageNames,ArrayList<String> userNames, ArrayList<String> lPP,String coeur,ArrayList<String> nbCoeur) {
 
         this.context = context;
-        this.images = images;
+        for (String valeur : URL) {
+            images.add(valeur);
+        }
         this.imageNames = imageNames;
-        this.userNames=userNames;
-        this.lPP=lPP;
-        this.coeur=coeur;
-        this.nbCoeur=nbCoeur;
+        this.userNames = userNames;
+        this.lPP = lPP;
+        this.coeur = coeur;
+        this.nbCoeur = nbCoeur;
 
     }
 
@@ -48,6 +66,9 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_listitem,parent,false);
         ViewHolder holder = new ViewHolder(view);
+        Log.d("width",""+width); // 0...
+        height = view.getHeight();
+        width = view.getWidth();
         return holder;
     }
 
@@ -55,17 +76,38 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     public void onBindViewHolder(@NonNull ViewHolder holder, final int position) {
         Log.d(TAG,"onBindViewHolder: called");
 
-        Glide.with(context)
-                .asBitmap()
-                .load(images.get(position))
-                .apply(new RequestOptions().fitCenter().override(2000,500))
-                .into(holder.image);
+        try{
+            image.setImageBitmap(StringToBitMap(""+new BitmapUtils(new TaskCompleted() {
+                @Override
+                public void onTaskComplete(String result) {
+                    imageBitmap=result;
+                }
+            }).execute(images.get(position)).get()));
+        } catch (Exception e){
 
-        Glide.with(context)
-                .asBitmap()
-                .load(lPP.get(position))
-                .apply(new RequestOptions().fitCenter().override(400, 400)). // 400,400
-                into(holder.photo_profil);
+        }
+
+        try{
+            holder.photo_profil.setImageBitmap(StringToBitMap(""+new BitmapUtils(new TaskCompleted() {
+                @Override
+                public void onTaskComplete(String result) {
+                    imageProfil=result;
+                }
+            }).execute(lPP.get(position)).get()));
+        } catch (Exception e){
+
+        }
+
+        try{
+            holder.photo_profil.setImageBitmap(StringToBitMap(""+new BitmapUtils(new TaskCompleted() {
+                @Override
+                public void onTaskComplete(String result) {
+                    imageProfil=result;
+                }
+            }).execute(lPP.get(position)).get()));
+        } catch (Exception e){
+
+        }
 
         Glide.with(context)
                 .asBitmap()
@@ -86,7 +128,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             }
         });
 
-        holder.image.setOnClickListener(new View.OnClickListener() {
+        image.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Log.d(TAG,"onClick: image on: "+userNames.get(position));
@@ -122,7 +164,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     public class ViewHolder extends RecyclerView.ViewHolder{
 
         CircleImageView photo_profil,coeur;
-        ImageView image;
+
         TextView image_name,user_name,nbCoeur;
         RelativeLayout parentLayout;
 
@@ -135,6 +177,18 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             photo_profil = itemView.findViewById(R.id.profile_image);
             coeur = itemView.findViewById(R.id.coeur);
             nbCoeur = itemView.findViewById(R.id.nb_coeur);
+        }
+    }
+
+    public Bitmap StringToBitMap(String encodedString) {
+        try {
+            byte[] encodeByte = Base64.decode(encodedString, Base64.DEFAULT);
+            Bitmap bitmap = BitmapFactory.decodeByteArray(encodeByte, 0,
+                    encodeByte.length);
+            return bitmap;
+        } catch (Exception e) {
+            e.getMessage();
+            return null;
         }
     }
 
