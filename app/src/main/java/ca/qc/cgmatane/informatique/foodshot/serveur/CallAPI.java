@@ -8,13 +8,14 @@ import okhttp3.Request;
 import okhttp3.RequestBody;
 
 public class CallAPI extends AsyncTask<String, String, String> {
+    private String chaineNom;
+    private String chainePseudonyme;
+    private String chaineMdpHash;
 
-    String emailString;
-    String commentString;
-
-    public CallAPI(String email, String commnt){
-        emailString = email;
-        commentString = commnt;
+    public CallAPI(String nom, String pseudonyme, String mdpHash) {
+        chaineNom = nom;
+        chainePseudonyme = pseudonyme;
+        chaineMdpHash = mdpHash;
     }
 
     @Override
@@ -26,11 +27,12 @@ public class CallAPI extends AsyncTask<String, String, String> {
     protected String doInBackground(String... params) {
         OkHttpClient client = new OkHttpClient();
         RequestBody formBody = new FormBody.Builder()
-                .add("email", emailString) // A sample POST field
-                .add("comment", commentString) // Another sample POST field
+                .add("nom", chaineNom)
+                .add("pesudonyme", chainePseudonyme)
+                .add("mdp_hash", chaineMdpHash)
                 .build();
         Request request = new Request.Builder()
-                .url("https://yourdomain.org/callback.php") // The URL to send the data to
+                .url("http://54.37.152.134/api/utilisateur/creer.php")
                 .post(formBody)
                 .build();
         return "";
