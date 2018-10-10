@@ -42,17 +42,10 @@ public class ActiviteCreationCompte extends AppCompatActivity {
     private void validerCreationCompte() {
         this.reinitialiserErreurs();
 
-        if (this.affichageErreurs.getText().equals("") && isNomValide() && isPseudonymeValide() && isMotDePasseValide()) {
+        if (isNomValide() && isPseudonymeValide() && isMotDePasseValide()) {
             new CreerUtilisateurAPI(this.champNom.getText().toString(),
                     this.champPseudonyme.getText().toString(),
                     this.champMdp.getText().toString()).execute();
-
-            Toast.makeText(ActiviteCreationCompte.this,
-                    "Nom : " + this.champNom.getText().toString()
-                            + ", Pseudonyme : " + this.champPseudonyme.getText().toString()
-                            + ", Mdp clair 1 : " + this.champMdp.getText().toString()
-                            + ", Mdp clair 2 : " + this.champMdp2.getText().toString(),
-                    Toast.LENGTH_SHORT).show();
 
             Intent intentionNaviguerVersVueConnexion = new Intent(this, ActiviteConnexion.class);
             startActivity(intentionNaviguerVersVueConnexion);
@@ -95,7 +88,7 @@ public class ActiviteCreationCompte extends AppCompatActivity {
     }
 
     private boolean isMotDePasseValide() {
-        if (champMdp.getText().length() < 5) {
+        if (champMdp.getText().length() < 5 || champMdp2.getText().length() <5) {
             this.affichageErreurs.setText("Le mot de passe doit faire plus de 5 caractères.");
             return false;
         }

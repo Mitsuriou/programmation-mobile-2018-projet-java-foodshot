@@ -22,7 +22,7 @@ import java.util.ArrayList;
 public class ActivitePrincipale extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     private static final int DEMANDE_PERMISSION_LOCALISATION = 1;
-    public static boolean IS_CONNECTE = false;
+    public static boolean IS_CONNECTE = true;
 
     // List
     private List<String> lNames = new ArrayList<>();
@@ -121,8 +121,8 @@ public class ActivitePrincipale extends AppCompatActivity implements NavigationV
             //TODO
             Toast.makeText(this, "A venir", Toast.LENGTH_SHORT).show();
         } else if (id == R.id.parametres) {
-            //TODO
-            Toast.makeText(this, "A venir", Toast.LENGTH_SHORT).show();
+            Intent intentionNaviguerVersParametres = new Intent(this, ActiviteParametres.class);
+            startActivity(intentionNaviguerVersParametres);
         } else if (id == R.id.deconnexion) {
             //TODO
             Toast.makeText(this, "A venir", Toast.LENGTH_SHORT).show();
