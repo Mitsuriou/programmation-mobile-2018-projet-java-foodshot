@@ -35,7 +35,6 @@ $utilisateur->lireUn();
 $tab_utilisateur = array(
     "id_utilisateur" =>  $utilisateur->id_utilisateur,
     "nom" => $utilisateur->nom,
-    "prenom" => $utilisateur->prenom,
     "pseudonyme" => $utilisateur->pseudonyme
 );
 

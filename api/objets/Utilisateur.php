@@ -18,7 +18,6 @@ class Utilisateur
     // propriétés de l'objet
     public $id_utilisateur;
     public $nom;
-    public $prenom;
     public $pseudonyme;
     public $mdp_hash;
     public $creation;
@@ -37,7 +36,7 @@ class Utilisateur
      */
     function lire(){
         $requete = "SELECT
-                u.id_utilisateur, u.nom, u.prenom, u.pseudonyme, u.mdp_hash, u.creation
+                u.id_utilisateur, u.nom, u.pseudonyme, u.mdp_hash, u.creation
             FROM
                 " . $this->nom_table . " u
             ORDER BY
@@ -55,23 +54,21 @@ class Utilisateur
 
         // query to insert record
         $requete = "INSERT INTO
-                " . $this->nom_table . "
-            SET
-                nom=:nom, prenom=:prenom, pseudonyme=:pseudonyme, mdp_hash=:mdp_hash, creation=:creation";
+                " . $this->nom_table . "(nom, pseudonyme, mdp_hash, creation)
+            VALUES
+                (:nom, :pseudonyme, :mdp_hash, :creation)";
 
         // prepare query
         $stmt = $this->conn->prepare($requete);
 
         // sanitize
-        $this->name=htmlspecialchars(strip_tags($this->nom));
-        $this->price=htmlspecialchars(strip_tags($this->prenom));
-        $this->description=htmlspecialchars(strip_tags($this->pseudonyme));
-        $this->category_id=htmlspecialchars(strip_tags($this->mdp_hash));
-        $this->created=htmlspecialchars(strip_tags($this->creation));
+        $this->nom=htmlspecialchars(strip_tags($this->nom));
+        $this->pseudonyme=htmlspecialchars(strip_tags($this->pseudonyme));
+        $this->mdp_hash=htmlspecialchars(strip_tags($this->mdp_hash));
+        $this->creation=htmlspecialchars(strip_tags($this->creation));
 
         // bind values
         $stmt->bindParam(":nom", $this->nom);
-        $stmt->bindParam(":prenom", $this->prenom);
         $stmt->bindParam(":pseudonyme", $this->pseudonyme);
         $stmt->bindParam(":mdp_hash", $this->mdp_hash);
         $stmt->bindParam(":creation", $this->creation);
@@ -89,7 +86,7 @@ class Utilisateur
 
         // query to read single record
         $requete = "SELECT
-                u.id_utilisateur, u.nom, u.prenom, u.pseudonyme, u.mdp_hash, u.creation
+                u.id_utilisateur, u.nom, u.pseudonyme, u.mdp_hash, u.creation
             FROM
                 " . $this->nom_table . " u
             WHERE
@@ -111,7 +108,6 @@ class Utilisateur
 
         // set values to object properties
         $this->nom = $row['nom'];
-        $this->prenom = $row['prenom'];
         $this->pseudonyme = $row['pseudonyme'];
     }
 }

@@ -44,7 +44,6 @@ if($num>0){
         $item_utilisateur=array(
             "id_utilisateur" => $id_utilisateur,
             "nom" => html_entity_decode($nom),
-            "prenom" => html_entity_decode($prenom),
             "pseudonyme" => $pseudonyme
         );
 

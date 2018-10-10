@@ -31,7 +31,6 @@ $data = json_decode(file_get_contents("php://input"));
 
 // set product property values
 $utilisateur->nom = $data->nom;
-$utilisateur->prenom = $data->prenom;
 $utilisateur->pseudonyme = $data->pseudonyme;
 $utilisateur->mdp_hash = $data->mdp_hash;
 $utilisateur->creation = date('Y-m-d H:i:s');
