@@ -52,28 +52,26 @@ class Utilisateur
     // créer un utilisateur
     function creer(){
 
-        // query to insert record
+        // requete pour insérer un enregistrement
         $requete = "INSERT INTO
-                " . $this->nom_table . "(nom, pseudonyme, mdp_hash, creation)
+                " . $this->nom_table . "(nom, pseudonyme, mdp_hash)
             VALUES
-                (:nom, :pseudonyme, :mdp_hash, :creation)";
+                (:nom, :pseudonyme, :mdp_hash)";
 
-        // prepare query
+        // préparation du statement de la requete
         $stmt = $this->conn->prepare($requete);
 
         // sanitize
         $this->nom=htmlspecialchars(strip_tags($this->nom));
         $this->pseudonyme=htmlspecialchars(strip_tags($this->pseudonyme));
         $this->mdp_hash=htmlspecialchars(strip_tags($this->mdp_hash));
-        $this->creation=htmlspecialchars(strip_tags($this->creation));
 
-        // bind values
+        // liaison des variables
         $stmt->bindParam(":nom", $this->nom);
         $stmt->bindParam(":pseudonyme", $this->pseudonyme);
         $stmt->bindParam(":mdp_hash", $this->mdp_hash);
-        $stmt->bindParam(":creation", $this->creation);
 
-        // execute query
+        // exécution de la requete
         if($stmt->execute()){
             return true;
         }
@@ -84,7 +82,7 @@ class Utilisateur
     // used when filling up the update product form
     function lireUn(){
 
-        // query to read single record
+        // requete pour lire un seul enregistrement
         $requete = "SELECT
                 u.id_utilisateur, u.nom, u.pseudonyme, u.mdp_hash, u.creation
             FROM
@@ -94,20 +92,57 @@ class Utilisateur
             LIMIT
                 1";
 
-        // prepare query statement
+        // préparation du statement de la requete
         $stmt = $this->conn->prepare($requete);
 
-        // bind id of product to be updated
+        // liaison de l'id de l'utilisateur à modifier
         $stmt->bindParam(1, $this->id_utilisateur);
 
-        // execute query
+        // exécution de la requete
         $stmt->execute();
 
-        // get retrieved row
-        $row = $stmt->fetch(\PDO::FETCH_ASSOC);
+        // récupérer l'enregistrement renvoyé
+        $enregistrement = $stmt->fetch(\PDO::FETCH_ASSOC);
 
-        // set values to object properties
-        $this->nom = $row['nom'];
-        $this->pseudonyme = $row['pseudonyme'];
+        // définir les valeurs comme propriétés de l'objet
+        $this->nom = $enregistrement['nom'];
+        $this->pseudonyme = $enregistrement['pseudonyme'];
+        $this->mdp_hash = $enregistrement['mdp_hash'];
+        $this->creation = $enregistrement['creation'];
+    }
+
+    // modification de l'utilisateur
+    function modifier(){
+
+        // requete de modification
+        $requete = "UPDATE
+                " . $this->nom_table . "
+            SET
+                nom = :nom,
+                pseudonyme = :pseudonyme,
+                mdp_hash = :mdp_hash
+            WHERE
+                id_utilisateur = :id_utilisateur";
+
+        // préparation du statement de la requete
+        $stmt = $this->conn->prepare($requete);
+
+        // sanitize
+        $this->nom=htmlspecialchars(strip_tags($this->nom));
+        $this->pseudonyme=htmlspecialchars(strip_tags($this->pseudonyme));
+        $this->mdp_hash=htmlspecialchars(strip_tags($this->mdp_hash));
+
+        // liaison des variables
+        $stmt->bindParam(':nom', $this->nom);
+        $stmt->bindParam(':pseudonyme', $this->pseudonyme);
+        $stmt->bindParam(':mdp_hash', $this->mdp_hash);
+        $stmt->bindParam(':id_utilisateur', $this->id_utilisateur);
+
+        // exécution de la requete
+        if($stmt->execute()){
+            return true;
+        }
+
+        return false;
     }
 }

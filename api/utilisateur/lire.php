@@ -10,9 +10,8 @@
 header("Access-Control-Allow-Origin: *");
 header("Content-Type: application/json; charset=UTF-8");
 
-// include database and object files
-include_once '../config/Connexion.php';
-include_once '../objets/Utilisateur.php';
+require_once '../config/Connexion.php';
+require_once '../objets/Utilisateur.php';
 
 use ProjetMobileAPI\Connexion;
 use ProjetMobileAPI\Utilisateur;

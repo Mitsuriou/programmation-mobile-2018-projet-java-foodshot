@@ -6,15 +6,15 @@
  * Time: 22:52
  */
 
+// headers requis
 header("Access-Control-Allow-Origin: *");
 header("Access-Control-Allow-Headers: access");
 header("Access-Control-Allow-Methods: GET");
 header("Access-Control-Allow-Credentials: true");
 header('Content-Type: application/json; charset=UTF-8');
 
-// include database and object files
-include_once '../config/Connexion.php';
-include_once '../objets/Utilisateur.php';
+require_once '../config/Connexion.php';
+require_once '../objets/Utilisateur.php';
 
 use ProjetMobileAPI\Connexion;
 use ProjetMobileAPI\Utilisateur;
@@ -35,7 +35,9 @@ $utilisateur->lireUn();
 $tab_utilisateur = array(
     "id_utilisateur" =>  $utilisateur->id_utilisateur,
     "nom" => $utilisateur->nom,
-    "pseudonyme" => $utilisateur->pseudonyme
+    "pseudonyme" => $utilisateur->pseudonyme,
+    "mdp_hash" => $utilisateur->mdp_hash,
+    "creation" => $utilisateur->creation
 );
 
 // make it json format
