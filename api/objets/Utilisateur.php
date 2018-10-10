@@ -11,7 +11,7 @@ namespace ProjetMobileAPI;
 
 class Utilisateur
 {
-    // Connexion à la base de données et nom de la table
+    // connexion à la base de données et nom de la table
     private $conn;
     private $nom_table = "utilisateur";
 
@@ -23,18 +23,20 @@ class Utilisateur
     public $creation;
 
     /**
-     * Constructeur d'Utilisateur.
+     * constructeur d'Utilisateur
      * @param $bdd connexion à la base de données
      */
-    public function __construct($bdd){
+    public function __construct($bdd)
+    {
         $this->conn = $bdd;
     }
 
     /**
-     * Lire les utilisateurs
+     * lire les utilisateurs
      * @return mixed
      */
-    function lire(){
+    function lire()
+    {
         $requete = "SELECT
                 u.id_utilisateur, u.nom, u.pseudonyme
             FROM
@@ -49,9 +51,12 @@ class Utilisateur
         return $stmt;
     }
 
-    // créer un utilisateur
-    function creer(){
-
+    /**
+     * créer un utilisateur
+     * @return bool indiquant l'état d'exécution de la requete
+     */
+    function creer()
+    {
         // requete pour insérer un enregistrement
         $requete = "INSERT INTO
                 " . $this->nom_table . "(nom, pseudonyme, mdp_hash)
@@ -79,9 +84,12 @@ class Utilisateur
         return false;
     }
 
-    // used when filling up the update product form
-    function lireUn(){
-
+    /**
+     * lire les données d'un utilisateur
+     * utilisé pour pré-remplir le formulaire de modification de l'utilisateur
+     */
+    function lireUn()
+    {
         // requete pour lire un seul enregistrement
         $requete = "SELECT
                 u.id_utilisateur, u.nom, u.pseudonyme, u.mdp_hash, u.creation
@@ -111,9 +119,12 @@ class Utilisateur
         $this->creation = $enregistrement['creation'];
     }
 
-    // modification de l'utilisateur
-    function modifier(){
-
+    /**
+     * modifier un utilisateur
+     * @return bool indiquant l'état d'exécution de la requete
+     */
+    function modifier()
+    {
         // requete de modification
         $requete = "UPDATE
                 " . $this->nom_table . "
@@ -146,9 +157,12 @@ class Utilisateur
         return false;
     }
 
-    // suppression de l'utilisateur
-    function supprimer(){
-
+    /**
+     * supprimer un utilisateur
+     * @return bool indiquant l'état d'exécution de la requete
+     */
+    function supprimer()
+    {
         // requete de suppression
         $query = "DELETE FROM " . $this->nom_table . " WHERE id_utilisateur = ?";
 
@@ -169,9 +183,13 @@ class Utilisateur
         return false;
     }
 
-    // rechercher un utilisateur
-    function recherche($mot_clef){
-
+    /**
+     * rechercher un utilisateur
+     * @param $mot_clef string à rechercher
+     * @return mixed résultat de la requete à la base de données
+     */
+    function rechercher($mot_clef)
+    {
         // requete pour selectionner les utilisateurs correspondants à la recherche
         $requete = "SELECT
                 u.id_utilisateur, u.nom, u.pseudonyme
@@ -192,7 +210,7 @@ class Utilisateur
         // liaison du mot-clef de l'utilisateur à rechercher
         $stmt->bindParam(1, $mot_clef);
 
-        // execute query
+        // exécution de la requete
         $stmt->execute();
 
         return $stmt;

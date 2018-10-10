@@ -6,11 +6,10 @@
  * Time: 14:09
  */
 
-// required headers
+// headers requis
 header("Access-Control-Allow-Origin: *");
 header("Content-Type: application/json; charset=UTF-8");
 
-// include database and object files
 require_once '../config/Connexion.php';
 require_once '../objets/Utilisateur.php';
 
@@ -20,33 +19,29 @@ require_once '../objets/Utilisateur.php';
 use ProjetMobileAPI\Connexion;
 use ProjetMobileAPI\Utilisateur;
 
-// get database connection
+// récupération de la connexion à la base de données
 $bdd = Connexion::get()->connect();
 
 // création de l'objet utilisateur
 $utilisateur = new Utilisateur($bdd);
 
-// get keywords
-$mot_clef=isset($_GET["s"]) ? $_GET["s"] : "";
+// récupération du mot-clef
+$mot_clef=isset($_GET["pseudonyme"]) ? $_GET["pseudonyme"] : "";
 
-// query products
-$stmt = $utilisateur->recherche($mot_clef);
+// recherche des utilisateurs
+$stmt = $utilisateur->rechercher($mot_clef);
 $num = $stmt->rowCount();
 
-// check if more than 0 record found
+// vérification de la présence d'au moins un enregistrement
 if($num>0){
 
-    // products array
+    // tableau d'utilisateurs
     $tab_utilisateurs=array();
     $tab_utilisateurs["enregistrements"]=array();
 
-    // retrieve our table contents
-    // fetch() is faster than fetchAll()
-    // http://stackoverflow.com/questions/2770630/pdofetchall-vs-pdofetch-in-a-loop
+    // récupération du contenu de la table
     while ($enregistrement = $stmt->fetch(PDO::FETCH_ASSOC)){
-        // extract row
-        // this will make $row['name'] to
-        // just $name only
+        // extraction de l'enregistrement
         extract($enregistrement);
 
         $item_utilisateur=array(
@@ -63,7 +58,7 @@ if($num>0){
 
 else{
     echo json_encode(
-        array("message" => "Aucun utilisateur trouvé.")
+        array("message" => "Aucun utilisateur n'a été trouvé.")
     );
 }
 ?>

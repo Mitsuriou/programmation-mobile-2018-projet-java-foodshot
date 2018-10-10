@@ -16,29 +16,34 @@ header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers
 require_once '../config/Connexion.php';
 require_once '../objets/Utilisateur.php';
 
+//ini_set('display_errors', 'On');
+//error_reporting(E_ALL);
+
 use ProjetMobileAPI\Connexion;
 use ProjetMobileAPI\Utilisateur;
 
+// récupération de la connexion à la base de données
 $bdd = Connexion::get()->connect();
 
+// création de l'objet utilisateur
 $utilisateur = new Utilisateur($bdd);
 
 // récupération des données transmises en POST
 $data = json_decode(file_get_contents("php://input"));
 
-// set product property values
+// définition des valeurs des propriétés de l'utilisateur
 $utilisateur->nom = $data->nom;
 $utilisateur->pseudonyme = $data->pseudonyme;
 $utilisateur->mdp_hash = $data->mdp_hash;
 
-// create the product
+// création de l'utilisateur
 if($utilisateur->creer()){
     echo '{';
     echo '"message": "L\'utilisateur a été créé."';
     echo '}';
 }
 
-// if unable to create the product, tell the user
+// si l'utilisateur n'est pas créé, informe l'utilisateur
 else{
     echo '{';
     echo '"message": "Impossible de créer l\'utilisateur."';

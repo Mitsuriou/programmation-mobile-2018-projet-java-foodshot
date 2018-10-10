@@ -16,22 +16,25 @@ header('Content-Type: application/json; charset=UTF-8');
 require_once '../config/Connexion.php';
 require_once '../objets/Utilisateur.php';
 
+//ini_set('display_errors', 'On');
+//error_reporting(E_ALL);
+
 use ProjetMobileAPI\Connexion;
 use ProjetMobileAPI\Utilisateur;
 
-// get database connection
+// récupération de la connexion à la base de données
 $bdd = Connexion::get()->connect();
 
-// prepare product object
+// création de l'objet utilisateur
 $utilisateur = new Utilisateur($bdd);
 
-// set ID property of product to be edited
+// définition de l'id de l'utilisateur à récupérer
 $utilisateur->id_utilisateur = isset($_GET['id_utilisateur']) ? $_GET['id_utilisateur'] : die();
 
-// read the details of product to be edited
+// lecture des détails de l'utilisateur à récupérer
 $utilisateur->lireUn();
 
-// create array
+// création d'un tableau
 $tab_utilisateur = array(
     "id_utilisateur" =>  $utilisateur->id_utilisateur,
     "nom" => html_entity_decode($utilisateur->nom),
@@ -40,6 +43,6 @@ $tab_utilisateur = array(
     "creation" => $utilisateur->creation
 );
 
-// make it json format
+// conversion au format json
 echo json_encode($tab_utilisateur);
 ?>

@@ -13,31 +13,32 @@ header("Content-Type: application/json; charset=UTF-8");
 require_once '../config/Connexion.php';
 require_once '../objets/Utilisateur.php';
 
+//ini_set('display_errors', 'On');
+//error_reporting(E_ALL);
+
 use ProjetMobileAPI\Connexion;
 use ProjetMobileAPI\Utilisateur;
 
-// instantiate database and product object
+// récupération de la connexion à la base de données
 $bdd = Connexion::get()->connect();
 
-// initialize object
+// création de l'objet utilisateur
 $utilisateur = new Utilisateur($bdd);
 
-// query products
+// recherche des utilisateurs
 $stmt = $utilisateur->lire();
 $num = $stmt->rowCount();
 
-// check if more than 0 record found
+// vérification de la présence d'au moins un enregistrement
 if($num>0){
 
-    // products array
+    // tableau d'utilisateurs
     $tab_utilisateurs=array();
     $tab_utilisateurs["enregistrements"]=array();
 
-    // retrieve our table contents
+    // récupération du contenu de la table
     while ($row = $stmt->fetch(PDO::FETCH_ASSOC)){
-        // extract row
-        // this will make $row['name'] to
-        // just $name only
+        // extraction de l'enregistrement
         extract($row);
 
         $item_utilisateur=array(

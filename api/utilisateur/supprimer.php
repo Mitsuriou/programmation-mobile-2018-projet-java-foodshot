@@ -13,7 +13,6 @@ header("Access-Control-Allow-Methods: POST");
 header("Access-Control-Max-Age: 3600");
 header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
 
-// include database and object file
 require_once '../config/Connexion.php';
 require_once '../objets/Utilisateur.php';
 
@@ -23,26 +22,26 @@ require_once '../objets/Utilisateur.php';
 use ProjetMobileAPI\Connexion;
 use ProjetMobileAPI\Utilisateur;
 
-// get database connection
+// récupération de la connexion à la base de données
 $bdd = Connexion::get()->connect();
 
 // création de l'objet utilisateur
 $utilisateur = new Utilisateur($bdd);
 
-// get product id
+// récupération de l'id de l'utilisateur
 $data = json_decode(file_get_contents("php://input"));
 
-// set product id to be deleted
+// définition de l'id de l'utilisateur à supprimer
 $utilisateur->id_utilisateur = $data->id_utilisateur;
 
-// delete the product
+// suppression de l'utilisateur
 if($utilisateur->supprimer()){
     echo '{';
     echo '"message": "L\'utilisateur a été supprimé."';
     echo '}';
 }
 
-// if unable to delete the product
+// si l'utilisateur n'est pas supprimé, informe l'utilisateur
 else{
     echo '{';
     echo '"message": "Impossible de supprimer l\'utilisateur."';
