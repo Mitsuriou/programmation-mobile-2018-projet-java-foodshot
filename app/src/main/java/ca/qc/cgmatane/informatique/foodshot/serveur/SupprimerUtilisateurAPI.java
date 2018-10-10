@@ -1,12 +1,9 @@
 package ca.qc.cgmatane.informatique.foodshot.serveur;
 
 import android.os.AsyncTask;
-import android.util.Log;
 
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import java.io.IOException;
 
 import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
@@ -15,10 +12,10 @@ import okhttp3.RequestBody;
 import okhttp3.Response;
 
 public class SupprimerUtilisateurAPI extends AsyncTask<String, String, String> {
-    private String chainePseudonyme;
+    private int idUtilisateur;
 
-    public SupprimerUtilisateurAPI(String pseudonyme) {
-        chainePseudonyme = pseudonyme;
+    public SupprimerUtilisateurAPI(int idUtilisateur) {
+        this.idUtilisateur = idUtilisateur;
     }
 
     @Override
@@ -29,11 +26,12 @@ public class SupprimerUtilisateurAPI extends AsyncTask<String, String, String> {
     @Override
     protected String doInBackground(String... params) {
         MediaType JSON = MediaType.parse("application/json; charset=utf-8");
+        Response reponse;
 
         OkHttpClient client = new OkHttpClient();
         JSONObject data = new JSONObject();
         try {
-            data.put("pseudonyme", chainePseudonyme);
+            data.put("id_utilisateur", this.idUtilisateur);
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -46,12 +44,12 @@ public class SupprimerUtilisateurAPI extends AsyncTask<String, String, String> {
                 .build();
 
         try {
-            Response reponse = client.newCall(request).execute();
-            if (!reponse.isSuccessful())
-                throw new IOException("Unexpected code " + reponse.toString());
-            return reponse.body().string();
+            reponse = client.newCall(request).execute();
+            String jsonData = reponse.body().string();
+            JSONObject jObject = new JSONObject(jsonData);
+            //Log.d("jsonDelete", jObject.toString());
         } catch (Exception e) {
-            Log.d("reponse", e.getMessage());
+            e.printStackTrace();
         }
 
         return "";
