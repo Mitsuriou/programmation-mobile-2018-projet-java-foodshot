@@ -38,7 +38,6 @@ public class ActiviteConnexion extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intentionNaviguerVersVueCreerCompte = new Intent(getApplicationContext(), ActiviteCreationCompte.class);
                 startActivity(intentionNaviguerVersVueCreerCompte);
-                finish();
             }
         });
     }
@@ -53,7 +52,8 @@ public class ActiviteConnexion extends AppCompatActivity {
             this.finish();
         }
         else {
-            this.affichageErreurs.setText("");
+            Toast.makeText(this, "Identifiant ou mot de passe invalide", Toast.LENGTH_SHORT).show();
+            this.affichageErreurs.setText("Identifiant ou mot de passe invalide.");
         }
     }
 
@@ -63,6 +63,12 @@ public class ActiviteConnexion extends AppCompatActivity {
 
     private boolean isIdentificationValide() {
         // TODO : call l'API pour savoir si les identifiants sont corrects
-        return true;
+        return false;
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        this.finish();
     }
 }
