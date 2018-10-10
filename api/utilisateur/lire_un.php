@@ -34,7 +34,7 @@ $utilisateur->lireUn();
 // create array
 $tab_utilisateur = array(
     "id_utilisateur" =>  $utilisateur->id_utilisateur,
-    "nom" => $utilisateur->nom,
+    "nom" => html_entity_decode($utilisateur->nom),
     "pseudonyme" => $utilisateur->pseudonyme,
     "mdp_hash" => $utilisateur->mdp_hash,
     "creation" => $utilisateur->creation

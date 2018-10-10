@@ -36,7 +36,7 @@ class Utilisateur
      */
     function lire(){
         $requete = "SELECT
-                u.id_utilisateur, u.nom, u.pseudonyme, u.mdp_hash, u.creation
+                u.id_utilisateur, u.nom, u.pseudonyme
             FROM
                 " . $this->nom_table . " u
             ORDER BY
@@ -167,5 +167,34 @@ class Utilisateur
         }
 
         return false;
+    }
+
+    // rechercher un utilisateur
+    function recherche($mot_clef){
+
+        // requete pour selectionner les utilisateurs correspondants à la recherche
+        $requete = "SELECT
+                u.id_utilisateur, u.nom, u.pseudonyme
+            FROM
+                " . $this->nom_table . " u
+            WHERE
+                u.pseudonyme LIKE ?
+            ORDER BY
+                u.pseudonyme DESC";
+
+        // préparation de la requete
+        $stmt = $this->conn->prepare($requete);
+
+        // sanitize
+        $mot_clef=htmlspecialchars(strip_tags($mot_clef));
+        $mot_clef = "%{$mot_clef}%";
+
+        // liaison du mot-clef de l'utilisateur à rechercher
+        $stmt->bindParam(1, $mot_clef);
+
+        // execute query
+        $stmt->execute();
+
+        return $stmt;
     }
 }
