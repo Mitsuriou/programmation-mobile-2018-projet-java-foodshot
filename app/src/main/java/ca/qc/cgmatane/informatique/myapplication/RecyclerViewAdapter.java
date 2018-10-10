@@ -1,13 +1,17 @@
 package ca.qc.cgmatane.informatique.myapplication;
 
 import android.content.Context;
+import android.gesture.Gesture;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.support.annotation.NonNull;
+import android.support.v4.view.GestureDetectorCompat;
 import android.support.v7.widget.RecyclerView;
 import android.util.Base64;
 import android.util.Log;
+import android.view.GestureDetector;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -41,11 +45,8 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     private int height;
     private int width;
     private ImageView image;
-    private BitmapUtils bitmapUtils;
-
-
-    private String imageBitmap;
-    private String imageProfil;
+    private GestureDetector gestureDetector;
+    private GestureDetectorCompat gestureDetectorCompat;
 
     public RecyclerViewAdapter( Context context,ArrayList<String> URL,ArrayList<String> imageNames,ArrayList<String> userNames, ArrayList<String> lPP,String coeur,ArrayList<String> nbCoeur) {
 
@@ -66,9 +67,11 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_listitem,parent,false);
         ViewHolder holder = new ViewHolder(view);
+
         Log.d("width",""+width); // 0...
         height = view.getHeight();
         width = view.getWidth();
+
         return holder;
     }
 
@@ -76,38 +79,77 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     public void onBindViewHolder(@NonNull ViewHolder holder, final int position) {
         Log.d(TAG,"onBindViewHolder: called");
 
-        try{
-            image.setImageBitmap(StringToBitMap(""+new BitmapUtils(new TaskCompleted() {
-                @Override
-                public void onTaskComplete(String result) {
-                    imageBitmap=result;
-                }
-            }).execute(images.get(position)).get()));
-        } catch (Exception e){
+        GestureDetector.SimpleOnGestureListener gestureListener = new GestureListener();
+        final GestureDetector gd = new GestureDetector(context, gestureListener);
+        final GestureDetector gestureLong = new GestureDetector(context,new LongClick());
 
-        }
+        holder.parentLayout.setClickable(true);
+        holder.parentLayout.setFocusable(true);
 
-        try{
-            holder.photo_profil.setImageBitmap(StringToBitMap(""+new BitmapUtils(new TaskCompleted() {
-                @Override
-                public void onTaskComplete(String result) {
-                    imageProfil=result;
-                }
-            }).execute(lPP.get(position)).get()));
-        } catch (Exception e){
+        holder.user_name.setClickable(true);
+        holder.user_name.setFocusable(true);
 
-        }
+        holder.photo_profil.setClickable(true);
+        holder.photo_profil.setFocusable(true);
 
-        try{
-            holder.photo_profil.setImageBitmap(StringToBitMap(""+new BitmapUtils(new TaskCompleted() {
-                @Override
-                public void onTaskComplete(String result) {
-                    imageProfil=result;
-                }
-            }).execute(lPP.get(position)).get()));
-        } catch (Exception e){
+        holder.coeur.setClickable(true);
+        holder.coeur.setFocusable(true);
 
-        }
+        image.setClickable(true);
+        image.setFocusable(true);
+
+        holder.parentLayout.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                gd.onTouchEvent(motionEvent);
+                return false;
+            }
+        });
+
+        holder.user_name.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                gd.onTouchEvent(motionEvent);
+                return false;
+            }
+        });
+
+        holder.photo_profil.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                gd.onTouchEvent(motionEvent);
+                return false;
+            }
+        });
+
+        holder.coeur.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                gd.onTouchEvent(motionEvent);
+                return false;
+            }
+        });
+
+        image.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                gd.onTouchEvent(motionEvent);
+                gestureLong.onTouchEvent(motionEvent);
+                return false;
+            }
+        });
+
+        Glide.with(context)
+                .asBitmap()
+                .load(images.get(position))
+                .apply(new RequestOptions().fitCenter().override(2000, 500)). // 400,400
+                into(image);
+
+        Glide.with(context)
+                .asBitmap()
+                .load(lPP.get(position))
+                .apply(new RequestOptions().fitCenter().override(400, 400)). // 400,400
+                into(holder.photo_profil);
 
         Glide.with(context)
                 .asBitmap()
@@ -119,41 +161,50 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         holder.nbCoeur.setText(nbCoeur.get(position));
         holder.user_name.setText(userNames.get(position));
 
-        holder.photo_profil.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Log.d(TAG,"onClick: PP on: "+userNames.get(position));
 
-                //Toast.makeText(context,imageNames.get(position),Toast.LENGTH_SHORT).show();
-            }
-        });
 
-        image.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Log.d(TAG,"onClick: image on: "+userNames.get(position));
 
-                //Toast.makeText(context,imageNames.get(position),Toast.LENGTH_SHORT).show();
-            }
-        });
 
-        holder.coeur.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Log.d(TAG,"onClick: coeur on: "+userNames.get(position));
 
-                //Toast.makeText(context,imageNames.get(position),Toast.LENGTH_SHORT).show();
-            }
-        });
 
-        holder.user_name.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Log.d(TAG,"onClick: pseudo on: "+userNames.get(position));
 
-                //Toast.makeText(context,imageNames.get(position),Toast.LENGTH_SHORT).show();
-            }
-        });
+//        holder.photo_profil.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Log.d(TAG,"onClick: PP on: "+userNames.get(position));
+//
+//                //Toast.makeText(context,imageNames.get(position),Toast.LENGTH_SHORT).show();
+//            }
+//        });
+//
+//        image.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Log.d(TAG,"onClick: image on: "+userNames.get(position));
+//
+//                //Toast.makeText(context,imageNames.get(position),Toast.LENGTH_SHORT).show();
+//            }
+//        });
+//
+//        holder.coeur.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Log.d(TAG,"onClick: coeur on: "+userNames.get(position));
+//
+//                //Toast.makeText(context,imageNames.get(position),Toast.LENGTH_SHORT).show();
+//            }
+//        });
+//
+//        holder.user_name.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Log.d(TAG,"onClick: pseudo on: "+userNames.get(position));
+//
+//                //Toast.makeText(context,imageNames.get(position),Toast.LENGTH_SHORT).show();
+//            }
+//        });
+
+
     }
 
     @Override
@@ -180,16 +231,15 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         }
     }
 
-    public Bitmap StringToBitMap(String encodedString) {
-        try {
-            byte[] encodeByte = Base64.decode(encodedString, Base64.DEFAULT);
-            Bitmap bitmap = BitmapFactory.decodeByteArray(encodeByte, 0,
-                    encodeByte.length);
-            return bitmap;
-        } catch (Exception e) {
-            e.getMessage();
-            return null;
+    private class LongClick extends GestureDetector.SimpleOnGestureListener {
+
+        @Override
+        public void onLongPress(MotionEvent e) {
+            Log.i("LongTap", "Long tap" );
         }
+
     }
 
+
 }
+
