@@ -8,7 +8,7 @@
     </shared>
   </component>
   <component name="AndroidLogFilters">
-    <option name="TOOL_WINDOW_LOG_LEVEL" value="error" />
+    <option name="TOOL_WINDOW_LOG_LEVEL" value="verbose" />
     <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="No Filters" />
   </component>
   <component name="CMakeSettings">
@@ -18,14 +18,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="0a46d808-7ea2-4aec-98d8-c5af3ae2c11f" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/ca/qc/cgmatane/informatique/foodshot/ActiviteConnexion.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/ca/qc/cgmatane/informatique/foodshot/ActiviteConnexion.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/ca/qc/cgmatane/informatique/foodshot/ActivitePrincipale.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/ca/qc/cgmatane/informatique/foodshot/ActivitePrincipale.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/vue_activite_connexion.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/vue_activite_connexion.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/vue_activite_nouvelle_publication.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/vue_activite_nouvelle_publication.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/ca/qc/cgmatane/informatique/foodshot/ActiviteCreationCompte.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/ca/qc/cgmatane/informatique/foodshot/ActiviteCreationCompte.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/ca/qc/cgmatane/informatique/foodshot/serveur/CallAPI.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/ca/qc/cgmatane/informatique/foodshot/serveur/CallAPI.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -51,13 +46,8 @@
       <file leaf-file-name="AndroidManifest.xml" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="297">
+            <state relative-caret-position="17">
               <caret line="29" column="35" selection-start-line="29" selection-start-column="35" selection-end-line="29" selection-end-column="35" />
-              <folding>
-                <element signature="e#952#970#0" expanded="true" />
-                <element signature="e#3521#3559#0" expanded="true" />
-                <element signature="e#3694#3738#0" expanded="true" />
-              </folding>
             </state>
           </provider>
           <provider editor-type-id="android-manifest">
@@ -68,88 +58,70 @@
       <file leaf-file-name="CallAPI.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/ca/qc/cgmatane/informatique/foodshot/serveur/CallAPI.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="216">
-              <caret line="9" column="64" selection-start-line="9" selection-start-column="64" selection-end-line="9" selection-end-column="64" />
+            <state relative-caret-position="148">
+              <caret line="33" column="55" selection-start-line="33" selection-start-column="55" selection-end-line="33" selection-end-column="55" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#474#475#0" expanded="true" />
-                <element signature="e#510#511#0" expanded="true" />
-                <element signature="e#1135#1136#0" expanded="true" />
-                <element signature="e#1173#1174#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ActivitePrincipale.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="ActivitePrincipale.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/ca/qc/cgmatane/informatique/foodshot/ActivitePrincipale.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="456">
-              <caret line="52" column="27" lean-forward="true" selection-start-line="52" selection-start-column="27" selection-end-line="52" selection-end-column="27" />
+            <state relative-caret-position="510">
+              <caret line="54" column="48" selection-start-line="54" selection-start-column="48" selection-end-line="54" selection-end-column="48" />
             </state>
           </provider>
         </entry>
       </file>
       <file leaf-file-name="vue_activite_connexion.xml" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/vue_activite_connexion.xml">
-          <provider editor-type-id="android-designer2">
-            <state />
-          </provider>
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="477">
+            <state relative-caret-position="1020">
               <caret line="60" column="46" selection-start-line="60" selection-start-column="46" selection-end-line="60" selection-end-column="46" />
             </state>
+          </provider>
+          <provider editor-type-id="android-designer2">
+            <state />
           </provider>
         </entry>
       </file>
       <file leaf-file-name="ActiviteConnexion.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/ca/qc/cgmatane/informatique/foodshot/ActiviteConnexion.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="462">
-              <caret line="40" column="25" selection-start-line="40" selection-start-column="25" selection-end-line="40" selection-end-column="25" />
-              <folding>
-                <element signature="e#1143#1298#0" expanded="true" />
-                <element signature="e#1297#1298#0" expanded="true" />
-                <element signature="e#1335#1495#0" expanded="true" />
-                <element signature="e#1494#1495#0" expanded="true" />
-                <element signature="e#1691#1692#0" expanded="true" />
-                <element signature="e#1740#1741#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="714">
+              <caret line="51" column="48" selection-start-line="51" selection-start-column="48" selection-end-line="51" selection-end-column="48" />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ActiviteCreationCompte.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="ActiviteCreationCompte.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/ca/qc/cgmatane/informatique/foodshot/ActiviteCreationCompte.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="493">
-              <caret line="54" column="26" selection-start-line="54" selection-start-column="26" selection-end-line="54" selection-end-column="26" />
-              <folding>
-                <element signature="e#1304#1464#0" expanded="true" />
-                <element signature="e#1463#1464#0" expanded="true" />
-                <element signature="e#2144#2145#0" expanded="true" />
-                <element signature="e#2193#2194#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="148">
+              <caret line="49" column="64" selection-start-line="49" selection-start-column="64" selection-end-line="49" selection-end-column="64" />
             </state>
           </provider>
         </entry>
       </file>
       <file leaf-file-name="vue_activite_creation_compte.xml" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/vue_activite_creation_compte.xml">
-          <provider selected="true" editor-type-id="android-designer2">
-            <state />
-          </provider>
           <provider editor-type-id="text-editor">
-            <state relative-caret-position="198">
+            <state relative-caret-position="1156">
               <caret line="68" selection-start-line="68" selection-end-line="68" />
             </state>
+          </provider>
+          <provider selected="true" editor-type-id="android-designer2">
+            <state />
           </provider>
         </entry>
       </file>
       <file leaf-file-name="strings.xml" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/res/values/strings.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1320">
+            <state relative-caret-position="680">
               <caret line="40" column="78" selection-start-line="40" selection-start-column="78" selection-end-line="40" selection-end-column="78" />
             </state>
           </provider>
@@ -2432,16 +2404,16 @@
         <option value="$PROJECT_DIR$/app/src/main/java/ca/qc/cgmatane/informatique/foodshot/ActiviteNouvellePublication.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/ca/qc/cgmatane/informatique/foodshot/serveur/HttpPostServeur.java" />
         <option value="$PROJECT_DIR$/app/build.gradle" />
-        <option value="$PROJECT_DIR$/app/src/main/java/ca/qc/cgmatane/informatique/foodshot/serveur/CallAPI.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/drawable/button_text_color.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/values/strings.xml" />
         <option value="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/vue_activite_nouvelle_publication.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/vue_activite_creation_compte.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/java/ca/qc/cgmatane/informatique/foodshot/ActiviteCreationCompte.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/ca/qc/cgmatane/informatique/foodshot/ActiviteConnexion.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/vue_activite_connexion.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/ca/qc/cgmatane/informatique/foodshot/ActivitePrincipale.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/ca/qc/cgmatane/informatique/foodshot/serveur/CallAPI.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/ca/qc/cgmatane/informatique/foodshot/ActiviteCreationCompte.java" />
       </list>
     </option>
   </component>
@@ -2456,54 +2428,11 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="PackagesPane" />
+      <pane id="Scope" />
       <pane id="AndroidView">
         <subPane>
           <expand>
-            <path>
-              <item name="FoodShot" type="1abcf292:AndroidViewProjectNode" />
-              <item name="app" type="feadf853:AndroidModuleNode" />
-            </path>
-            <path>
-              <item name="FoodShot" type="1abcf292:AndroidViewProjectNode" />
-              <item name="app" type="feadf853:AndroidModuleNode" />
-              <item name="java" type="edd41e36:AndroidSourceTypeNode" />
-            </path>
-            <path>
-              <item name="FoodShot" type="1abcf292:AndroidViewProjectNode" />
-              <item name="app" type="feadf853:AndroidModuleNode" />
-              <item name="java" type="edd41e36:AndroidSourceTypeNode" />
-              <item name="foodshot" type="cbb59c9e:AndroidPsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="FoodShot" type="1abcf292:AndroidViewProjectNode" />
-              <item name="app" type="feadf853:AndroidModuleNode" />
-              <item name="java" type="edd41e36:AndroidSourceTypeNode" />
-              <item name="foodshot" type="cbb59c9e:AndroidPsiDirectoryNode" />
-              <item name="serveur" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="FoodShot" type="1abcf292:AndroidViewProjectNode" />
-              <item name="app" type="feadf853:AndroidModuleNode" />
-              <item name="res" type="d4f16f75:AndroidResFolderNode" />
-            </path>
-            <path>
-              <item name="FoodShot" type="1abcf292:AndroidViewProjectNode" />
-              <item name="app" type="feadf853:AndroidModuleNode" />
-              <item name="res" type="d4f16f75:AndroidResFolderNode" />
-              <item name="drawable" type="ddeffd01:AndroidResFolderTypeNode" />
-            </path>
-            <path>
-              <item name="FoodShot" type="1abcf292:AndroidViewProjectNode" />
-              <item name="app" type="feadf853:AndroidModuleNode" />
-              <item name="res" type="d4f16f75:AndroidResFolderNode" />
-              <item name="layout" type="ddeffd01:AndroidResFolderTypeNode" />
-            </path>
-            <path>
-              <item name="FoodShot" type="1abcf292:AndroidViewProjectNode" />
-              <item name="app" type="feadf853:AndroidModuleNode" />
-              <item name="res" type="d4f16f75:AndroidResFolderNode" />
-              <item name="values" type="ddeffd01:AndroidResFolderTypeNode" />
-            </path>
             <path>
               <item name="FoodShot" type="1abcf292:AndroidViewProjectNode" />
               <item name="Gradle Scripts" type="ae0cef3a:AndroidBuildScriptsGroupNode" />
@@ -2513,8 +2442,6 @@
         </subPane>
       </pane>
       <pane id="ProjectPane" />
-      <pane id="Scope" />
-      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -2694,7 +2621,6 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1066" extended-state="6" />
-    <editor active="true" />
     <layout>
       <window_info anchor="bottom" id="Android Profiler" order="7" />
       <window_info anchor="bottom" id="TODO" order="6" />
@@ -2703,15 +2629,14 @@
       <window_info id="Build Variants" order="2" side_tool="true" />
       <window_info anchor="right" id="Capture Analysis" order="3" />
       <window_info anchor="bottom" id="Event Log" order="7" side_tool="true" weight="0.32928178" />
-      <window_info anchor="right" id="Preview" order="4" />
       <window_info anchor="bottom" id="Run" order="2" weight="0.32928178" />
       <window_info anchor="bottom" id="Version Control" order="7" weight="0.32928178" />
       <window_info anchor="bottom" id="Terminal" order="7" />
-      <window_info anchor="bottom" id="Logcat" order="7" weight="0.36243093" />
+      <window_info active="true" anchor="bottom" id="Logcat" order="7" visible="true" weight="0.4563536" />
       <window_info id="Captures" order="2" weight="0.25" />
       <window_info id="Capture Tool" order="2" />
       <window_info id="Designer" order="2" />
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.18976545" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.18976545" />
       <window_info anchor="bottom" id="Build" order="7" weight="0.32928178" />
       <window_info anchor="right" id="Gradle" order="3" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
@@ -2720,6 +2645,7 @@
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="right" id="Commander" order="0" weight="0.4" />
+      <window_info anchor="right" id="Preview" order="4" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
@@ -2744,7 +2670,6 @@
       <window_info anchor="bottom" id="Event Log" order="9" side_tool="true" weight="0.32928178" />
       <window_info anchor="right" id="Preview" order="8" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
-      <window_info anchor="bottom" id="Find" order="1" />
       <window_info anchor="right" id="Device File Explorer" order="4" side_tool="true" />
       <window_info anchor="bottom" id="Logcat" order="10" weight="0.36243093" />
       <window_info anchor="bottom" id="Version Control" order="11" weight="0.32928178" />
@@ -2757,6 +2682,7 @@
       <window_info anchor="right" id="Theme Preview" order="7" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
+      <window_info anchor="bottom" id="Find" order="1" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
     </layout-to-restore>
   </component>
@@ -2764,15 +2690,61 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/vue_activite_connexion.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1020">
+          <caret line="60" column="46" selection-start-line="60" selection-start-column="46" selection-end-line="60" selection-end-column="46" />
+        </state>
+      </provider>
+      <provider editor-type-id="android-designer2">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/ca/qc/cgmatane/informatique/foodshot/ActiviteConnexion.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="714">
+          <caret line="51" column="48" selection-start-line="51" selection-start-column="48" selection-end-line="51" selection-end-column="48" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/ca/qc/cgmatane/informatique/foodshot/ActiviteCreationCompte.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="646">
+          <caret line="49" column="56" selection-start-line="49" selection-start-column="56" selection-end-line="49" selection-end-column="56" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/vue_activite_creation_compte.xml">
+      <provider editor-type-id="text-editor">
+        <state relative-caret-position="1156">
+          <caret line="68" selection-start-line="68" selection-end-line="68" />
+        </state>
+      </provider>
+      <provider selected="true" editor-type-id="android-designer2">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/values/strings.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="680">
+          <caret line="40" column="78" selection-start-line="40" selection-start-column="78" selection-end-line="40" selection-end-column="78" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/ca/qc/cgmatane/informatique/foodshot/serveur/CallAPI.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="867">
+          <caret line="51" column="25" lean-forward="true" selection-start-line="51" selection-start-column="25" selection-end-line="51" selection-end-column="25" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="459">
           <caret line="27" column="27" selection-start-line="27" selection-start-column="27" selection-end-line="27" selection-end-column="27" />
-          <folding>
-            <element signature="e#952#970#0" expanded="true" />
-            <element signature="e#3521#3559#0" expanded="true" />
-            <element signature="e#3694#3738#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -2810,22 +2782,18 @@
           <caret line="20" column="35" selection-start-line="20" selection-start-column="35" selection-end-line="20" selection-end-column="35" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#474#475#0" expanded="true" />
-            <element signature="e#510#511#0" expanded="true" />
-            <element signature="e#1135#1136#0" expanded="true" />
-            <element signature="e#1173#1174#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/vue_activite_nouvelle_publication.xml">
-      <provider selected="true" editor-type-id="android-designer2">
-        <state />
-      </provider>
       <provider editor-type-id="text-editor">
         <state relative-caret-position="459">
           <caret line="27" column="60" selection-start-line="27" selection-start-column="60" selection-end-line="27" selection-end-column="60" />
         </state>
+      </provider>
+      <provider selected="true" editor-type-id="android-designer2">
+        <state />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml">
@@ -2869,22 +2837,18 @@
           <caret line="20" column="35" lean-forward="true" selection-start-line="20" selection-start-column="35" selection-end-line="20" selection-end-column="35" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#474#475#0" expanded="true" />
-            <element signature="e#510#511#0" expanded="true" />
-            <element signature="e#1135#1136#0" expanded="true" />
-            <element signature="e#1173#1174#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/vue_activite_nouvelle_publication.xml">
-      <provider selected="true" editor-type-id="android-designer2">
-        <state />
-      </provider>
       <provider editor-type-id="text-editor">
         <state relative-caret-position="459">
           <caret line="27" column="60" selection-start-line="27" selection-start-column="60" selection-end-line="27" selection-end-column="60" />
         </state>
+      </provider>
+      <provider selected="true" editor-type-id="android-designer2">
+        <state />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml">
@@ -2902,13 +2866,13 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/vue_activite_nouvelle_publication.xml">
-      <provider selected="true" editor-type-id="android-designer2">
-        <state />
-      </provider>
       <provider editor-type-id="text-editor">
         <state relative-caret-position="459">
           <caret line="27" column="60" selection-start-line="27" selection-start-column="60" selection-end-line="27" selection-end-column="60" />
         </state>
+      </provider>
+      <provider selected="true" editor-type-id="android-designer2">
+        <state />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/ca/qc/cgmatane/informatique/foodshot/ActiviteNouvellePublication.java">
@@ -2933,13 +2897,13 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/vue_activite_nouvelle_publication.xml">
-      <provider selected="true" editor-type-id="android-designer2">
-        <state />
-      </provider>
       <provider editor-type-id="text-editor">
         <state relative-caret-position="85">
           <caret line="5" column="48" selection-start-line="5" selection-start-column="48" selection-end-line="5" selection-end-column="48" />
         </state>
+      </provider>
+      <provider selected="true" editor-type-id="android-designer2">
+        <state />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/ca/qc/cgmatane/informatique/foodshot/ActiviteNouvellePublication.java">
@@ -2995,13 +2959,6 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/ca/qc/cgmatane/informatique/foodshot/serveur/HttpPostServeur.java" />
-    <entry file="file://$PROJECT_DIR$/app/build.gradle">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="493">
-          <caret line="29" column="18" selection-start-line="29" selection-start-column="18" selection-end-line="29" selection-end-column="18" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/xml/file_paths.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="102">
@@ -3016,60 +2973,8 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout-v26/vue_activite_connexion.xml">
-      <provider selected="true" editor-type-id="android-designer2">
-        <state />
-      </provider>
-      <provider editor-type-id="text-editor">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/drawable/button_text_color.xml">
-      <provider editor-type-id="android-designer2">
-        <state />
-      </provider>
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="620">
-          <caret line="20" column="11" selection-start-line="20" selection-start-column="11" selection-end-line="20" selection-end-column="11" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/ca/qc/cgmatane/informatique/foodshot/serveur/CallAPI.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="216">
-          <caret line="9" column="64" selection-start-line="9" selection-start-column="64" selection-end-line="9" selection-end-column="64" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#474#475#0" expanded="true" />
-            <element signature="e#510#511#0" expanded="true" />
-            <element signature="e#1135#1136#0" expanded="true" />
-            <element signature="e#1173#1174#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/values/strings.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1320">
-          <caret line="40" column="78" selection-start-line="40" selection-start-column="78" selection-end-line="40" selection-end-column="78" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="297">
-          <caret line="29" column="35" selection-start-line="29" selection-start-column="35" selection-end-line="29" selection-end-column="35" />
-          <folding>
-            <element signature="e#952#970#0" expanded="true" />
-            <element signature="e#3521#3559#0" expanded="true" />
-            <element signature="e#3694#3738#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-      <provider editor-type-id="android-manifest">
-        <state />
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout-v26/vue_activite_connexion.xml" />
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/drawable/button_text_color.xml" />
     <entry file="file://$PROJECT_DIR$/app/src/main/java/ca/qc/cgmatane/informatique/foodshot/ActiviteNouvellePublication.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="34">
@@ -3078,67 +2983,87 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/vue_activite_nouvelle_publication.xml">
-      <provider editor-type-id="android-designer2">
-        <state />
-      </provider>
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="176">
           <caret line="24" selection-start-line="24" selection-end-line="24" />
         </state>
       </provider>
+      <provider editor-type-id="android-designer2">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/values/strings.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="680">
+          <caret line="40" column="78" selection-start-line="40" selection-start-column="78" selection-end-line="40" selection-end-column="78" />
+        </state>
+      </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/vue_activite_creation_compte.xml">
+      <provider editor-type-id="text-editor">
+        <state relative-caret-position="1156">
+          <caret line="68" selection-start-line="68" selection-end-line="68" />
+        </state>
+      </provider>
       <provider selected="true" editor-type-id="android-designer2">
         <state />
       </provider>
-      <provider editor-type-id="text-editor">
-        <state relative-caret-position="198">
-          <caret line="68" selection-start-line="68" selection-end-line="68" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/vue_activite_connexion.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1020">
+          <caret line="60" column="46" selection-start-line="60" selection-start-column="46" selection-end-line="60" selection-end-column="46" />
         </state>
+      </provider>
+      <provider editor-type-id="android-designer2">
+        <state />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/ca/qc/cgmatane/informatique/foodshot/ActiviteConnexion.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="462">
-          <caret line="40" column="25" selection-start-line="40" selection-start-column="25" selection-end-line="40" selection-end-column="25" />
+        <state relative-caret-position="714">
+          <caret line="51" column="48" selection-start-line="51" selection-start-column="48" selection-end-line="51" selection-end-column="48" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/build.gradle">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="641">
+          <caret line="29" column="18" selection-start-line="29" selection-start-column="18" selection-end-line="29" selection-end-column="18" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/ca/qc/cgmatane/informatique/foodshot/serveur/CallAPI.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="148">
+          <caret line="33" column="55" selection-start-line="33" selection-start-column="55" selection-end-line="33" selection-end-column="55" />
           <folding>
-            <element signature="e#1143#1298#0" expanded="true" />
-            <element signature="e#1297#1298#0" expanded="true" />
-            <element signature="e#1335#1495#0" expanded="true" />
-            <element signature="e#1494#1495#0" expanded="true" />
-            <element signature="e#1691#1692#0" expanded="true" />
-            <element signature="e#1740#1741#0" expanded="true" />
+            <element signature="imports" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="17">
+          <caret line="29" column="35" selection-start-line="29" selection-start-column="35" selection-end-line="29" selection-end-column="35" />
+        </state>
+      </provider>
+      <provider editor-type-id="android-manifest">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/ca/qc/cgmatane/informatique/foodshot/ActivitePrincipale.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="510">
+          <caret line="54" column="48" selection-start-line="54" selection-start-column="48" selection-end-line="54" selection-end-column="48" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/ca/qc/cgmatane/informatique/foodshot/ActiviteCreationCompte.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="493">
-          <caret line="54" column="26" selection-start-line="54" selection-start-column="26" selection-end-line="54" selection-end-column="26" />
-          <folding>
-            <element signature="e#1304#1464#0" expanded="true" />
-            <element signature="e#1463#1464#0" expanded="true" />
-            <element signature="e#2144#2145#0" expanded="true" />
-            <element signature="e#2193#2194#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/vue_activite_connexion.xml">
-      <provider editor-type-id="android-designer2">
-        <state />
-      </provider>
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="477">
-          <caret line="60" column="46" selection-start-line="60" selection-start-column="46" selection-end-line="60" selection-end-column="46" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/ca/qc/cgmatane/informatique/foodshot/ActivitePrincipale.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="456">
-          <caret line="52" column="27" lean-forward="true" selection-start-line="52" selection-start-column="27" selection-end-line="52" selection-end-column="27" />
+        <state relative-caret-position="148">
+          <caret line="49" column="64" selection-start-line="49" selection-start-column="64" selection-end-line="49" selection-end-column="64" />
         </state>
       </provider>
     </entry>

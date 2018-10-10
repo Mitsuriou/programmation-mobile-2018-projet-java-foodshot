@@ -9,6 +9,8 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import ca.qc.cgmatane.informatique.foodshot.serveur.CallAPI;
+
 public class ActiviteCreationCompte extends AppCompatActivity {
 
     private EditText champNom;
@@ -41,7 +43,9 @@ public class ActiviteCreationCompte extends AppCompatActivity {
         this.reinitialiserErreurs();
 
         if (this.affichageErreurs.getText().equals("") && isNomValide() && isPseudonymeValide() && isMotDePasseValide()) {
-            // TODO: APPEL A L'API POUR CREER LE COMPTE
+            new CallAPI(this.champNom.getText().toString(),
+                    this.champPseudonyme.getText().toString(),
+                    this.champMdp.getText().toString()).execute();
 
             Toast.makeText(ActiviteCreationCompte.this,
                     "Nom : " + this.champNom.getText().toString()
