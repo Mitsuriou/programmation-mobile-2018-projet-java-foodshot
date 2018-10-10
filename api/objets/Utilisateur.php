@@ -58,7 +58,7 @@ class Utilisateur
             VALUES
                 (:nom, :pseudonyme, :mdp_hash)";
 
-        // préparation du statement de la requete
+        // préparation de la requete
         $stmt = $this->conn->prepare($requete);
 
         // sanitize
@@ -92,7 +92,7 @@ class Utilisateur
             LIMIT
                 1";
 
-        // préparation du statement de la requete
+        // préparation de la requete
         $stmt = $this->conn->prepare($requete);
 
         // liaison de l'id de l'utilisateur à modifier
@@ -124,7 +124,7 @@ class Utilisateur
             WHERE
                 id_utilisateur = :id_utilisateur";
 
-        // préparation du statement de la requete
+        // préparation de la requete
         $stmt = $this->conn->prepare($requete);
 
         // sanitize
@@ -137,6 +137,29 @@ class Utilisateur
         $stmt->bindParam(':pseudonyme', $this->pseudonyme);
         $stmt->bindParam(':mdp_hash', $this->mdp_hash);
         $stmt->bindParam(':id_utilisateur', $this->id_utilisateur);
+
+        // exécution de la requete
+        if($stmt->execute()){
+            return true;
+        }
+
+        return false;
+    }
+
+    // suppression de l'utilisateur
+    function supprimer(){
+
+        // requete de suppression
+        $query = "DELETE FROM " . $this->nom_table . " WHERE id_utilisateur = ?";
+
+        // préparation de la requete
+        $stmt = $this->conn->prepare($query);
+
+        // sanitize
+        $this->id_utilisateur=htmlspecialchars(strip_tags($this->id_utilisateur));
+
+        // liaison de l'id de l'utilisateur à supprimer
+        $stmt->bindParam(1, $this->id_utilisateur);
 
         // exécution de la requete
         if($stmt->execute()){

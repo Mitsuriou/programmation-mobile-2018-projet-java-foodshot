@@ -3,7 +3,7 @@
  * Created by PhpStorm.
  * User: Marc-Antoine
  * Date: 10/10/2018
- * Time: 12:46
+ * Time: 13:49
  */
 
 // headers requis
@@ -13,12 +13,12 @@ header("Access-Control-Allow-Methods: POST");
 header("Access-Control-Max-Age: 3600");
 header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
 
-// include database and object files
+// include database and object file
 require_once '../config/Connexion.php';
 require_once '../objets/Utilisateur.php';
 
-//ini_set('display_errors', 'On');
-//error_reporting(E_ALL);
+ini_set('display_errors', 'On');
+error_reporting(E_ALL);
 
 use ProjetMobileAPI\Connexion;
 use ProjetMobileAPI\Utilisateur;
@@ -29,28 +29,23 @@ $bdd = Connexion::get()->connect();
 // création de l'objet utilisateur
 $utilisateur = new Utilisateur($bdd);
 
-// get id of product to be edited
+// get product id
 $data = json_decode(file_get_contents("php://input"));
 
-// set ID property of product to be edited
+// set product id to be deleted
 $utilisateur->id_utilisateur = $data->id_utilisateur;
 
-// set product property values
-$utilisateur->nom = $data->nom;
-$utilisateur->pseudonyme = $data->pseudonyme;
-$utilisateur->mdp_hash = $data->mdp_hash;
-
-// update the product
-if($utilisateur->modifier()){
+// delete the product
+if($utilisateur->supprimer()){
     echo '{';
-    echo '"message": "L\'utilisateur a été modifié."';
+    echo '"message": "L\'utilisateur a été supprimé."';
     echo '}';
 }
 
-// if unable to update the product, tell the user
+// if unable to delete the product
 else{
     echo '{';
-    echo '"message": "Impossible de modifier l\'utilisateur."';
+    echo '"message": "Impossible de supprimer l\'utilisateur."';
     echo '}';
 }
 ?>
