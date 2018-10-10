@@ -30,6 +30,8 @@
 
     <item android:title="@string/drawer_cat_outil">
         <menu>
+            <item android:id="@+id/theme_noir"
+                android:title="@string/drawer_cat_theme_noir" />
             <item
                 android:id="@+id/parametres"
                 android:title="@string/drawer_cat_parametres" />

@@ -22,7 +22,7 @@ public class ActivitePrincipale extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     private static final int DEMANDE_PERMISSION_LOCALISATION = 1;
-    public static boolean IS_CONNECTE = false;
+    public static boolean IS_CONNECTE = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

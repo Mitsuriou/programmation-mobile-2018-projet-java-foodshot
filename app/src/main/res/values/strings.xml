@@ -2,7 +2,7 @@
     <string name="app_name">FoodShot</string>
     <string name="navigation_drawer_open">Ouvrir le Drawer de navigation</string>
     <string name="navigation_drawer_close">Fermer le Drawer de navigation</string>
-    <string name="nav_header_title">Nom / Pseudonyme</string>
+    <string name="nav_header_title">Nom</string>
     <string name="nav_header_subtitle">\@Pseudonyme</string>
     <string name="nav_header_second_subtitle">1 560 MENTIONS "J'AIME"</string>
     <string name="nav_header_desc">Header de navigation</string>
@@ -18,6 +18,7 @@
     <string name="drawer_cat_notifications">Notifications</string>
 
     <string name="drawer_cat_outil">Outils</string>
+    <string name="drawer_cat_theme_noir">Thème noir</string>
     <string name="drawer_cat_parametres">Paramètres</string>
     <string name="drawer_cat_deconnexion">Déconnexion</string>
     <string name="action_settings">Settings</string>
