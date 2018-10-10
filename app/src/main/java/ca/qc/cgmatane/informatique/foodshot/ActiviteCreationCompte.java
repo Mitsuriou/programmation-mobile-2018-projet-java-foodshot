@@ -9,7 +9,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import ca.qc.cgmatane.informatique.foodshot.serveur.CallAPI;
+import ca.qc.cgmatane.informatique.foodshot.serveur.CreerUtilisateurAPI;
 
 public class ActiviteCreationCompte extends AppCompatActivity {
 
@@ -43,7 +43,7 @@ public class ActiviteCreationCompte extends AppCompatActivity {
         this.reinitialiserErreurs();
 
         if (this.affichageErreurs.getText().equals("") && isNomValide() && isPseudonymeValide() && isMotDePasseValide()) {
-            new CallAPI(this.champNom.getText().toString(),
+            new CreerUtilisateurAPI(this.champNom.getText().toString(),
                     this.champPseudonyme.getText().toString(),
                     this.champMdp.getText().toString()).execute();
 

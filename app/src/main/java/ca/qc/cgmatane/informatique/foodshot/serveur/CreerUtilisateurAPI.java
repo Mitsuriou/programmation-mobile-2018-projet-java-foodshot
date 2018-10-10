@@ -14,12 +14,12 @@ import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
 
-public class CallAPI extends AsyncTask<String, String, String> {
+public class CreerUtilisateurAPI extends AsyncTask<String, String, String> {
     private String chaineNom;
     private String chainePseudonyme;
     private String chaineMdpHash;
 
-    public CallAPI(String nom, String pseudonyme, String mdpHash) {
+    public CreerUtilisateurAPI(String nom, String pseudonyme, String mdpHash) {
         chaineNom = nom;
         chainePseudonyme = pseudonyme;
         chaineMdpHash = mdpHash;
@@ -43,7 +43,6 @@ public class CallAPI extends AsyncTask<String, String, String> {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        Log.d("jason", "" + data);
 
         RequestBody body = RequestBody.create(JSON, data.toString());
 
@@ -56,9 +55,10 @@ public class CallAPI extends AsyncTask<String, String, String> {
             Response reponse = client.newCall(request).execute();
             if (!reponse.isSuccessful())
                 throw new IOException("Unexpected code " + reponse.toString());
+            Log.d("answer", reponse.body().string());
             return reponse.body().string();
         } catch (Exception e) {
-            Log.d("reponse", "exception");
+            Log.d("reponse", e.getMessage());
         }
 
         return "";
