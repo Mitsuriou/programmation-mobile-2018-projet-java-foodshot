@@ -18,8 +18,8 @@ require_once '../objets/ReponseAPI.php';
 //error_reporting(E_ALL);
 
 use ProjetMobileAPI\Connexion;
-use ProjetMobileAPI\Utilisateur;
 use ProjetMobileAPI\ReponseAPI;
+use ProjetMobileAPI\Utilisateur;
 
 // récupération de la connexion à la base de données
 $bdd = Connexion::get()->connect();
@@ -37,13 +37,13 @@ while ($enregistrement = $stmt->fetch(PDO::FETCH_ASSOC)) {
     // extraction de l'enregistrement
     extract($enregistrement);
 
-    $item_utilisateur=array(
+    $item_utilisateur = array(
         "id_utilisateur" => $enregistrement->id_utilisateur,
         "nom" => html_entity_decode($enregistrement->nom),
         "pseudonyme" => $enregistrement->pseudonyme
     );
 
-    $reponseAPI->$tab_utilisateur = $item_utilisateur;
+    array_push($reponseAPI->$tab_utilisateur, $item_utilisateur);
 }
 
 // Ajout d'un message si aucun enregistrement n'a été trouvé
@@ -58,5 +58,6 @@ if ($stmt->rowCount() == 0) {
 }
 
 $reponseAPI->statut = true;
+$reponseAPI->ajouter_utilisateur();
 
-echo $reponseAPI->utilisateur_lire();
+echo $reponseAPI->construire_reponse();

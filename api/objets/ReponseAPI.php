@@ -37,22 +37,18 @@ class ReponseAPI
 
     }
 
-    function utilisateur_lire()
+    function ajouter_utilisateur()
     {
         $this->tab_donnee["utilisateur"] = $this->tab_utilisateur;
-
-        $this->tab_reponse["statut"] = $this->statut;
-        if (sizeof($this->tab_donnee) > 0) $this->tab_reponse["donnee"] = $this->tab_donnee;
-        else $this->tab_reponse["donnee"] = new \stdClass();
-        $this->tab_reponse["message"] = $this->tab_message;
-
-        return json_encode($this->tab_reponse);
     }
 
-    function publication_lire()
+    function ajouter_publication()
     {
         $this->tab_donnee["publication"] = $this->tab_publication;
+    }
 
+    function construire_reponse()
+    {
         $this->tab_reponse["statut"] = $this->statut;
         if (sizeof($this->tab_donnee) > 0) $this->tab_reponse["donnee"] = $this->tab_donnee;
         else $this->tab_reponse["donnee"] = new \stdClass();

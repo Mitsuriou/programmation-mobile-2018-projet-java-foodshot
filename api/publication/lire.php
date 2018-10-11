@@ -51,7 +51,7 @@ while ($enregistrement = $stmt->fetch(PDO::FETCH_ASSOC)) {
         "creation" => $enregistrement->creation
     );
 
-    $reponseAPI->tab_publication = $item_publication;
+    array_push($reponseAPI->tab_publication, $item_publication);
 }
 
 // Ajout d'un message si aucun enregistrement n'a été trouvé
@@ -66,5 +66,6 @@ if ($stmt->rowCount() == 0) {
 }
 
 $reponseAPI->statut = true;
+$reponseAPI->ajouter_publication();
 
-echo $reponseAPI->publication_lire();
+echo $reponseAPI->construire_reponse();

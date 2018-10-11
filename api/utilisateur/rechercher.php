@@ -61,5 +61,6 @@ if ($stmt->rowCount() == 0) {
 }
 
 $reponseAPI->statut = true;
+$reponseAPI->ajouter_utilisateur();
 
-echo $reponseAPI->utilisateur_lire();
+echo $reponseAPI->construire_reponse();
