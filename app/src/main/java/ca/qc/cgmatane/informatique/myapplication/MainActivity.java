@@ -18,6 +18,7 @@ public class MainActivity extends Activity {
     private static final String TAG = "MainActivity";
 
     // vars
+    private int count=1;
     private ArrayList<Publication> listePublication;
 
     @Override
@@ -214,7 +215,13 @@ public class MainActivity extends Activity {
         Log.d(TAG,"initRecyclerView: init recyclerView");
         RecyclerView recyclerView = findViewById(R.id.recycler_view);
         RecyclerViewAdapter adapter = new RecyclerViewAdapter(this,listePublication);
-        adapter.notifyDataSetChanged();
+        adapter.setOnBottomReachedListener(new OnBottomReachedListener() {
+            @Override
+            public void onBottomReached(int position) {
+                count++;
+                prepareData(count);
+            }
+        });
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
     }

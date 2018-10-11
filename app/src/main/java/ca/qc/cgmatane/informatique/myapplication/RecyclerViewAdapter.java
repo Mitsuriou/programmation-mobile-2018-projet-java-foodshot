@@ -6,6 +6,7 @@ import android.arch.paging.PagedListAdapter;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v4.view.GestureDetectorCompat;
+import android.support.v7.recyclerview.extensions.ListAdapter;
 import android.support.v7.util.DiffUtil;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -26,10 +27,11 @@ import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
-public class RecyclerViewAdapter extends PagedListAdapter<Publication, RecyclerViewAdapter.ViewHolder> {//TYPE
+public class RecyclerViewAdapter extends ListAdapter<Publication, RecyclerViewAdapter.ViewHolder> {//TYPE
 
     private static final String TAG = "RecyclerViewAdapter";
 
+    private OnBottomReachedListener onBottomReachedListener;
     private ArrayList<Publication> listePublication;
     private String coeur;
     private Context context;
@@ -72,6 +74,10 @@ public class RecyclerViewAdapter extends PagedListAdapter<Publication, RecyclerV
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, final int position) {
         Log.d(TAG,"onBindViewHolder: called");
+
+        if(position == getItemCount()-1){
+            onBottomReachedListener.onBottomReached(position);
+        }
 
         coeur="/res/mipmap/ic_launcher/ic_launcher.png";
 
@@ -236,6 +242,11 @@ public class RecyclerViewAdapter extends PagedListAdapter<Publication, RecyclerV
         }
 
     }
+
+    public void setOnBottomReachedListener(OnBottomReachedListener onBottomReachedListener){
+        this.onBottomReachedListener = onBottomReachedListener;
+    }
+
 
 }
 
