@@ -43,7 +43,6 @@ public class RecyclerViewAdapter extends ListAdapter<Publication, RecyclerViewAd
         }
     }
 
-    private OnBottomReachedListener onBottomReachedListener;
     private ArrayList<Publication> listePublication;
     private String coeur;
     private Context context;
@@ -72,10 +71,6 @@ public class RecyclerViewAdapter extends ListAdapter<Publication, RecyclerViewAd
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, final int position) {
-
-        if (position == getItemCount() - 1) {
-            onBottomReachedListener.onBottomReached(position);
-        }
 
         coeur = "/res/mipmap/ic_launcher/ic_launcher.png";
 
@@ -220,8 +215,13 @@ public class RecyclerViewAdapter extends ListAdapter<Publication, RecyclerViewAd
         return listePublication.size();
     }
 
-    public void setOnBottomReachedListener(OnBottomReachedListener onBottomReachedListener) {
-        this.onBottomReachedListener = onBottomReachedListener;
+    public ArrayList<Publication> getListePublication(){
+        return this.listePublication;
     }
+
+    public void ajouterPublication(Publication publication){
+        this.listePublication.add(publication);
+    }
+
 }
 

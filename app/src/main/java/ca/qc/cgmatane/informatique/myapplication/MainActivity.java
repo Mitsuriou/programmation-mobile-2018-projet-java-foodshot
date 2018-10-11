@@ -2,16 +2,28 @@ package ca.qc.cgmatane.informatique.myapplication;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.os.Handler;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
+import android.view.View;
+import android.widget.AbsListView;
+import android.widget.ProgressBar;
 
 import java.util.ArrayList;
 
 public class MainActivity extends Activity {
 
+    private RecyclerView recyclerView;
+    private LinearLayoutManager manager;
+    private int currentItems, totalItems, scrollOutItems;
+    private boolean isScrolling = false;
+    private RecyclerViewAdapter adapter;
     private ArrayList<Publication> listePublication;
     private int compteur = 1;
     private RecevoirPublicationAPI recevoirPublicationAPI;
+    private ProgressBar progressBar;
     private static final String TAG = "MainActivity";
 
     @Override
@@ -19,6 +31,7 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        progressBar = (ProgressBar) findViewById(R.id.progress);
         listePublication = new ArrayList<>();
 
         initImageBitmaps();
@@ -176,7 +189,7 @@ public class MainActivity extends Activity {
         listePublication.add(new Publication(21
                 , "http://flags.fmcdn.net/data/flags/w580/ar.png"
                 , "https://cdn.mos.cms.futurecdn.net/FUE7XiFApEqWZQ85wYcAfM.jpg"
-                , "Croatia"
+                , "Croatiannnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn"
                 , "@Salteau!"
                 , "3.6k"));
 
@@ -185,18 +198,50 @@ public class MainActivity extends Activity {
 
     private void initRecyclerView() {
 
-        RecyclerView recyclerView = findViewById(R.id.recycler_view);
-        RecyclerViewAdapter adapter = new RecyclerViewAdapter(this, listePublication);
+        recyclerView = findViewById(R.id.recycler_view);
+        adapter = new RecyclerViewAdapter(this, listePublication);
 
-        adapter.setOnBottomReachedListener(new OnBottomReachedListener() {
+        manager = new LinearLayoutManager(this);
+        recyclerView.setLayoutManager(manager);
+        recyclerView.setAdapter(adapter);
+        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
-            public void onBottomReached(int position) {
-                compteur++;
-                recevoirPublicationAPI = new RecevoirPublicationAPI(compteur);
+            public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+                if (newState == AbsListView.OnScrollListener.SCROLL_STATE_TOUCH_SCROLL) {
+                    isScrolling = true;
+                }
+            }
+
+            @Override
+            public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+                currentItems = manager.getChildCount();
+                totalItems = manager.getItemCount();
+                scrollOutItems = manager.findFirstVisibleItemPosition();
+
+                if(isScrolling && (currentItems + scrollOutItems == totalItems)){
+                    isScrolling = false;
+                    fetchData();
+                }
             }
         });
-        recyclerView.setAdapter(adapter);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+    }
+
+    public void fetchData() {
+        progressBar.setVisibility(View.VISIBLE);
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                for (int i = 0; i < 20; i++) {
+                    adapter.ajouterPublication(new Publication(20 + i, "https://static.cuisineaz.com/240x192/i32834-profiteroles-a-la-vanille.jpg", "https://cdn.mos.cms.futurecdn.net/FUE7XiFApEqWZQ85wYcAfM.jpg", "Here !", "@Jako", "55M"));
+                    Log.d("CHANGED",""+adapter.getItemCount());
+                    progressBar.setVisibility(View.GONE);
+                    adapter.notifyItemInserted(adapter.getItemCount()+1);
+                }
+
+            }
+        }, 5000);
     }
 
 }
