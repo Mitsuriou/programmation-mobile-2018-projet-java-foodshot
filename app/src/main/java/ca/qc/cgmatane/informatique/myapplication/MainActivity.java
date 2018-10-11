@@ -15,6 +15,8 @@ import java.util.ArrayList;
 
 public class MainActivity extends Activity {
 
+    private int count = 21;
+    private int page = 0;
     private RecyclerView recyclerView;
     private LinearLayoutManager manager;
     private int currentItems, totalItems, scrollOutItems;
@@ -220,7 +222,7 @@ public class MainActivity extends Activity {
                 totalItems = manager.getItemCount();
                 scrollOutItems = manager.findFirstVisibleItemPosition();
 
-                if(isScrolling && (currentItems + scrollOutItems == totalItems)){
+                if (isScrolling && (currentItems + scrollOutItems == totalItems)) {
                     isScrolling = false;
                     fetchData();
                 }
@@ -234,10 +236,12 @@ public class MainActivity extends Activity {
             @Override
             public void run() {
                 for (int i = 0; i < 20; i++) {
-                    adapter.ajouterPublication(new Publication(20 + i, "https://static.cuisineaz.com/240x192/i32834-profiteroles-a-la-vanille.jpg", "https://cdn.mos.cms.futurecdn.net/FUE7XiFApEqWZQ85wYcAfM.jpg", "Here !", "@Jako", "55M"));
-                    Log.d("CHANGED",""+adapter.getItemCount());
+                    adapter.ajouterPublication(new Publication(count + 1, "https://static.cuisineaz.com/240x192/i32834-profiteroles-a-la-vanille.jpg", "https://cdn.mos.cms.futurecdn.net/FUE7XiFApEqWZQ85wYcAfM.jpg", "Here !", "@Jako", "55M"));
+                    Log.d("CHANGED", "" + adapter.getListePublication().get(adapter.getItemCount() - 1).getURLimage());
+                    Log.d("CHANGED", "" + adapter.getItemCount());
+                    count++;
                     progressBar.setVisibility(View.GONE);
-                    adapter.notifyItemInserted(adapter.getItemCount()+1);
+                    adapter.notifyItemInserted(adapter.getItemCount() + 1);
                 }
 
             }

@@ -6,6 +6,7 @@ import android.support.v4.view.GestureDetectorCompat;
 import android.support.v7.recyclerview.extensions.ListAdapter;
 import android.support.v7.util.DiffUtil;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.GestureDetector;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -16,6 +17,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.RequestOptions;
 
 import java.util.ArrayList;
@@ -58,6 +60,7 @@ public class RecyclerViewAdapter extends ListAdapter<Publication, RecyclerViewAd
         this.listePublication = new ArrayList<>();
         this.listePublication.addAll(p_listePublication);
 
+
     }
 
     @NonNull
@@ -65,7 +68,7 @@ public class RecyclerViewAdapter extends ListAdapter<Publication, RecyclerViewAd
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_listitem, parent, false);
         ViewHolder holder = new ViewHolder(view);
-
+        holder.setIsRecyclable(false);
         return holder;
     }
 
@@ -134,19 +137,29 @@ public class RecyclerViewAdapter extends ListAdapter<Publication, RecyclerViewAd
             }
         });
 
-        Glide.with(context)
-                .asBitmap()
-                .load(listePublication.get(position).getURLimage())
-                .apply(new RequestOptions().fitCenter().override(2000, 500)). // 400,400
-                into(image);
+
+        RequestOptions ro = new RequestOptions();
+        ro.placeholder(R.drawable.ic_launcher_background);
+
+
+        Log.d("CHANGEEEEEEED", "" + listePublication.get(position).getURLimage());
 
         Glide.with(context)
+                .applyDefaultRequestOptions(ro)
+                .asBitmap()
+                .load(listePublication.get(position).getURLimage())
+                .apply(new RequestOptions().fitCenter().override(2000, 500)) // 400,400
+                .into(image);
+
+        Glide.with(context)
+                .applyDefaultRequestOptions(ro)
                 .asBitmap()
                 .load(listePublication.get(position).getURLprofil())
                 .apply(new RequestOptions().fitCenter().override(400, 400)). // 400,400
                 into(holder.photo_profil);
 
         Glide.with(context)
+                .applyDefaultRequestOptions(ro)
                 .asBitmap()
                 .load(R.drawable.ic_launcher_background)
                 .apply(new RequestOptions().fitCenter().override(60, 60)).
@@ -215,11 +228,11 @@ public class RecyclerViewAdapter extends ListAdapter<Publication, RecyclerViewAd
         return listePublication.size();
     }
 
-    public ArrayList<Publication> getListePublication(){
+    public ArrayList<Publication> getListePublication() {
         return this.listePublication;
     }
 
-    public void ajouterPublication(Publication publication){
+    public void ajouterPublication(Publication publication) {
         this.listePublication.add(publication);
     }
 
