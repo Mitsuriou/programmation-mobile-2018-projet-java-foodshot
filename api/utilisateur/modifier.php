@@ -40,15 +40,44 @@ $utilisateur->mdp_hash = $data->mdp_hash;
 
 // modification de l'utilisateur
 if($utilisateur->modifier()){
-    echo '{';
-    echo '"message": "L\'utilisateur a été modifié."';
-    echo '}';
+    echo json_encode(
+        array(
+            "statut" => true,
+            "donnee" => [
+                "utilisateur" => array(
+                    "id_utilisateur" =>  $utilisateur->id_utilisateur,
+                    "nom" => html_entity_decode($utilisateur->nom)
+                )
+            ],
+            "message" => [
+                array(
+                    "code" => 0,
+                    "type" => "info",
+                    "message" => "L'utilisateur a été modifié avec succès"
+                )
+            ]
+        )
+    );
 }
 
 // si l'utilisateur n'est pas modifié, informe l'utilisateur
 else{
-    echo '{';
-    echo '"message": "Impossible de modifier l\'utilisateur."';
-    echo '}';
+    echo json_encode(
+        array(
+            "statut" => false,
+            "donnee" => [
+                "utilisateur" => array(
+                    "id_utilisateur" =>  $data->id_utilisateur,
+                    "nom" => $data->nom
+                )
+            ],
+            "message" => [
+                array(
+                    "code" => 0,
+                    "type" => "erreur",
+                    "message" => "Impossible de modifier l'utilisateur"
+                )
+            ]
+        )
+    );
 }
-?>
