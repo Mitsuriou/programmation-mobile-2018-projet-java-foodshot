@@ -17,6 +17,7 @@ public class GestureListener extends GestureDetector.SimpleOnGestureListener {
     @Override
     public boolean onDoubleTap(MotionEvent e) {
         Intent intent = new Intent(context, ActiviteNouvellePublication.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         context.startActivity(intent);
         return false;
     }
