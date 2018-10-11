@@ -23,6 +23,9 @@ class ReponseAPI
     // tableau d'utilisateurs
     public $tab_utilisateur = array();
 
+    // tableau de publications
+    public $tab_publication = array();
+
     // tableau de la reponse
     private $tab_reponse = array();
 
@@ -34,9 +37,21 @@ class ReponseAPI
 
     }
 
-    function utilisateur_rechercher()
+    function utilisateur_lire()
     {
         $this->tab_donnee["utilisateur"] = $this->tab_utilisateur;
+
+        $this->tab_reponse["statut"] = $this->statut;
+        if (sizeof($this->tab_donnee) > 0) $this->tab_reponse["donnee"] = $this->tab_donnee;
+        else $this->tab_reponse["donnee"] = new \stdClass();
+        $this->tab_reponse["message"] = $this->tab_message;
+
+        return json_encode($this->tab_reponse);
+    }
+
+    function publication_lire()
+    {
+        $this->tab_donnee["publication"] = $this->tab_publication;
 
         $this->tab_reponse["statut"] = $this->statut;
         if (sizeof($this->tab_donnee) > 0) $this->tab_reponse["donnee"] = $this->tab_donnee;

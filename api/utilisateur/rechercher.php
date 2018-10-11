@@ -41,9 +41,9 @@ while ($enregistrement = $stmt->fetch(PDO::FETCH_ASSOC)) {
     extract($enregistrement);
 
     $item_utilisateur = array(
-        "id_utilisateur" => $id_utilisateur,
-        "nom" => html_entity_decode($nom),
-        "pseudonyme" => $pseudonyme
+        "id_utilisateur" => $enregistrement->id_utilisateur,
+        "nom" => html_entity_decode($enregistrement->nom),
+        "pseudonyme" => $enregistrement->pseudonyme
     );
 
     array_push($reponseAPI->tab_utilisateur, $item_utilisateur);
@@ -62,4 +62,4 @@ if ($stmt->rowCount() == 0) {
 
 $reponseAPI->statut = true;
 
-echo $reponseAPI->utilisateur_rechercher();
+echo $reponseAPI->utilisateur_lire();

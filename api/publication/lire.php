@@ -10,55 +10,61 @@
 header("Access-Control-Allow-Origin: *");
 header("Content-Type: application/json; charset=UTF-8");
 
-// include database and object files
-include_once '../config/Connexion.php';
-include_once '../objets/Publication.php';
+require_once '../config/Connexion.php';
+require_once '../objets/Publication.php';
+require_once '../objets/ReponseAPI.php';
 
-// instantiate database and product object
-$database = new Database();
-$db = $database->getConnection();
+//ini_set('display_errors', 'On');
+//error_reporting(E_ALL);
 
-// initialize object
-$product = new Product($db);
+use ProjetMobileAPI\Connexion;
+use ProjetMobileAPI\Publication;
+use ProjetMobileAPI\ReponseAPI;
 
-// query products
-$stmt = $product->read();
-$num = $stmt->rowCount();
+// récupération de la connexion à la base de données
+$bdd = Connexion::get()->connect();
 
-// check if more than 0 record found
-if($num>0){
+// création des objet requis
+$publication = new Publication($bdd);
+$reponseAPI = new ReponseAPI();
 
-    // products array
-    $products_arr=array();
-    $products_arr["records"]=array();
+// recherche de publications
+$stmt = $publication->lire();
 
-    // retrieve our table contents
-    // fetch() is faster than fetchAll()
-    // http://stackoverflow.com/questions/2770630/pdofetchall-vs-pdofetch-in-a-loop
-    while ($row = $stmt->fetch(PDO::FETCH_ASSOC)){
-        // extract row
-        // this will make $row['name'] to
-        // just $name only
-        extract($row);
+// récupération du contenu de la table
+while ($enregistrement = $stmt->fetch(PDO::FETCH_ASSOC)) {
 
-        $product_item=array(
-            "id" => $id,
-            "name" => $name,
-            "description" => html_entity_decode($description),
-            "price" => $price,
-            "category_id" => $category_id,
-            "category_name" => $category_name
-        );
+    // extraction de l'enregistrement
+    extract($enregistrement);
 
-        array_push($products_arr["records"], $product_item);
-    }
-
-    echo json_encode($products_arr);
-}
-
-else{
-    echo json_encode(
-        array("message" => "No products found.")
+    $item_publication = array(
+        "id_publication" => $enregistrement->id_publication,
+        "titre" => html_entity_decode($enregistrement->titre),
+        "description" => html_entity_decode($enregistrement->description),
+        "url_image" => $enregistrement->url_image,
+        "latitude" => $enregistrement->latitude,
+        "longitude" => $enregistrement->longitude,
+        //"nombre_mention_aime" => $enregistrement->nombre_mention_aime,
+        "id_utilisateur" => $enregistrement->id_utilisateur,
+        //"pseudonyme_utilisateur" => $enregistrement->pseudonyme_utilisateur,
+        //"url_image_utilisateur" => $enregistrement->url_image_utilisateur,
+        "creation" => $enregistrement->creation
     );
+
+    $reponseAPI->tab_publication = $item_publication;
 }
-?>
+
+// Ajout d'un message si aucun enregistrement n'a été trouvé
+if ($stmt->rowCount() == 0) {
+    $item_message = array(
+        "code" => 0,
+        "type" => "alerte",
+        "message" => "Aucune publication n'a été trouvée"
+    );
+
+    array_push($reponseAPI->tab_message, $item_message);
+}
+
+$reponseAPI->statut = true;
+
+echo $reponseAPI->publication_lire();

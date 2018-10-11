@@ -11,14 +11,15 @@ namespace ProjetMobileAPI;
 
 class Utilisateur
 {
-    // connexion à la base de données et nom de la table
-    private $conn;
+    private $connexion_bdd;
     private $nom_table = "utilisateur";
+    private $limite_taille_recherche = 10;
 
     // propriétés de l'objet
     public $id_utilisateur;
     public $nom;
     public $pseudonyme;
+    public $url_image;
     public $mdp_hash;
     public $creation;
 
@@ -28,7 +29,7 @@ class Utilisateur
      */
     public function __construct($bdd)
     {
-        $this->conn = $bdd;
+        $this->connexion_bdd = $bdd;
     }
 
     /**
@@ -44,7 +45,7 @@ class Utilisateur
             ORDER BY
                 u.creation DESC";
 
-        $stmt = $this->conn->prepare($requete);
+        $stmt = $this->connexion_bdd->prepare($requete);
 
         $stmt->execute();
 
@@ -64,7 +65,7 @@ class Utilisateur
                 (:nom, :pseudonyme, :mdp_hash)";
 
         // préparation de la requete
-        $stmt = $this->conn->prepare($requete);
+        $stmt = $this->connexion_bdd->prepare($requete);
 
         // sanitize
         $this->nom=htmlspecialchars(strip_tags($this->nom));
@@ -101,7 +102,7 @@ class Utilisateur
                 1";
 
         // préparation de la requete
-        $stmt = $this->conn->prepare($requete);
+        $stmt = $this->connexion_bdd->prepare($requete);
 
         // liaison de l'id de l'utilisateur à modifier
         $stmt->bindParam(1, $this->id_utilisateur);
@@ -135,7 +136,7 @@ class Utilisateur
                 id_utilisateur = :id_utilisateur";
 
         // préparation de la requete
-        $stmt = $this->conn->prepare($requete);
+        $stmt = $this->connexion_bdd->prepare($requete);
 
         // sanitize
         $this->nom=htmlspecialchars(strip_tags($this->nom));
@@ -164,7 +165,7 @@ class Utilisateur
         $query = "DELETE FROM " . $this->nom_table . " WHERE id_utilisateur = ?";
 
         // préparation de la requete
-        $stmt = $this->conn->prepare($query);
+        $stmt = $this->connexion_bdd->prepare($query);
 
         // sanitize
         $this->id_utilisateur=htmlspecialchars(strip_tags($this->id_utilisateur));
@@ -197,10 +198,10 @@ class Utilisateur
             ORDER BY
                 u.pseudonyme DESC
             LIMIT
-                10";
+                " . $this->limite_taille_recherche;
 
         // préparation de la requete
-        $stmt = $this->conn->prepare($requete);
+        $stmt = $this->connexion_bdd->prepare($requete);
 
         // sanitize
         $mot_clef=htmlspecialchars(strip_tags($mot_clef));

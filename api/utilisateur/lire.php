@@ -12,50 +12,51 @@ header("Content-Type: application/json; charset=UTF-8");
 
 require_once '../config/Connexion.php';
 require_once '../objets/Utilisateur.php';
+require_once '../objets/ReponseAPI.php';
 
 //ini_set('display_errors', 'On');
 //error_reporting(E_ALL);
 
 use ProjetMobileAPI\Connexion;
 use ProjetMobileAPI\Utilisateur;
+use ProjetMobileAPI\ReponseAPI;
 
 // récupération de la connexion à la base de données
 $bdd = Connexion::get()->connect();
 
-// création de l'objet utilisateur
+// création des objet requis
 $utilisateur = new Utilisateur($bdd);
+$reponseAPI = new ReponseAPI();
 
-// recherche des utilisateurs
+// recherche d'utilisateurs
 $stmt = $utilisateur->lire();
-$num = $stmt->rowCount();
 
-// vérification de la présence d'au moins un enregistrement
-if($num>0){
+// récupération du contenu de la table
+while ($enregistrement = $stmt->fetch(PDO::FETCH_ASSOC)) {
 
-    // tableau d'utilisateurs
-    $tab_utilisateurs=array();
-    $tab_utilisateurs["enregistrements"]=array();
+    // extraction de l'enregistrement
+    extract($enregistrement);
 
-    // récupération du contenu de la table
-    while ($row = $stmt->fetch(PDO::FETCH_ASSOC)){
-        // extraction de l'enregistrement
-        extract($row);
-
-        $item_utilisateur=array(
-            "id_utilisateur" => $id_utilisateur,
-            "nom" => html_entity_decode($nom),
-            "pseudonyme" => $pseudonyme
-        );
-
-        array_push($tab_utilisateurs["enregistrements"], $item_utilisateur);
-    }
-
-    echo json_encode($tab_utilisateurs);
-}
-
-else{
-    echo json_encode(
-        array("message" => "Aucun utilisateur n'a été trouvé.")
+    $item_utilisateur=array(
+        "id_utilisateur" => $enregistrement->id_utilisateur,
+        "nom" => html_entity_decode($enregistrement->nom),
+        "pseudonyme" => $enregistrement->pseudonyme
     );
+
+    $reponseAPI->$tab_utilisateur = $item_utilisateur;
 }
-?>
+
+// Ajout d'un message si aucun enregistrement n'a été trouvé
+if ($stmt->rowCount() == 0) {
+    $item_message = array(
+        "code" => 0,
+        "type" => "alerte",
+        "message" => "Aucun utilisateur n'a été trouvé"
+    );
+
+    array_push($reponseAPI->tab_message, $item_message);
+}
+
+$reponseAPI->statut = true;
+
+echo $reponseAPI->utilisateur_lire();
