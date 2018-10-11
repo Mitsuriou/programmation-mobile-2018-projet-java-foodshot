@@ -130,7 +130,6 @@ class Utilisateur
                 " . $this->nom_table . "
             SET
                 nom = :nom,
-                pseudonyme = :pseudonyme,
                 mdp_hash = :mdp_hash
             WHERE
                 id_utilisateur = :id_utilisateur";
@@ -140,12 +139,10 @@ class Utilisateur
 
         // sanitize
         $this->nom=htmlspecialchars(strip_tags($this->nom));
-        $this->pseudonyme=htmlspecialchars(strip_tags($this->pseudonyme));
         $this->mdp_hash=htmlspecialchars(strip_tags($this->mdp_hash));
 
         // liaison des variables
         $stmt->bindParam(':nom', $this->nom);
-        $stmt->bindParam(':pseudonyme', $this->pseudonyme);
         $stmt->bindParam(':mdp_hash', $this->mdp_hash);
         $stmt->bindParam(':id_utilisateur', $this->id_utilisateur);
 

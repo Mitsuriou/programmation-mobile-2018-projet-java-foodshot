@@ -36,7 +36,6 @@ $utilisateur->id_utilisateur = $data->id_utilisateur;
 
 // définition des valeurs des propriétés de l'utilisateur
 $utilisateur->nom = $data->nom;
-$utilisateur->pseudonyme = $data->pseudonyme;
 $utilisateur->mdp_hash = $data->mdp_hash;
 
 // modification de l'utilisateur

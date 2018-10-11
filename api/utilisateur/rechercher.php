@@ -33,11 +33,10 @@ $stmt = $utilisateur->rechercher($mot_clef);
 $num = $stmt->rowCount();
 
 // vérification de la présence d'au moins un enregistrement
-if($num>0){
+if($num>0) {
 
     // tableau d'utilisateurs
     $tab_utilisateurs=array();
-    $tab_utilisateurs["enregistrements"]=array();
 
     // récupération du contenu de la table
     while ($enregistrement = $stmt->fetch(PDO::FETCH_ASSOC)){
@@ -50,15 +49,32 @@ if($num>0){
             "pseudonyme" => $pseudonyme
         );
 
-        array_push($tab_utilisateurs["enregistrements"], $item_utilisateur);
+        array_push($tab_utilisateurs, $item_utilisateur);
     }
 
-    echo json_encode($tab_utilisateurs);
-}
-
-else{
     echo json_encode(
-        array("message" => "Aucun utilisateur n'a été trouvé.")
+        array(
+            "statut" => true,
+            "donnee" => [
+                "utilisateur" => $tab_utilisateurs
+            ],
+            "message" => []
+        )
+    );
+} else {
+
+    echo json_encode(
+        array(
+            "statut" => true,
+            "donnee" => [],
+            "message" => [
+                "alerte" => [
+                    array(
+                    "code" => 0,
+                    "message" => "Aucun utilisateur n'a été trouvé."
+                    )
+                ]
+            ]
+        )
     );
 }
-?>
