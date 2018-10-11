@@ -33,10 +33,11 @@
 
     <!-- A renplacer par un bouton pour la hitbox ronde -->
     <ImageView
-
         android:id="@+id/imageView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+
+        android:background="@drawable/border"
 
         android:layout_marginTop="-60dp"
         android:layout_marginStart="21dp"
@@ -70,6 +71,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
 
+        android:layout_marginTop="200dp"
         android:layout_marginLeft="20dp"
         android:text=""
         android:textColor="#000"

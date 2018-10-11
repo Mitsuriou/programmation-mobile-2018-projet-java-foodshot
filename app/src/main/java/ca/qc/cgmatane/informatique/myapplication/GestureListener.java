@@ -11,7 +11,6 @@ public class GestureListener extends GestureDetector.SimpleOnGestureListener {
 
     @Override
     public boolean onDoubleTap(MotionEvent e) {
-        // User tapped the screen twice.
         Log.i(TAG, "Double tap" );
         return false;
     }
