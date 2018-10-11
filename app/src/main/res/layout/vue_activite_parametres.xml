@@ -23,4 +23,12 @@
         android:textColor="@color/colorAccent"
         android:backgroundTint="@color/editTextColor" />
 
+    <Button
+        android:id="@+id/bouton_suppr_compte"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Supprimer mon compte"
+        android:textColor="#f00"
+        android:backgroundTint="@color/editTextColor" />
+
 </LinearLayout>

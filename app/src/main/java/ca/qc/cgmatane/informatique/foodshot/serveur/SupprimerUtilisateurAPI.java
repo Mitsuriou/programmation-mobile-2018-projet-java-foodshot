@@ -47,7 +47,7 @@ public class SupprimerUtilisateurAPI extends AsyncTask<String, String, String> {
             reponse = client.newCall(request).execute();
             String jsonData = reponse.body().string();
             JSONObject jObject = new JSONObject(jsonData);
-            //Log.d("jsonDelete", jObject.toString());
+            //Log.d("reponse_serveur", jObject.toString());
         } catch (Exception e) {
             e.printStackTrace();
         }

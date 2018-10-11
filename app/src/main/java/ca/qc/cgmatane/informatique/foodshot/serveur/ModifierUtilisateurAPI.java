@@ -14,15 +14,15 @@ import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
 
-public class CreerUtilisateurAPI extends AsyncTask<String, String, String> {
+public class ModifierUtilisateurAPI extends AsyncTask<String, String, String> {
+    private int idUtilisateur;
     private String chaineNom;
-    private String chainePseudonyme;
     private String chaineMdpHash;
 
-    public CreerUtilisateurAPI(String nom, String pseudonyme, String mdpHash) {
-        chaineNom = nom;
-        chainePseudonyme = pseudonyme;
-        chaineMdpHash = mdpHash;
+    public ModifierUtilisateurAPI(int idUtilisateur, String nom, String mdpHash) {
+        this.idUtilisateur = idUtilisateur;
+        this.chaineNom = nom;
+        this.chaineMdpHash = mdpHash;
     }
 
     @Override
@@ -37,9 +37,9 @@ public class CreerUtilisateurAPI extends AsyncTask<String, String, String> {
         OkHttpClient client = new OkHttpClient();
         JSONObject data = new JSONObject();
         try {
-            data.put("nom", chaineNom)
-                    .put("pseudonyme", chainePseudonyme)
-                    .put("mdp_hash", chaineMdpHash);
+            data.put("id_utilisateur", this.idUtilisateur)
+                    .put("nom", this.chaineNom)
+                    .put("mdp_hash", this.chaineMdpHash);
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -47,12 +47,14 @@ public class CreerUtilisateurAPI extends AsyncTask<String, String, String> {
         RequestBody body = RequestBody.create(JSON, data.toString());
 
         Request request = new Request.Builder()
-                .url("http://54.37.152.134/api/utilisateur/creer.php")
+                .url("http://54.37.152.134/api/utilisateur/modifier.php")
                 .post(body)
                 .build();
 
         try {
             Response reponse = client.newCall(request).execute();
+            if (!reponse.isSuccessful())
+                throw new IOException("Unexpected code " + reponse.toString());
             Log.d("reponse_serveur", reponse.body().string());
             return reponse.body().string();
         } catch (Exception e) {
