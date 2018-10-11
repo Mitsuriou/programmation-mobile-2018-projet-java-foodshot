@@ -5,6 +5,7 @@ import android.util.Log;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
+import org.json.JSONTokener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,31 +36,46 @@ public class RechercherProfilAPI extends AsyncTask<String, String, String> {
 
         try {
             reponse = client.newCall(request).execute();
-            String jsonData = reponse.body().string();
-            JSONObject jObject = new JSONObject(jsonData);
-            Log.d("json_reponse_serveur", jObject.toString());
+            String jsonDonneesString = reponse.body().string();
+            JSONObject jsonDonneesObjet = new JSONObject(jsonDonneesString);
+            Log.d("json_reponse_serveur", jsonDonneesObjet.toString());
 
             // statut
-            String statut = jObject.getString("statut");
+            String statut = jsonDonneesObjet.getString("statut");
             Log.d("json_recherche_statut", statut);
 
-            String donneeString = jObject.getString("donnee");
-            JSONObject donneeJson = new JSONObject(donneeString);
+            // donnee
+            String donneeString = jsonDonneesObjet.getString("donnee");
 
-            String utilisateurString = donneeJson.getString("utilisateur");
-            JSONArray utilisateurJson = new JSONArray(utilisateurString);
+            JSONObject jsonObjectDonnee = new JSONObject(donneeString);
 
-            for (int i = 0; i < utilisateurJson.length(); i++) {
-                Log.d("json_recherche_utilisateur", utilisateurJson.get(i).toString());
+            String utilsateurString = jsonObjectDonnee.getString("utilisateur");
+            JSONArray utilisateurJsonArray = new JSONArray(utilsateurString);
+
+            List<JSONObject> listeDesUtilisateurs = new ArrayList<>();
+            for (int i = 0; i < utilisateurJsonArray.length(); i++) {
+                listeDesUtilisateurs.add(utilisateurJsonArray.getJSONObject(i));
             }
 
-            //message
-            String messageString = jObject.getString("message");
+            for (JSONObject valeur : listeDesUtilisateurs) {
+                Log.d("utilisateur_id", valeur.getString("id_utilisateur"));
+                Log.d("utilisateur_nom", valeur.getString("nom"));
+                Log.d("utilisateur_pseudonyme", valeur.getString("pseudonyme"));
+            }
+
+            // message
+            String messageString = jsonDonneesObjet.getString("message");
             JSONArray messageJsonArray = new JSONArray(messageString);
-            JSONObject messageJsonObject;
+
+            List<JSONObject> listeDesMessages = new ArrayList<>();
             for (int i = 0; i < messageJsonArray.length(); i++) {
-                messageJsonObject = messageJsonArray.getJSONObject(i);
-                Log.d("ALED", messageJsonObject.getString("message"));
+                listeDesMessages.add(messageJsonArray.getJSONObject(i));
+            }
+
+            for (JSONObject valeur: listeDesMessages) {
+                Log.d("message_code", valeur.getString("code"));
+                Log.d("message_type", valeur.getString("type"));
+                Log.d("message_message", valeur.getString("message"));
             }
 
         } catch (Exception e) {

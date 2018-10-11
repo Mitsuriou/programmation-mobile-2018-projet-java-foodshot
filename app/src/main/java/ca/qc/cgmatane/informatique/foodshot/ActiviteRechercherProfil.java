@@ -70,6 +70,8 @@ public class ActiviteRechercherProfil extends AppCompatActivity {
                     public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                         // TODO Faire une requete en BDD
                         // TODO puis actualiser la liste avec les données récupérées en BDD
+                        if (champPseudonyme.getText().toString().equals(""))
+                            return;
                         new RechercherProfilAPI(charSequence.toString()).execute();
                     }
 
