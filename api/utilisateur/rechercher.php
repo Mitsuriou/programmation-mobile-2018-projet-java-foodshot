@@ -68,12 +68,11 @@ if($num>0) {
             "statut" => true,
             "donnee" => [],
             "message" => [
-                "alerte" => [
-                    array(
+                array(
                     "code" => 0,
-                    "message" => "Aucun utilisateur n'a été trouvé."
-                    )
-                ]
+                    "type" => "alerte",
+                    "message" => "Aucun utilisateur n'a été trouvé"
+                )
             ]
         )
     );

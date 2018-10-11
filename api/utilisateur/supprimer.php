@@ -35,16 +35,35 @@ $data = json_decode(file_get_contents("php://input"));
 $utilisateur->id_utilisateur = $data->id_utilisateur;
 
 // suppression de l'utilisateur
-if($utilisateur->supprimer()){
-    echo '{';
-    echo '"message": "L\'utilisateur a été supprimé."';
-    echo '}';
-}
+if ($utilisateur->supprimer()) {
 
-// si l'utilisateur n'est pas supprimé, informe l'utilisateur
-else{
-    echo '{';
-    echo '"message": "Impossible de supprimer l\'utilisateur."';
-    echo '}';
+    echo json_encode(
+        array(
+            "statut" => true,
+            "donnee" => [],
+            "message" => [
+                array(
+                    "code" => 0,
+                    "type" => "info",
+                    "message" => "L'utilisateur a été supprimé avec succès"
+                )
+            ]
+        )
+    );
+} else {
+
+    // si l'utilisateur n'est pas supprimé, informe l'utilisateur
+    echo json_encode(
+        array(
+            "statut" => false,
+            "donnee" => [],
+            "message" => [
+                array(
+                    "code" => 0,
+                    "type" => "erreur",
+                    "message" => "Impossible de supprimer l'utilisateur"
+                )
+            ]
+        )
+    );
 }
-?>
