@@ -5,17 +5,22 @@ import android.util.Log;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
-import org.json.JSONTokener;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import ca.qc.cgmatane.informatique.foodshot.modele.ModeleMessage;
+import ca.qc.cgmatane.informatique.foodshot.modele.ModeleUtilisateur;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 
 public class RechercherProfilAPI extends AsyncTask<String, String, String> {
     private String pseudonymeRecherche;
+
+    private boolean statut;
+    private List<ModeleUtilisateur> listeUtilisateurs;
+    private List<ModeleMessage> listeMessages;
 
     public RechercherProfilAPI(String pseudonymeRecherche) {
         this.pseudonymeRecherche = pseudonymeRecherche;
@@ -41,24 +46,31 @@ public class RechercherProfilAPI extends AsyncTask<String, String, String> {
             Log.d("json_reponse_serveur", jsonDonneesObjet.toString());
 
             // statut
-            String statut = jsonDonneesObjet.getString("statut");
-            Log.d("json_recherche_statut", statut);
+            String statutString = jsonDonneesObjet.getString("statut");
+            Log.d("json_recherche_statut", statutString);
+
+            this.statut = statutString.equals("true");
 
             // donnee
             String donneeString = jsonDonneesObjet.getString("donnee");
-
             JSONObject jsonObjectDonnee = new JSONObject(donneeString);
 
             String utilsateurString = jsonObjectDonnee.getString("utilisateur");
             JSONArray utilisateurJsonArray = new JSONArray(utilsateurString);
 
-            List<JSONObject> listeDesUtilisateurs = new ArrayList<>();
+            List<JSONObject> listeDesUtilisateursJson = new ArrayList<>();
             for (int i = 0; i < utilisateurJsonArray.length(); i++) {
-                listeDesUtilisateurs.add(utilisateurJsonArray.getJSONObject(i));
+                listeDesUtilisateursJson.add(utilisateurJsonArray.getJSONObject(i));
             }
 
-            for (JSONObject valeur : listeDesUtilisateurs) {
-                Log.d("utilisateur_id", valeur.getString("id_utilisateur"));
+            this.listeUtilisateurs = new ArrayList<>();
+            for (JSONObject valeur : listeDesUtilisateursJson) {
+                this.listeUtilisateurs.add(new ModeleUtilisateur(
+                        valeur.getInt("id_utilisateur"),
+                        valeur.getString("nom"),
+                        valeur.getString("pseudonyme")
+                ));
+                Log.d("utilisateur_id", "" + valeur.getInt("id_utilisateur"));
                 Log.d("utilisateur_nom", valeur.getString("nom"));
                 Log.d("utilisateur_pseudonyme", valeur.getString("pseudonyme"));
             }
@@ -72,7 +84,13 @@ public class RechercherProfilAPI extends AsyncTask<String, String, String> {
                 listeDesMessages.add(messageJsonArray.getJSONObject(i));
             }
 
+            this.listeMessages = new ArrayList<>();
             for (JSONObject valeur: listeDesMessages) {
+                this.listeMessages.add(new ModeleMessage(
+                        valeur.getInt("code"),
+                        valeur.getString("type"),
+                        valeur.getString("message")
+                ));
                 Log.d("message_code", valeur.getString("code"));
                 Log.d("message_type", valeur.getString("type"));
                 Log.d("message_message", valeur.getString("message"));
@@ -88,5 +106,17 @@ public class RechercherProfilAPI extends AsyncTask<String, String, String> {
     @Override
     protected void onPostExecute(String s) {
         super.onPostExecute(s);
+    }
+
+    public boolean isStatut() {
+        return statut;
+    }
+
+    public List<ModeleUtilisateur> getListeUtilisateurs() {
+        return listeUtilisateurs;
+    }
+
+    public List<ModeleMessage> getListeMessages() {
+        return listeMessages;
     }
 }
