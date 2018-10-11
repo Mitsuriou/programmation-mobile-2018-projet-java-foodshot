@@ -4,41 +4,27 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
-import android.view.GestureDetector;
-import android.view.MotionEvent;
-import android.view.View;
-
 import java.util.ArrayList;
-import java.util.List;
-// https://developer.android.com/guide/topics/ui/layout/recyclerview#java
 
 public class MainActivity extends Activity {
 
+    private ArrayList<Publication> listePublication;
+    private int count=1;
     private static final String TAG = "MainActivity";
 
-    // vars
-    private int count=1;
-    private ArrayList<Publication> listePublication;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Log.d(TAG,"onCreate: started");
-
         listePublication = new ArrayList<>();
 
         initImageBitmaps();
-
     }
 
     private void initImageBitmaps(){
-
-        Log.d(TAG,"initImageBitmaps: prepareing bitmaps");
-
-
 
         listePublication.add(new Publication(1
                 ,"https://cdn.mos.cms.futurecdn.net/FUE7XiFApEqWZQ85wYcAfM.jpg"
@@ -117,18 +103,6 @@ public class MainActivity extends Activity {
                 ,"@Salteau!"
                 ,"3.6k"));
 
-
-
-
-
-
-
-
-
-
-
-
-
         listePublication.add(new Publication(1,
                 "https://cdn.mos.cms.futurecdn.net/FUE7XiFApEqWZQ85wYcAfM.jpg"
                 ,"https://cdn.mos.cms.futurecdn.net/FUE7XiFApEqWZQ85wYcAfM.jpg"
@@ -206,15 +180,14 @@ public class MainActivity extends Activity {
                 ,"@Salteau!"
                 ,"3.6k"));
 
-
         initRecyclerView();
-
     }
 
     private void initRecyclerView(){
-        Log.d(TAG,"initRecyclerView: init recyclerView");
+
         RecyclerView recyclerView = findViewById(R.id.recycler_view);
         RecyclerViewAdapter adapter = new RecyclerViewAdapter(this,listePublication);
+
         adapter.setOnBottomReachedListener(new OnBottomReachedListener() {
             @Override
             public void onBottomReached(int position) {

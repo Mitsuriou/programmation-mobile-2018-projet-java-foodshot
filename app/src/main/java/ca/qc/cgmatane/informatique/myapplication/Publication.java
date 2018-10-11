@@ -1,7 +1,5 @@
 package ca.qc.cgmatane.informatique.myapplication;
 
-import java.util.ArrayList;
-
 public class Publication {
 
     private int id;
@@ -43,7 +41,5 @@ public class Publication {
     public String getNbLike() {
         return nbLike;
     }
-
-    private static int lastPublicationId = 0;
 
 }

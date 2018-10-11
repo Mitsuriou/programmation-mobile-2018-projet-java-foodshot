@@ -1,15 +1,11 @@
 package ca.qc.cgmatane.informatique.myapplication;
 
-import android.arch.lifecycle.LiveData;
-import android.arch.paging.PagedList;
-import android.arch.paging.PagedListAdapter;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v4.view.GestureDetectorCompat;
 import android.support.v7.recyclerview.extensions.ListAdapter;
 import android.support.v7.util.DiffUtil;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.GestureDetector;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -18,18 +14,31 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
-
 import java.util.ArrayList;
-import java.util.List;
-
 import de.hdodenhof.circleimageview.CircleImageView;
 
-public class RecyclerViewAdapter extends ListAdapter<Publication, RecyclerViewAdapter.ViewHolder> {//TYPE
+public class RecyclerViewAdapter extends ListAdapter<Publication, RecyclerViewAdapter.ViewHolder> {
 
-    private static final String TAG = "RecyclerViewAdapter";
+    public class ViewHolder extends RecyclerView.ViewHolder{
+
+        CircleImageView photo_profil,coeur;
+
+        TextView image_desc,user_name,nbCoeur;
+        RelativeLayout parentLayout;
+
+        public ViewHolder(@NonNull View itemView) {
+            super(itemView);
+            image_desc = itemView.findViewById(R.id.image_name);
+            image =  itemView.findViewById(R.id.imageView);
+            user_name = itemView.findViewById(R.id.user_name);
+            parentLayout = itemView.findViewById(R.id.parent_layout);
+            photo_profil = itemView.findViewById(R.id.profile_image);
+            coeur = itemView.findViewById(R.id.coeur);
+            nbCoeur = itemView.findViewById(R.id.nb_coeur);
+        }
+    }
 
     private OnBottomReachedListener onBottomReachedListener;
     private ArrayList<Publication> listePublication;
@@ -49,19 +58,6 @@ public class RecyclerViewAdapter extends ListAdapter<Publication, RecyclerViewAd
 
     }
 
-    public static final DiffUtil.ItemCallback<Publication> DIFF_CALLBACK =
-            new DiffUtil.ItemCallback<Publication>() {
-                @Override
-                public boolean areItemsTheSame(Publication oldItem, Publication newItem) {
-                    return oldItem.getId() == newItem.getId();
-                }
-                @Override
-                public boolean areContentsTheSame(Publication oldItem, Publication newItem) {
-                    return (oldItem.getId() == newItem.getId());
-                }
-                // les deux font la même chose, car une publication n'est pas modifiable.
-            };
-
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -73,7 +69,6 @@ public class RecyclerViewAdapter extends ListAdapter<Publication, RecyclerViewAd
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, final int position) {
-        Log.d(TAG,"onBindViewHolder: called");
 
         if(position == getItemCount()-1){
             onBottomReachedListener.onBottomReached(position);
@@ -83,7 +78,7 @@ public class RecyclerViewAdapter extends ListAdapter<Publication, RecyclerViewAd
 
         GestureDetector.SimpleOnGestureListener gestureListener = new GestureListener();
         final GestureDetector gd = new GestureDetector(context, gestureListener);
-        final GestureDetector gestureLong = new GestureDetector(context,new LongClick());
+        final GestureDetector gestureLong = new GestureDetector(context,new GestureLongClick());
 
         holder.parentLayout.setClickable(true);
         holder.parentLayout.setFocusable(true);
@@ -202,51 +197,31 @@ public class RecyclerViewAdapter extends ListAdapter<Publication, RecyclerViewAd
 //            }
 //        });
 
-
     }
+
+    public static final DiffUtil.ItemCallback<Publication> DIFF_CALLBACK =
+            new DiffUtil.ItemCallback<Publication>()
+    {
+
+        @Override
+        public boolean areItemsTheSame(Publication oldItem, Publication newItem) {
+            return oldItem.getId() == newItem.getId();
+        }
+
+        @Override
+        public boolean areContentsTheSame(Publication oldItem, Publication newItem) {
+            return (oldItem.getId() == newItem.getId());
+        }
+            // les deux font la même chose, car une publication n'est pas modifiable.
+    };
 
     @Override
     public int getItemCount() {
         return listePublication.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder{
-
-        CircleImageView photo_profil,coeur;
-
-        TextView image_desc,user_name,nbCoeur;
-        RelativeLayout parentLayout;
-
-        public ViewHolder(@NonNull View itemView) {
-            super(itemView);
-            image_desc = itemView.findViewById(R.id.image_name);
-            image =  itemView.findViewById(R.id.imageView);
-            user_name = itemView.findViewById(R.id.user_name);
-            parentLayout = itemView.findViewById(R.id.parent_layout);
-            photo_profil = itemView.findViewById(R.id.profile_image);
-            coeur = itemView.findViewById(R.id.coeur);
-            nbCoeur = itemView.findViewById(R.id.nb_coeur);
-        }
-    }
-
-    public void addMorePublication(List<Publication> publication) {
-        listePublication.addAll(publication);
-        //submitList(listePublication); // DiffUtil takes care of the check
-    }
-
-    private class LongClick extends GestureDetector.SimpleOnGestureListener {
-
-        @Override
-        public void onLongPress(MotionEvent e) {
-            Log.i("LongTap", "Long tap" );
-        }
-
-    }
-
     public void setOnBottomReachedListener(OnBottomReachedListener onBottomReachedListener){
         this.onBottomReachedListener = onBottomReachedListener;
     }
-
-
 }
 
