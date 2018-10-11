@@ -54,15 +54,37 @@
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_gravity="end|bottom">
+        android:layout_gravity="bottom">
 
-        <Button
-            android:id="@+id/bouton_creer_nouveau_compte"
+        <TableLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:backgroundTint="@color/colorAccent"
-            android:text="Créer un compte"
-            android:textColor="#fff" />
+            android:layout_height="wrap_content">
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <Button
+                    android:id="@+id/bouton_creer_nouveau_compte"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:backgroundTint="@color/colorAccent"
+                    android:text="Créer un compte"
+                    android:textColor="#fff" />
+
+                <Button
+                    android:id="@+id/bouton_mot_de_passe_oublie"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:backgroundTint="@color/colorAccent"
+                    android:text="Mot de passe oublié"
+                    android:textColor="#fff" />
+            </TableRow>
+
+        </TableLayout>
+
     </android.support.constraint.ConstraintLayout>
 
 </LinearLayout>
