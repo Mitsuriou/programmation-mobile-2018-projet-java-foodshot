@@ -14,24 +14,27 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
+
 import java.util.ArrayList;
+
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class RecyclerViewAdapter extends ListAdapter<Publication, RecyclerViewAdapter.ViewHolder> {
 
-    public class ViewHolder extends RecyclerView.ViewHolder{
+    public class ViewHolder extends RecyclerView.ViewHolder {
 
-        CircleImageView photo_profil,coeur;
+        CircleImageView photo_profil, coeur;
 
-        TextView image_desc,user_name,nbCoeur;
+        TextView image_desc, user_name, nbCoeur;
         RelativeLayout parentLayout;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             image_desc = itemView.findViewById(R.id.image_name);
-            image =  itemView.findViewById(R.id.imageView);
+            image = itemView.findViewById(R.id.imageView);
             user_name = itemView.findViewById(R.id.user_name);
             parentLayout = itemView.findViewById(R.id.parent_layout);
             photo_profil = itemView.findViewById(R.id.profile_image);
@@ -61,7 +64,7 @@ public class RecyclerViewAdapter extends ListAdapter<Publication, RecyclerViewAd
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_listitem,parent,false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_listitem, parent, false);
         ViewHolder holder = new ViewHolder(view);
 
         return holder;
@@ -70,15 +73,15 @@ public class RecyclerViewAdapter extends ListAdapter<Publication, RecyclerViewAd
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, final int position) {
 
-        if(position == getItemCount()-1){
+        if (position == getItemCount() - 1) {
             onBottomReachedListener.onBottomReached(position);
         }
 
-        coeur="/res/mipmap/ic_launcher/ic_launcher.png";
+        coeur = "/res/mipmap/ic_launcher/ic_launcher.png";
 
         GestureDetector.SimpleOnGestureListener gestureListener = new GestureListener();
         final GestureDetector gd = new GestureDetector(context, gestureListener);
-        final GestureDetector gestureLong = new GestureDetector(context,new GestureLongClick());
+        final GestureDetector gestureLong = new GestureDetector(context, new GestureLongClick());
 
         holder.parentLayout.setClickable(true);
         holder.parentLayout.setFocusable(true);
@@ -159,8 +162,6 @@ public class RecyclerViewAdapter extends ListAdapter<Publication, RecyclerViewAd
         holder.user_name.setText(listePublication.get(position).getUsername());
 
 
-
-
 //        holder.photo_profil.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View v) {
@@ -200,27 +201,26 @@ public class RecyclerViewAdapter extends ListAdapter<Publication, RecyclerViewAd
     }
 
     public static final DiffUtil.ItemCallback<Publication> DIFF_CALLBACK =
-            new DiffUtil.ItemCallback<Publication>()
-    {
+            new DiffUtil.ItemCallback<Publication>() {
 
-        @Override
-        public boolean areItemsTheSame(Publication oldItem, Publication newItem) {
-            return oldItem.getId() == newItem.getId();
-        }
+                @Override
+                public boolean areItemsTheSame(Publication oldItem, Publication newItem) {
+                    return oldItem.getId() == newItem.getId();
+                }
 
-        @Override
-        public boolean areContentsTheSame(Publication oldItem, Publication newItem) {
-            return (oldItem.getId() == newItem.getId());
-        }
-            // les deux font la même chose, car une publication n'est pas modifiable.
-    };
+                @Override
+                public boolean areContentsTheSame(Publication oldItem, Publication newItem) {
+                    return (oldItem.getId() == newItem.getId());
+                }
+                // les deux font la même chose, car une publication n'est pas modifiable.
+            };
 
     @Override
     public int getItemCount() {
         return listePublication.size();
     }
 
-    public void setOnBottomReachedListener(OnBottomReachedListener onBottomReachedListener){
+    public void setOnBottomReachedListener(OnBottomReachedListener onBottomReachedListener) {
         this.onBottomReachedListener = onBottomReachedListener;
     }
 }

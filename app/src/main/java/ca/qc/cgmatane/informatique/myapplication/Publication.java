@@ -9,16 +9,16 @@ public class Publication {
     private String username;
     private String nbLike;
 
-    public Publication(int id,String URLimage,String URLprofil,String descImage, String username, String nbLike){
-        this.id=id;
-        this.URLimage=URLimage;
-        this.URLprofil=URLprofil;
-        this.descImage=descImage;
-        this.username=username;
-        this.nbLike=nbLike;
+    public Publication(int id, String URLimage, String URLprofil, String descImage, String username, String nbLike) {
+        this.id = id;
+        this.URLimage = URLimage;
+        this.URLprofil = URLprofil;
+        this.descImage = descImage;
+        this.username = username;
+        this.nbLike = nbLike;
     }
 
-    public int getId(){
+    public int getId() {
         return this.id;
     }
 

@@ -4,15 +4,15 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+
 import java.util.ArrayList;
 
 public class MainActivity extends Activity {
 
     private ArrayList<Publication> listePublication;
-    private int count=1;
+    private int compteur = 1;
+    private RecevoirPublicationAPI recevoirPublicationAPI;
     private static final String TAG = "MainActivity";
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,175 +24,175 @@ public class MainActivity extends Activity {
         initImageBitmaps();
     }
 
-    private void initImageBitmaps(){
+    private void initImageBitmaps() {
 
         listePublication.add(new Publication(1
-                ,"https://cdn.mos.cms.futurecdn.net/FUE7XiFApEqWZQ85wYcAfM.jpg"
-                ,"https://cdn.mos.cms.futurecdn.net/FUE7XiFApEqWZQ85wYcAfM.jpg"
+                , "https://cdn.mos.cms.futurecdn.net/FUE7XiFApEqWZQ85wYcAfM.jpg"
+                , "https://cdn.mos.cms.futurecdn.net/FUE7XiFApEqWZQ85wYcAfM.jpg"
                 , "Canada"
-                ,"@Jackiedu25"
-                ,"1"));
+                , "@Jackiedu25"
+                , "1"));
 
         listePublication.add(new Publication(2
-                ,"http://flags.fmcdn.net/data/flags/w580/mx.png"
-                ,"https://cdn.mos.cms.futurecdn.net/FUE7XiFApEqWZQ85wYcAfM.jpg"
+                , "http://flags.fmcdn.net/data/flags/w580/mx.png"
+                , "https://cdn.mos.cms.futurecdn.net/FUE7XiFApEqWZQ85wYcAfM.jpg"
                 , "Mexico"
-                ,"@jazocoti"
-                ,"0"));
+                , "@jazocoti"
+                , "0"));
 
         listePublication.add(new Publication(3
-                ,"http://flags.fmcdn.net/data/flags/w580/fr.png"
-                ,"https://cdn.mos.cms.futurecdn.net/FUE7XiFApEqWZQ85wYcAfM.jpg"
+                , "http://flags.fmcdn.net/data/flags/w580/fr.png"
+                , "https://cdn.mos.cms.futurecdn.net/FUE7XiFApEqWZQ85wYcAfM.jpg"
                 , "France!"
-                ,"@mitsurio"
-                ,"1,5M"));
+                , "@mitsurio"
+                , "1,5M"));
 
         listePublication.add(new Publication(4
-                ,"http://flags.fmcdn.net/data/flags/w580/de.png"
-                ,"https://cdn.mos.cms.futurecdn.net/FUE7XiFApEqWZQ85wYcAfM.jpg"
+                , "http://flags.fmcdn.net/data/flags/w580/de.png"
+                , "https://cdn.mos.cms.futurecdn.net/FUE7XiFApEqWZQ85wYcAfM.jpg"
                 , "Germany"
-                ,"@tenam"
-                ,"3.6k"));
+                , "@tenam"
+                , "3.6k"));
 
         listePublication.add(new Publication(5
-                ,"http://flags.fmcdn.net/data/flags/w580/au.png"
-                ,"https://cdn.mos.cms.futurecdn.net/FUE7XiFApEqWZQ85wYcAfM.jpg"
+                , "http://flags.fmcdn.net/data/flags/w580/au.png"
+                , "https://cdn.mos.cms.futurecdn.net/FUE7XiFApEqWZQ85wYcAfM.jpg"
                 , "Australia"
-                ,"@xXxDarckBibidu7"
-                ,"3.6k"));
+                , "@xXxDarckBibidu7"
+                , "3.6k"));
 
         listePublication.add(new Publication(6
-                ,"http://flags.fmcdn.net/data/flags/w580/gb.png"
-                ,"https://cdn.mos.cms.futurecdn.net/FUE7XiFApEqWZQ85wYcAfM.jpg"
+                , "http://flags.fmcdn.net/data/flags/w580/gb.png"
+                , "https://cdn.mos.cms.futurecdn.net/FUE7XiFApEqWZQ85wYcAfM.jpg"
                 , "United Kingdom"
-                ,"@DIEU"
-                ,"3.6k"));
+                , "@DIEU"
+                , "3.6k"));
 
         listePublication.add(new Publication(7
-                ,"http://flags.fmcdn.net/data/flags/w580/ar.png"
-                ,"https://cdn.mos.cms.futurecdn.net/FUE7XiFApEqWZQ85wYcAfM.jpg"
+                , "http://flags.fmcdn.net/data/flags/w580/ar.png"
+                , "https://cdn.mos.cms.futurecdn.net/FUE7XiFApEqWZQ85wYcAfM.jpg"
                 , "Argentina"
-                ,"@Mafia_Officiel"
-                ,"3.6k"));
+                , "@Mafia_Officiel"
+                , "3.6k"));
 
         listePublication.add(new Publication(8
-                ,"http://www.commongroundgroup.net/wp-content/uploads/2011/10/earth-from-space-western-400x400.jpg"
-                ,"https://cdn.mos.cms.futurecdn.net/FUE7XiFApEqWZQ85wYcAfM.jpg"
+                , "http://www.commongroundgroup.net/wp-content/uploads/2011/10/earth-from-space-western-400x400.jpg"
+                , "https://cdn.mos.cms.futurecdn.net/FUE7XiFApEqWZQ85wYcAfM.jpg"
                 , "South Africa"
-                ,"@Womi"
-                ,"3.6k"));
+                , "@Womi"
+                , "3.6k"));
 
         listePublication.add(new Publication(9
-                ,"https://cdn.mos.cms.futurecdn.net/FUE7XiFApEqWZQ85wYcAfM.jpg"
-                ,"https://cdn.mos.cms.futurecdn.net/FUE7XiFApEqWZQ85wYcAfM.jpg"
+                , "https://cdn.mos.cms.futurecdn.net/FUE7XiFApEqWZQ85wYcAfM.jpg"
+                , "https://cdn.mos.cms.futurecdn.net/FUE7XiFApEqWZQ85wYcAfM.jpg"
                 , "Spain"
-                ,"@yadu"
-                ,"3.6k"));
+                , "@yadu"
+                , "3.6k"));
 
         listePublication.add(new Publication(10,
                 "http://flags.fmcdn.net/data/flags/w580/ar.png"
-                ,"https://cdn.mos.cms.futurecdn.net/FUE7XiFApEqWZQ85wYcAfM.jpg"
+                , "https://cdn.mos.cms.futurecdn.net/FUE7XiFApEqWZQ85wYcAfM.jpg"
                 , "Russia"
-                ,"@Rushbee"
-                ,"3.6k"));
+                , "@Rushbee"
+                , "3.6k"));
 
         listePublication.add(new Publication(11
-                ,"http://flags.fmcdn.net/data/flags/w580/ar.png"
-                ,"https://cdn.mos.cms.futurecdn.net/FUE7XiFApEqWZQ85wYcAfM.jpg"
+                , "http://flags.fmcdn.net/data/flags/w580/ar.png"
+                , "https://cdn.mos.cms.futurecdn.net/FUE7XiFApEqWZQ85wYcAfM.jpg"
                 , "Croatia"
-                ,"@Salteau!"
-                ,"3.6k"));
+                , "@Salteau!"
+                , "3.6k"));
 
         listePublication.add(new Publication(1,
                 "https://cdn.mos.cms.futurecdn.net/FUE7XiFApEqWZQ85wYcAfM.jpg"
-                ,"https://cdn.mos.cms.futurecdn.net/FUE7XiFApEqWZQ85wYcAfM.jpg"
+                , "https://cdn.mos.cms.futurecdn.net/FUE7XiFApEqWZQ85wYcAfM.jpg"
                 , "Canada"
-                ,"@Jackiedu25"
-                ,"1"));
+                , "@Jackiedu25"
+                , "1"));
 
         listePublication.add(new Publication(12
-                ,"http://flags.fmcdn.net/data/flags/w580/mx.png"
-                ,"https://cdn.mos.cms.futurecdn.net/FUE7XiFApEqWZQ85wYcAfM.jpg"
+                , "http://flags.fmcdn.net/data/flags/w580/mx.png"
+                , "https://cdn.mos.cms.futurecdn.net/FUE7XiFApEqWZQ85wYcAfM.jpg"
                 , "Mexico"
-                ,"@jazocoti"
-                ,"0"));
+                , "@jazocoti"
+                , "0"));
 
         listePublication.add(new Publication(13
-                ,"http://flags.fmcdn.net/data/flags/w580/fr.png"
-                ,"https://cdn.mos.cms.futurecdn.net/FUE7XiFApEqWZQ85wYcAfM.jpg"
+                , "http://flags.fmcdn.net/data/flags/w580/fr.png"
+                , "https://cdn.mos.cms.futurecdn.net/FUE7XiFApEqWZQ85wYcAfM.jpg"
                 , "France!"
-                ,"@mitsurio"
-                ,"1,5M"));
+                , "@mitsurio"
+                , "1,5M"));
 
         listePublication.add(new Publication(14
-                ,"http://flags.fmcdn.net/data/flags/w580/de.png"
-                ,"https://cdn.mos.cms.futurecdn.net/FUE7XiFApEqWZQ85wYcAfM.jpg"
+                , "http://flags.fmcdn.net/data/flags/w580/de.png"
+                , "https://cdn.mos.cms.futurecdn.net/FUE7XiFApEqWZQ85wYcAfM.jpg"
                 , "Germany"
-                ,"@tenam"
-                ,"3.6k"));
+                , "@tenam"
+                , "3.6k"));
 
         listePublication.add(new Publication(15
-                ,"http://flags.fmcdn.net/data/flags/w580/au.png"
-                ,"https://cdn.mos.cms.futurecdn.net/FUE7XiFApEqWZQ85wYcAfM.jpg"
+                , "http://flags.fmcdn.net/data/flags/w580/au.png"
+                , "https://cdn.mos.cms.futurecdn.net/FUE7XiFApEqWZQ85wYcAfM.jpg"
                 , "Australia"
-                ,"@xXxDarckBibidu7"
-                ,"3.6k"));
+                , "@xXxDarckBibidu7"
+                , "3.6k"));
 
         listePublication.add(new Publication(16
-                ,"http://flags.fmcdn.net/data/flags/w580/gb.png"
-                ,"https://cdn.mos.cms.futurecdn.net/FUE7XiFApEqWZQ85wYcAfM.jpg"
+                , "http://flags.fmcdn.net/data/flags/w580/gb.png"
+                , "https://cdn.mos.cms.futurecdn.net/FUE7XiFApEqWZQ85wYcAfM.jpg"
                 , "United Kingdom"
-                ,"@DIEU"
-                ,"3.6k"));
+                , "@DIEU"
+                , "3.6k"));
 
         listePublication.add(new Publication(17
-                ,"http://flags.fmcdn.net/data/flags/w580/ar.png"
-                ,"https://cdn.mos.cms.futurecdn.net/FUE7XiFApEqWZQ85wYcAfM.jpg"
+                , "http://flags.fmcdn.net/data/flags/w580/ar.png"
+                , "https://cdn.mos.cms.futurecdn.net/FUE7XiFApEqWZQ85wYcAfM.jpg"
                 , "Argentina"
-                ,"@Mafia_Officiel"
-                ,"3.6k"));
+                , "@Mafia_Officiel"
+                , "3.6k"));
 
         listePublication.add(new Publication(18
-                ,"http://www.commongroundgroup.net/wp-content/uploads/2011/10/earth-from-space-western-400x400.jpg"
-                ,"https://cdn.mos.cms.futurecdn.net/FUE7XiFApEqWZQ85wYcAfM.jpg"
+                , "http://www.commongroundgroup.net/wp-content/uploads/2011/10/earth-from-space-western-400x400.jpg"
+                , "https://cdn.mos.cms.futurecdn.net/FUE7XiFApEqWZQ85wYcAfM.jpg"
                 , "South Africa"
-                ,"@Womi"
-                ,"3.6k"));
+                , "@Womi"
+                , "3.6k"));
 
         listePublication.add(new Publication(19
-                ,"https://cdn.mos.cms.futurecdn.net/FUE7XiFApEqWZQ85wYcAfM.jpg"
-                ,"https://cdn.mos.cms.futurecdn.net/FUE7XiFApEqWZQ85wYcAfM.jpg"
+                , "https://cdn.mos.cms.futurecdn.net/FUE7XiFApEqWZQ85wYcAfM.jpg"
+                , "https://cdn.mos.cms.futurecdn.net/FUE7XiFApEqWZQ85wYcAfM.jpg"
                 , "Spain"
-                ,"@yadu"
-                ,"3.6k"));
+                , "@yadu"
+                , "3.6k"));
 
         listePublication.add(new Publication(20
-                ,"http://flags.fmcdn.net/data/flags/w580/ar.png"
-                ,"https://cdn.mos.cms.futurecdn.net/FUE7XiFApEqWZQ85wYcAfM.jpg"
+                , "http://flags.fmcdn.net/data/flags/w580/ar.png"
+                , "https://cdn.mos.cms.futurecdn.net/FUE7XiFApEqWZQ85wYcAfM.jpg"
                 , "Russia"
-                ,"@Rushbee"
-                ,"3.6k"));
+                , "@Rushbee"
+                , "3.6k"));
 
         listePublication.add(new Publication(21
-                ,"http://flags.fmcdn.net/data/flags/w580/ar.png"
-                ,"https://cdn.mos.cms.futurecdn.net/FUE7XiFApEqWZQ85wYcAfM.jpg"
+                , "http://flags.fmcdn.net/data/flags/w580/ar.png"
+                , "https://cdn.mos.cms.futurecdn.net/FUE7XiFApEqWZQ85wYcAfM.jpg"
                 , "Croatia"
-                ,"@Salteau!"
-                ,"3.6k"));
+                , "@Salteau!"
+                , "3.6k"));
 
         initRecyclerView();
     }
 
-    private void initRecyclerView(){
+    private void initRecyclerView() {
 
         RecyclerView recyclerView = findViewById(R.id.recycler_view);
-        RecyclerViewAdapter adapter = new RecyclerViewAdapter(this,listePublication);
+        RecyclerViewAdapter adapter = new RecyclerViewAdapter(this, listePublication);
 
         adapter.setOnBottomReachedListener(new OnBottomReachedListener() {
             @Override
             public void onBottomReached(int position) {
-                count++;
-                prepareData(count);
+                compteur++;
+                recevoirPublicationAPI = new RecevoirPublicationAPI(compteur);
             }
         });
         recyclerView.setAdapter(adapter);

@@ -10,7 +10,7 @@ public class GestureListener extends GestureDetector.SimpleOnGestureListener {
 
     @Override
     public boolean onDoubleTap(MotionEvent e) {
-        Log.i(TAG, "Double tap" );
+        Log.i(TAG, "Double tap");
         return false;
     }
 
