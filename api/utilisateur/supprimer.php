@@ -40,7 +40,7 @@ if ($utilisateur->supprimer()) {
     echo json_encode(
         array(
             "statut" => true,
-            "donnee" => [],
+            "donnee" => array(),
             "message" => [
                 array(
                     "code" => 0,
@@ -56,7 +56,7 @@ if ($utilisateur->supprimer()) {
     echo json_encode(
         array(
             "statut" => false,
-            "donnee" => [],
+            "donnee" => array(),
             "message" => [
                 array(
                     "code" => 0,

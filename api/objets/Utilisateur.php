@@ -195,7 +195,9 @@ class Utilisateur
             WHERE
                 u.pseudonyme LIKE ?
             ORDER BY
-                u.pseudonyme DESC";
+                u.pseudonyme DESC
+            LIMIT
+                10";
 
         // préparation de la requete
         $stmt = $this->conn->prepare($requete);

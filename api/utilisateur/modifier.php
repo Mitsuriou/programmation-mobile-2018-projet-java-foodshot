@@ -43,12 +43,12 @@ if($utilisateur->modifier()){
     echo json_encode(
         array(
             "statut" => true,
-            "donnee" => [
+            "donnee" => array(
                 "utilisateur" => array(
                     "id_utilisateur" =>  $utilisateur->id_utilisateur,
                     "nom" => html_entity_decode($utilisateur->nom)
                 )
-            ],
+            ),
             "message" => [
                 array(
                     "code" => 0,
@@ -65,12 +65,12 @@ else{
     echo json_encode(
         array(
             "statut" => false,
-            "donnee" => [
+            "donnee" => array(
                 "utilisateur" => array(
                     "id_utilisateur" =>  $data->id_utilisateur,
                     "nom" => $data->nom
                 )
-            ],
+            ),
             "message" => [
                 array(
                     "code" => 0,

@@ -12,20 +12,40 @@ namespace ProjetMobileAPI;
 /**
  * Représente la Connexion
  */
-class Connexion {
+class Connexion
+{
 
     /**
      * Connexion
-     * @var type
+     * @var mixed
      */
     private static $conn;
+
+    protected function __construct()
+    {
+
+    }
+
+    /**
+     * Retourne une instance de l'objet Connexion
+     * @return mixed
+     */
+    public static function get()
+    {
+        if (null === static::$conn) {
+            static::$conn = new static();
+        }
+
+        return static::$conn;
+    }
 
     /**
      * Connexion à la base de données et retourne une instance de l'objet \PDO
      * @return \PDO
      * @throws \Exception
      */
-    public function connect() {
+    public function connect()
+    {
 
         // Lecture des paramètres dans le fichier de configuration ini
         $params = parse_ini_file('identifiants_bdd.ini');
@@ -46,27 +66,13 @@ class Connexion {
         return $pdo;
     }
 
-    /**
-     * Retourne une instance de l'objet Connexion
-     * @return type
-     */
-    public static function get() {
-        if (null === static::$conn) {
-            static::$conn = new static();
-        }
-
-        return static::$conn;
-    }
-
-    protected function __construct() {
+    private function __clone()
+    {
 
     }
 
-    private function __clone() {
-
-    }
-
-    private function __wakeup() {
+    private function __wakeup()
+    {
 
     }
 
