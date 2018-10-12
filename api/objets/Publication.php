@@ -43,9 +43,14 @@ class Publication
     function lire()
     {
         $requete = "SELECT
+                (SELECT count(*) FROM aime WHERE aime.id_publication = p.id_publication) as nombre_mention_aime,
+                u.pseudonyme as pseudonyme_utilisateur, u.url_image as url_image_utilisateur,
                 p.id_publication, p.titre, p.description, p.url_image, p.latitude, p.longitude, p.id_utilisateur, p.creation
             FROM
                 " . $this->nom_table . " p
+                LEFT JOIN
+                    utilisateur u
+                        ON p.id_utilisateur = u.id_utilisateur
             ORDER BY
                 p.creation DESC";
 
@@ -103,6 +108,7 @@ class Publication
 
         // requete de selection
         $requete = "SELECT
+                (SELECT count(*) FROM aime WHERE aime.id_publication = p.id_publication) as nombre_mention_aime,
                 u.pseudonyme as pseudonyme_utilisateur, u.url_image as url_image_utilisateur,
                 p.id_publication, p.titre, p.description, p.url_image, p.latitude, p.longitude, p.id_utilisateur, p.creation
             FROM

@@ -45,10 +45,10 @@ while ($enregistrement = $stmt->fetch(PDO::FETCH_ASSOC)) {
         "url_image" => $url_image,
         "latitude" => $latitude,
         "longitude" => $longitude,
-        //"nombre_mention_aime" => $nombre_mention_aime,
+        "nombre_mention_aime" => $nombre_mention_aime,
         "id_utilisateur" => $id_utilisateur,
-        //"pseudonyme_utilisateur" => $pseudonyme_utilisateur,
-        //"url_image_utilisateur" => $url_image_utilisateur,
+        "pseudonyme_utilisateur" => $pseudonyme_utilisateur,
+        "url_image_utilisateur" => $url_image_utilisateur,
         "creation" => $creation
     );
 
