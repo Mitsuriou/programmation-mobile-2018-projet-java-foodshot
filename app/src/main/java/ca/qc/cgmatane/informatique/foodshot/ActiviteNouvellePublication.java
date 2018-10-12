@@ -36,6 +36,8 @@ import java.io.OutputStream;
 import java.util.Date;
 
 import static android.Manifest.permission.ACCESS_FINE_LOCATION;
+import static android.Manifest.permission.CAMERA;
+import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
 
 public class ActiviteNouvellePublication extends AppCompatActivity {
 
@@ -65,6 +67,10 @@ public class ActiviteNouvellePublication extends AppCompatActivity {
         this.boutonCaptureImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if (aucuneAutorisationPourPublier()) {
+                    finish();
+                    return;
+                }
                 onCamera();
             }
         });
@@ -73,9 +79,12 @@ public class ActiviteNouvellePublication extends AppCompatActivity {
         this.boutonPosterPublication.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //TODO call API
-                trouverLocalisation();
+                // TODO call API
 
+                if (aucuneAutorisationPourPublier()) {
+                    finish();
+                    return;
+                }
                 if (ActivityCompat.checkSelfPermission(ActiviteNouvellePublication.this, ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
                     client.getLastLocation().addOnSuccessListener(ActiviteNouvellePublication.this, new OnSuccessListener<Location>() {
                         @Override
@@ -180,16 +189,23 @@ public class ActiviteNouvellePublication extends AppCompatActivity {
         sendBroadcast(mediaScanIntent);
     }
 
-    private void trouverLocalisation() {
-
-    }
-
     private void demanderPermissions() {
         ActivityCompat.requestPermissions(this, new String[]{
                 Manifest.permission.ACCESS_FINE_LOCATION,
                 Manifest.permission.CAMERA,
                 Manifest.permission.WRITE_EXTERNAL_STORAGE,
         }, 1);
+    }
+
+    public boolean aucuneAutorisationPourPublier() {
+        if (ActivityCompat.checkSelfPermission(ActiviteNouvellePublication.this, CAMERA) != PackageManager.PERMISSION_GRANTED
+                || ActivityCompat.checkSelfPermission(ActiviteNouvellePublication.this, WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+            Toast.makeText(ActiviteNouvellePublication.this,
+                    "Veuillez autoriser FoodShot à accéder à votre appareil photo et à votre stockage pour prendre une photo et la stocker en local",
+                    Toast.LENGTH_SHORT).show();
+            return true;
+        }
+        return false;
     }
 
 }

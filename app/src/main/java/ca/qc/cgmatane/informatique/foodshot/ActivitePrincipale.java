@@ -21,7 +21,7 @@ import java.util.ArrayList;
 
 public class ActivitePrincipale extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
-    private static final int DEMANDE_PERMISSION_LOCALISATION = 1;
+    // TODO REMOVE DEBUG
     public static boolean IS_CONNECTE = true;
 
     // List
