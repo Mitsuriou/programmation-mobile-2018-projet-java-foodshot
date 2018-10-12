@@ -14,8 +14,8 @@ require_once '../config/Connexion.php';
 require_once '../objets/Utilisateur.php';
 require_once '../objets/ReponseAPI.php';
 
-//ini_set('display_errors', 'On');
-//error_reporting(E_ALL);
+ini_set('display_errors', 'On');
+error_reporting(E_ALL);
 
 use ProjetMobileAPI\Connexion;
 use ProjetMobileAPI\ReponseAPI;
@@ -38,12 +38,12 @@ while ($enregistrement = $stmt->fetch(PDO::FETCH_ASSOC)) {
     extract($enregistrement);
 
     $item_utilisateur = array(
-        "id_utilisateur" => $enregistrement->id_utilisateur,
-        "nom" => html_entity_decode($enregistrement->nom),
-        "pseudonyme" => $enregistrement->pseudonyme
+        "id_utilisateur" => $id_utilisateur,
+        "nom" => html_entity_decode($nom),
+        "pseudonyme" => $pseudonyme
     );
 
-    array_push($reponseAPI->$tab_utilisateur, $item_utilisateur);
+    array_push($reponseAPI->tab_utilisateur, $item_utilisateur);
 }
 
 // Ajout d'un message si aucun enregistrement n'a été trouvé
@@ -57,7 +57,7 @@ if ($stmt->rowCount() == 0) {
     array_push($reponseAPI->tab_message, $item_message);
 }
 
-$reponseAPI->statut = true;
 $reponseAPI->ajouter_utilisateur();
+$reponseAPI->statut = true;
 
 echo $reponseAPI->construire_reponse();

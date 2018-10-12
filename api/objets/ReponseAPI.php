@@ -26,6 +26,9 @@ class ReponseAPI
     // tableau de publications
     public $tab_publication = array();
 
+    // tableau de pages
+    public $tab_page = array();
+
     // tableau de la reponse
     private $tab_reponse = array();
 
@@ -45,6 +48,11 @@ class ReponseAPI
     function ajouter_publication()
     {
         $this->tab_donnee["publication"] = $this->tab_publication;
+    }
+
+    function ajouter_pagination()
+    {
+        $this->tab_donnee["page"] = $this->tab_page;
     }
 
     function construire_reponse()

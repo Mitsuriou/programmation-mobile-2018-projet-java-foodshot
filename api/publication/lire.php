@@ -38,17 +38,17 @@ while ($enregistrement = $stmt->fetch(PDO::FETCH_ASSOC)) {
     extract($enregistrement);
 
     $item_publication = array(
-        "id_publication" => $enregistrement->id_publication,
-        "titre" => html_entity_decode($enregistrement->titre),
-        "description" => html_entity_decode($enregistrement->description),
-        "url_image" => $enregistrement->url_image,
-        "latitude" => $enregistrement->latitude,
-        "longitude" => $enregistrement->longitude,
-        //"nombre_mention_aime" => $enregistrement->nombre_mention_aime,
-        "id_utilisateur" => $enregistrement->id_utilisateur,
-        //"pseudonyme_utilisateur" => $enregistrement->pseudonyme_utilisateur,
-        //"url_image_utilisateur" => $enregistrement->url_image_utilisateur,
-        "creation" => $enregistrement->creation
+        "id_publication" => $id_publication,
+        "titre" => html_entity_decode($titre),
+        "description" => html_entity_decode($description),
+        "url_image" => $url_image,
+        "latitude" => $latitude,
+        "longitude" => $longitude,
+        //"nombre_mention_aime" => $nombre_mention_aime,
+        "id_utilisateur" => $id_utilisateur,
+        //"pseudonyme_utilisateur" => $pseudonyme_utilisateur,
+        //"url_image_utilisateur" => $url_image_utilisateur,
+        "creation" => $creation
     );
 
     array_push($reponseAPI->tab_publication, $item_publication);
@@ -65,7 +65,7 @@ if ($stmt->rowCount() == 0) {
     array_push($reponseAPI->tab_message, $item_message);
 }
 
-$reponseAPI->statut = true;
 $reponseAPI->ajouter_publication();
+$reponseAPI->statut = true;
 
 echo $reponseAPI->construire_reponse();
