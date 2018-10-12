@@ -56,10 +56,52 @@ class Publication
         return $stmt;
     }
 
-    // read products with pagination
+    /**
+     * créer une publication
+     * @return bool indiquant l'état d'exécution de la requete
+     */
+    function creer()
+    {
+        // requete pour insérer un enregistrement
+        $requete = "INSERT INTO
+                " . $this->nom_table . "(titre, description, latitude, longitude, id_utilisateur)
+            VALUES
+                (:titre, :description, :latitude, :longitude, :id_utilisateur)";
+
+        // préparation de la requete
+        $stmt = $this->connexion_bdd->prepare($requete);
+
+        // sanitize
+        $this->titre=htmlspecialchars(strip_tags($this->titre));
+        $this->description=htmlspecialchars(strip_tags($this->description));
+        $this->latitude=htmlspecialchars(strip_tags($this->latitude));
+        $this->longitude=htmlspecialchars(strip_tags($this->longitude));
+        $this->id_utilisateur=htmlspecialchars(strip_tags($this->id_utilisateur));
+
+        // liaison des variables
+        $stmt->bindParam(":titre", $this->titre);
+        $stmt->bindParam(":description", $this->description);
+        $stmt->bindParam(":latitude", $this->latitude);
+        $stmt->bindParam(":longitude", $this->longitude);
+        $stmt->bindParam(":id_utilisateur", $this->id_utilisateur);
+
+        // exécution de la requete
+        if($stmt->execute()){
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
+     * lire les publications avec pagination
+     * @param $numero_enregistrement_debut
+     * @param $enregistrements_par_page
+     * @return mixed
+     */
     public function lirePagination($numero_enregistrement_debut, $enregistrements_par_page){
 
-        // select query
+        // requete de selection
         $requete = "SELECT
                 u.pseudonyme as pseudonyme_utilisateur, u.url_image as url_image_utilisateur,
                 p.id_publication, p.titre, p.description, p.url_image, p.latitude, p.longitude, p.id_utilisateur, p.creation
@@ -72,28 +114,16 @@ class Publication
             LIMIT ?
             OFFSET ?";
 
-        // prepare query statement
+        // préparation de la requete
         $stmt = $this->connexion_bdd->prepare($requete);
 
-        // bind variable values
+        // liaison des variables
         $stmt->bindParam(1, $enregistrements_par_page, \PDO::PARAM_INT);
         $stmt->bindParam(2, $numero_enregistrement_debut, \PDO::PARAM_INT);
 
-        // execute query
+        // exécution de la requete
         $stmt->execute();
 
-        // return values from database
         return $stmt;
-    }
-
-    // used for paging products
-    public function conter(){
-        $requete = "SELECT COUNT(*) as enregistrements_totaux FROM " . $this->nom_table;
-
-        $stmt = $this->connexion_bdd->prepare( $requete );
-        $stmt->execute();
-        $enregistrement = $stmt->fetch(\PDO::FETCH_ASSOC);
-
-        return $enregistrement['enregistrements_totaux'];
     }
 }

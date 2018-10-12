@@ -10,13 +10,13 @@
 header("Access-Control-Allow-Origin: *");
 header("Content-Type: application/json; charset=UTF-8");
 
-include_once '../config/coeur.php';
+require_once '../config/coeur.php';
 require_once '../config/Connexion.php';
 require_once '../objets/Publication.php';
 require_once '../objets/ReponseAPI.php';
 
-ini_set('display_errors', 'On');
-error_reporting(E_ALL);
+//ini_set('display_errors', 'On');
+//error_reporting(E_ALL);
 
 use ProjetMobileAPI\Connexion;
 use ProjetMobileAPI\Publication;
@@ -30,7 +30,7 @@ $publication = new Publication($bdd);
 $reponseAPI = new ReponseAPI();
 
 // recherche de publications
-$stmt = $publication->lirePagination($from_record_num, $enregistrements_par_page);
+$stmt = $publication->lirePagination($numero_enregistrement_debut, $enregistrements_par_page);
 
 // récupération du contenu de la table
 while ($enregistrement = $stmt->fetch(PDO::FETCH_ASSOC)) {
