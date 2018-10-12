@@ -76,25 +76,28 @@ public class ActiviteNouvellePublication extends AppCompatActivity {
                 //TODO call API
                 trouverLocalisation();
 
-                if (ActivityCompat.checkSelfPermission(ActiviteNouvellePublication.this, ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-
-                    return;
+                if (ActivityCompat.checkSelfPermission(ActiviteNouvellePublication.this, ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+                    client.getLastLocation().addOnSuccessListener(ActiviteNouvellePublication.this, new OnSuccessListener<Location>() {
+                        @Override
+                        public void onSuccess(Location location) {
+                            if (location != null) {
+                                latitude = location.getLatitude();
+                                longitude = location.getLongitude();
+                            }
+                            else {
+                                latitude = 0;
+                                longitude = 0;
+                            }
+                        }
+                    });
                 }
-                client.getLastLocation().addOnSuccessListener(ActiviteNouvellePublication.this, new OnSuccessListener<Location>() {
-                    @Override
-                    public void onSuccess(Location location) {
-                        if (location != null) {
-                            latitude = location.getLatitude();
-                            longitude = location.getLongitude();
-                        }
-                        else {
-                            latitude = 0;
-                            longitude = 0;
-                        }
-                        Log.d("coord_lat", "" + latitude);
-                        Log.d("coord_long", "" + longitude);
-                    }
-                });
+                else {
+                    latitude = 0;
+                    longitude = 0;
+                }
+
+                Log.d("coord_lat", "" + latitude);
+                Log.d("coord_long", "" + longitude);
 
                 Toast.makeText(ActiviteNouvellePublication.this, "Publication postée avec succès ! :D", Toast.LENGTH_SHORT).show();
                 finirActivite();
