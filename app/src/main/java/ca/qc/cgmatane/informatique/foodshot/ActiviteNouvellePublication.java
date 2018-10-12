@@ -23,6 +23,10 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.tasks.OnSuccessListener;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -31,19 +35,17 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.Date;
 
-public class ActiviteNouvellePublication extends AppCompatActivity {
+import static android.Manifest.permission.ACCESS_FINE_LOCATION;
 
-    private static final int DEMANDE_PERMISSION_MULTIPLE = 1;
+public class ActiviteNouvellePublication extends AppCompatActivity {
 
     private static final int DEMANDE_CAM = 1102;
     private static final String DOSSIER_PHOTO = "FoodShot";
 
     //localisation
-    private static int DEMANDE_LOCALISATION = 1102;
-    private LocationManager lm;
-    private Location localisation;
-    private double longitude;
+    private FusedLocationProviderClient client;
     private double latitude;
+    private double longitude;
 
     String outputFilePath;
 
@@ -55,35 +57,50 @@ public class ActiviteNouvellePublication extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.vue_activite_nouvelle_publication);
 
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED
-                && ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED
-                && ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED
-                && ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+        this.demanderPermissions();
 
-            this.boutonCaptureImage = (Button)findViewById(R.id.bouton_demarrer_appareil_photo);
-            this.boutonCaptureImage.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    onCamera();
-                }
-            });
+        this.client = LocationServices.getFusedLocationProviderClient(this);
 
-            this.boutonPosterPublication = (Button) findViewById(R.id.poster_nouvelle_publication);
-            this.boutonPosterPublication.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Toast.makeText(ActiviteNouvellePublication.this, "Publication postée avec succès ! :D", Toast.LENGTH_SHORT).show();
-                    finirActivite();
+        this.boutonCaptureImage = (Button) findViewById(R.id.bouton_demarrer_appareil_photo);
+        this.boutonCaptureImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onCamera();
+            }
+        });
+
+        this.boutonPosterPublication = (Button) findViewById(R.id.poster_nouvelle_publication);
+        this.boutonPosterPublication.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //TODO call API
+                trouverLocalisation();
+
+                if (ActivityCompat.checkSelfPermission(ActiviteNouvellePublication.this, ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+
+                    return;
                 }
-            });
-        }
-        else
-            ActivityCompat.requestPermissions(this, new String[]{
-                    Manifest.permission.CAMERA,
-                    Manifest.permission.WRITE_EXTERNAL_STORAGE,
-                    Manifest.permission.ACCESS_FINE_LOCATION,
-                    Manifest.permission.ACCESS_COARSE_LOCATION
-            }, DEMANDE_PERMISSION_MULTIPLE);
+                client.getLastLocation().addOnSuccessListener(ActiviteNouvellePublication.this, new OnSuccessListener<Location>() {
+                    @Override
+                    public void onSuccess(Location location) {
+                        if (location != null) {
+                            latitude = location.getLatitude();
+                            longitude = location.getLongitude();
+                        }
+                        else {
+                            latitude = 0;
+                            longitude = 0;
+                        }
+                        Log.d("coord_lat", "" + latitude);
+                        Log.d("coord_long", "" + longitude);
+                    }
+                });
+
+                Toast.makeText(ActiviteNouvellePublication.this, "Publication postée avec succès ! :D", Toast.LENGTH_SHORT).show();
+                finirActivite();
+            }
+        });
+
 
     }
 
@@ -127,7 +144,6 @@ public class ActiviteNouvellePublication extends AppCompatActivity {
                 Uri finalUri = Uri.fromFile(publicFile);
                 galleryAddPic(finalUri);
                 ((ImageView) findViewById(R.id.conteneur_photo_capturee)).setImageURI(finalUri);
-                trouverLocalisation();
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -162,43 +178,15 @@ public class ActiviteNouvellePublication extends AppCompatActivity {
     }
 
     private void trouverLocalisation() {
-        this.longitude = 0;
-        this.latitude = 0;
 
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED
-                && ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
-            lm = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-            localisation = lm.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+    }
 
-            if (localisation == null) {
-                this.longitude = 0;
-                this.latitude = 0;
-                return;
-            }
-            else {
-                final LocationListener locationListener = new LocationListener() {
-                    @Override
-                    public void onLocationChanged(Location location) {
-                        longitude = localisation.getLongitude();
-                        latitude = localisation.getLatitude();
-                    }
-
-                    @Override
-                    public void onStatusChanged(String s, int i, Bundle bundle) {}
-
-                    @Override
-                    public void onProviderEnabled(String s) {}
-
-                    @Override
-                    public void onProviderDisabled(String s) {}
-                };
-
-                lm.requestLocationUpdates(LocationManager.GPS_PROVIDER, 2000, 10, locationListener);
-            }
-
-        }
-        Log.d("coord_lat", "" + this.latitude);
-        Log.d("coord_lon", "" + this.longitude);
+    private void demanderPermissions() {
+        ActivityCompat.requestPermissions(this, new String[]{
+                Manifest.permission.ACCESS_FINE_LOCATION,
+                Manifest.permission.CAMERA,
+                Manifest.permission.WRITE_EXTERNAL_STORAGE,
+        }, 1);
     }
 
 }
