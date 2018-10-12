@@ -215,4 +215,32 @@ class Utilisateur
 
         return $stmt;
     }
+
+    /**
+     * lire les données d'un utilisateur
+     * utilisé pour pré-remplir le formulaire de modification de l'utilisateur
+     */
+    function authentifier()
+    {
+        // requete pour chercher l'utilisateur
+        $requete = "SELECT
+                u.id_utilisateur, u.nom, u.url_image, u.mdp_hash, u.creation
+            FROM
+                " . $this->nom_table . " u
+            WHERE
+                u.pseudonyme = ?
+            LIMIT
+                1";
+
+        // préparation de la requete
+        $stmt = $this->connexion_bdd->prepare($requete);
+
+        // liaison du pseudonyme et du mot de passe de l'utilisateur à authentifier
+        $stmt->bindParam(1, $this->pseudonyme);
+
+        // exécution de la requete
+        $stmt->execute();
+
+        return $stmt;
+    }
 }

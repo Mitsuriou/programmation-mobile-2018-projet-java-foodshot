@@ -28,7 +28,7 @@ $bdd = Connexion::get()->connect();
 // création de l'objet utilisateur
 $utilisateur = new Utilisateur($bdd);
 
-// récupération de l'id de l'utilisateur à modifier
+// récupération des données de l'utilisateur à modifier
 $data = json_decode(file_get_contents("php://input"));
 
 // définition de l'id de l'utilisateur à éditer

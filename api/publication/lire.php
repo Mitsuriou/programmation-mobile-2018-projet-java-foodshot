@@ -14,8 +14,8 @@ require_once '../config/Connexion.php';
 require_once '../objets/Publication.php';
 require_once '../objets/ReponseAPI.php';
 
-ini_set('display_errors', 'On');
-error_reporting(E_ALL);
+//ini_set('display_errors', 'On');
+//error_reporting(E_ALL);
 
 use ProjetMobileAPI\Connexion;
 use ProjetMobileAPI\Publication;

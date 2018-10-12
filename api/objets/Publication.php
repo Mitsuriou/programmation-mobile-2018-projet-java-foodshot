@@ -22,7 +22,7 @@ class Publication
     public $url_image;
     public $latitude;
     public $longitude;
-    public $mention_j_aime;
+    public $nombre_mention_aime;
     public $id_utilisateur;
     public $pseudonyme_utilisateur;
     public $url_image_utilisateur;
