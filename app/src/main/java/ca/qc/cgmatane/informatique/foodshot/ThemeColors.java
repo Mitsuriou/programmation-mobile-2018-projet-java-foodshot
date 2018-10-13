@@ -20,12 +20,15 @@ public class ThemeColors {
 
         switch (id_Color){
             case "1":
-                context.setTheme(R.style.AppThemeRouge);
+                context.setTheme(R.style.AppTheme);
                 break;
             case "2":
-                context.setTheme(R.style.AppThemeVert);
+                context.setTheme(R.style.AppThemeRouge);
                 break;
             case "3":
+                context.setTheme(R.style.AppThemeVert);
+                break;
+            case "4":
                 context.setTheme(R.style.AppThemeBleu);
                 break;
         }
