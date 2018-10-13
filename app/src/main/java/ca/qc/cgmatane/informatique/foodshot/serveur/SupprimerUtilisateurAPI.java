@@ -9,7 +9,6 @@ import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
-import okhttp3.Response;
 
 public class SupprimerUtilisateurAPI extends AsyncTask<String, String, String> {
     private int idUtilisateur;
@@ -26,7 +25,6 @@ public class SupprimerUtilisateurAPI extends AsyncTask<String, String, String> {
     @Override
     protected String doInBackground(String... params) {
         MediaType JSON = MediaType.parse("application/json; charset=utf-8");
-        Response reponse;
 
         OkHttpClient client = new OkHttpClient();
         JSONObject data = new JSONObject();
@@ -44,10 +42,7 @@ public class SupprimerUtilisateurAPI extends AsyncTask<String, String, String> {
                 .build();
 
         try {
-            reponse = client.newCall(request).execute();
-            String jsonData = reponse.body().string();
-            JSONObject jObject = new JSONObject(jsonData);
-            //Log.d("reponse_serveur", jObject.toString());
+            client.newCall(request).execute();
         } catch (Exception e) {
             e.printStackTrace();
         }

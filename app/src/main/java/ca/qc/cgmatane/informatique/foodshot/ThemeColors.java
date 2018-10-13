@@ -2,9 +2,7 @@ package ca.qc.cgmatane.informatique.foodshot;
 
 import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
-import android.os.Build;
 import android.support.annotation.ColorInt;
 
 public class ThemeColors {

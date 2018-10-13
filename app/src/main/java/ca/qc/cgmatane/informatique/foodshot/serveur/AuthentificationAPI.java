@@ -1,7 +1,6 @@
 package ca.qc.cgmatane.informatique.foodshot.serveur;
 
 import android.os.AsyncTask;
-import android.util.Log;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -66,7 +65,6 @@ public class AuthentificationAPI extends AsyncTask<String, String, String> {
 
             String jsonDonneesString = reponse.body().string();
             JSONObject jsonDonneesObjet = new JSONObject(jsonDonneesString);
-            Log.d("json_reponse_serveur", jsonDonneesObjet.toString());
 
             // statut
             String statutString = jsonDonneesObjet.getString("statut");
@@ -110,9 +108,6 @@ public class AuthentificationAPI extends AsyncTask<String, String, String> {
                         valeur.getString("type"),
                         valeur.getString("message")
                 ));
-                Log.d("message_code", valeur.getString("code"));
-                Log.d("message_type", valeur.getString("type"));
-                Log.d("message_message", valeur.getString("message"));
             }
 
         } catch (Exception e) {

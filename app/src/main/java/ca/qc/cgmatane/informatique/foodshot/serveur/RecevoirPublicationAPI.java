@@ -1,7 +1,6 @@
 package ca.qc.cgmatane.informatique.foodshot.serveur;
 
 import android.os.AsyncTask;
-import android.util.Log;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -87,18 +86,6 @@ public class RecevoirPublicationAPI extends AsyncTask<String, String, String> {
                         urlProfil,
                         valeur.getString("creation")
                 ));
-
-                Log.d("utilisateur_id", "" + valeur.getInt("id_publication"));
-                Log.d("utilisateur_nom", valeur.getString("titre"));
-                Log.d("utilisateur_pseudonyme", valeur.getString("description"));
-                Log.d("utilisateur_pseudonyme", valeur.getString("url_image"));
-                Log.d("utilisateur_pseudonyme", "" + valeur.getDouble("latitude"));
-                Log.d("utilisateur_pseudonyme", "" + valeur.getDouble("longitude"));
-                Log.d("utilisateur_pseudonyme", "" + valeur.getInt("nombre_mention_aime"));
-                Log.d("utilisateur_pseudonyme", valeur.getString("pseudonyme_utilisateur"));
-                Log.d("utilisateur_pseudonyme", "" + valeur.getInt("id_utilisateur"));
-                Log.d("utilisateur_pseudonyme", "" + valeur.getString("creation"));
-
             }
 
             // message
@@ -117,9 +104,6 @@ public class RecevoirPublicationAPI extends AsyncTask<String, String, String> {
                         valeur.getString("type"),
                         valeur.getString("message")
                 ));
-                Log.d("message_code", valeur.getString("code"));
-                Log.d("message_type", valeur.getString("type"));
-                Log.d("message_message", valeur.getString("message"));
             }
 
         } catch (Exception e) {

@@ -1,7 +1,6 @@
 package ca.qc.cgmatane.informatique.foodshot.serveur;
 
 import android.os.AsyncTask;
-import android.util.Log;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -55,7 +54,6 @@ public class ModifierUtilisateurAPI extends AsyncTask<String, String, String> {
             Response reponse = client.newCall(request).execute();
             if (!reponse.isSuccessful())
                 throw new IOException("Unexpected code " + reponse.toString());
-            Log.d("reponse_serveur", reponse.body().string());
             return reponse.body().string();
         } catch (Exception e) {
             e.printStackTrace();

@@ -1,7 +1,6 @@
 package ca.qc.cgmatane.informatique.foodshot.serveur;
 
 import android.os.AsyncTask;
-import android.util.Log;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -12,7 +11,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import ca.qc.cgmatane.informatique.foodshot.modele.ModeleMessage;
-import ca.qc.cgmatane.informatique.foodshot.modele.ModeleUtilisateur;
 import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -74,7 +72,6 @@ public class NouvellePublicationAPI extends AsyncTask<String, String, String> {
 
             String jsonDonneesString = reponse.body().string();
             JSONObject jsonDonneesObjet = new JSONObject(jsonDonneesString);
-            Log.d("json_reponse_serveur", jsonDonneesObjet.toString());
 
             // statut
             String statutString = jsonDonneesObjet.getString("statut");

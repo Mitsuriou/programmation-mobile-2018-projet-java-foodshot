@@ -1,7 +1,6 @@
 package ca.qc.cgmatane.informatique.foodshot.serveur;
 
 import android.os.AsyncTask;
-import android.util.Log;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -48,11 +47,9 @@ public class RechercherProfilAPI extends AsyncTask<String, String, String> {
 
             String jsonDonneesString = reponse.body().string();
             JSONObject jsonDonneesObjet = new JSONObject(jsonDonneesString);
-            Log.d("json_reponse_serveur", jsonDonneesObjet.toString());
 
             // statut
             String statutString = jsonDonneesObjet.getString("statut");
-            Log.d("json_recherche_statut", statutString);
 
             this.statut = statutString.equals("true");
 
@@ -75,9 +72,6 @@ public class RechercherProfilAPI extends AsyncTask<String, String, String> {
                         valeur.getString("nom"),
                         valeur.getString("pseudonyme")
                 ));
-                Log.d("utilisateur_id", "" + valeur.getInt("id_utilisateur"));
-                Log.d("utilisateur_nom", valeur.getString("nom"));
-                Log.d("utilisateur_pseudonyme", valeur.getString("pseudonyme"));
             }
 
             // message
@@ -96,9 +90,6 @@ public class RechercherProfilAPI extends AsyncTask<String, String, String> {
                         valeur.getString("type"),
                         valeur.getString("message")
                 ));
-                Log.d("message_code", valeur.getString("code"));
-                Log.d("message_type", valeur.getString("type"));
-                Log.d("message_message", valeur.getString("message"));
             }
 
         } catch (Exception e) {
