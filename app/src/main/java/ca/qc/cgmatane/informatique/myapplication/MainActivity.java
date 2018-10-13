@@ -1,6 +1,9 @@
 package ca.qc.cgmatane.informatique.myapplication;
 
 import android.app.Activity;
+import android.content.Context;
+import android.content.SharedPreferences;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.NonNull;
@@ -28,8 +31,10 @@ public class MainActivity extends Activity {
     private ProgressBar progressBar;
     private static final String TAG = "MainActivity";
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        new ThemeColors(this);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 

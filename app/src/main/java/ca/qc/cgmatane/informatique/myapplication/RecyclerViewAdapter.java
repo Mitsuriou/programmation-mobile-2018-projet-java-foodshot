@@ -1,5 +1,6 @@
 package ca.qc.cgmatane.informatique.myapplication;
 
+import android.app.Activity;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v4.view.GestureDetectorCompat;
@@ -21,6 +22,7 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.RequestOptions;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -73,7 +75,7 @@ public class RecyclerViewAdapter extends ListAdapter<Publication, RecyclerViewAd
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, final int position) {
+    public void onBindViewHolder(@NonNull final ViewHolder holder, final int position) {
 
         coeur = "/res/mipmap/ic_launcher/ic_launcher.png";
 
@@ -141,9 +143,6 @@ public class RecyclerViewAdapter extends ListAdapter<Publication, RecyclerViewAd
         RequestOptions ro = new RequestOptions();
         ro.placeholder(R.drawable.ic_launcher_background);
 
-
-        Log.d("CHANGEEEEEEED", "" + listePublication.get(position).getURLimage());
-
         Glide.with(context)
                 .applyDefaultRequestOptions(ro)
                 .asBitmap()
@@ -169,15 +168,15 @@ public class RecyclerViewAdapter extends ListAdapter<Publication, RecyclerViewAd
         holder.nbCoeur.setText("" + listePublication.get(position).getNbLike());
         holder.user_name.setText(listePublication.get(position).getUsername());
 
+        final Activity activity = (Activity) context;
 
-//        holder.photo_profil.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Log.d(TAG,"onClick: PP on: "+userNames.get(position));
-//
-//                //Toast.makeText(context,imageNames.get(position),Toast.LENGTH_SHORT).show();
-//            }
-//        });
+        holder.photo_profil.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ThemeColors.switchThemeColor(activity,2);
+
+            }
+        });
 //
 //        image.setOnClickListener(new View.OnClickListener() {
 //            @Override
