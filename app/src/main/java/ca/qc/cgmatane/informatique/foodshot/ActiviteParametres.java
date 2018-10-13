@@ -1,14 +1,17 @@
 package ca.qc.cgmatane.informatique.foodshot;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import ca.qc.cgmatane.informatique.foodshot.constantes.Constantes;
 import ca.qc.cgmatane.informatique.foodshot.serveur.ModifierUtilisateurAPI;
@@ -42,6 +45,8 @@ public class ActiviteParametres extends AppCompatActivity {
                 // TODO suppression de compte en fonction de son id
                 // TODO deconnexion
                 /*new SupprimerUtilisateurAPI(id).execute();*/
+
+                afficherDialogueSuppresion();
             }
         });
     }
@@ -107,5 +112,37 @@ public class ActiviteParametres extends AppCompatActivity {
             return false;
         }
         return true;
+    }
+
+    public void deconnexion() {
+        SharedPreferences preferencesPartagees = getSharedPreferences(Constantes.MES_PREFERENCES, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editeur = preferencesPartagees.edit();
+        editeur.clear();
+        editeur.apply();
+        editeur.commit();
+        Toast.makeText(this, "Compte supprimé", Toast.LENGTH_SHORT).show();
+        startActivity(new Intent(this, ActiviteConnexion.class));
+    }
+
+    public void afficherDialogueSuppresion() {
+        final SharedPreferences preferencesPartagees = getSharedPreferences(Constantes.MES_PREFERENCES, Context.MODE_PRIVATE);
+        new AlertDialog.Builder(this)
+                .setIcon(android.R.drawable.ic_dialog_alert)
+                .setTitle("Suppression de votre compte FoodShot")
+                .setMessage("Voulez-vous vraiment supprimer votre compte FoodShot ? Vos données seront intégralement effacées.")
+                .setPositiveButton("Supprimer mon compte", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        new SupprimerUtilisateurAPI(preferencesPartagees.getInt("id_utilisateur", -1)).execute();
+                        deconnexion();
+                    }
+                })
+                .setNegativeButton("Non !", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        onBackPressed();
+                    }
+                })
+                .show();
     }
 }
