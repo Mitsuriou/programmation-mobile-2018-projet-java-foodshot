@@ -37,28 +37,55 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent" >
 
-        <EditText
-            android:id="@+id/champ_titre_nouvelle_publication"
+        <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:ems="10"
-            android:hint="Titre"
-            android:inputType="text" />
+            android:layout_weight="1">
+
+            <EditText
+                android:id="@+id/champ_titre_nouvelle_publication"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Titre"
+                android:inputType="text"
+                android:maxLines="1"
+                android:singleLine="true" />
+
+        </android.support.design.widget.TextInputLayout>
+
     </TableRow>
 
     <TableRow
         android:layout_width="match_parent"
         android:layout_height="match_parent" >
 
-        <EditText
-            android:id="@+id/champ_description_nouvelle_publication"
+        <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_weight="1">
+
+            <EditText
+                android:id="@+id/champ_description_nouvelle_publication"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Description"
+                android:inputType="text"
+                android:maxLines="1"
+                android:singleLine="true" />
+
+        </android.support.design.widget.TextInputLayout>
+
+    </TableRow>
+
+    <TableRow
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" >
+
+        <TextView
+            android:id="@+id/affichage_erreurs_nouvelle_publication"
+            android:layout_width="match_parent"
             android:layout_weight="1"
-            android:ems="10"
-            android:hint="Description"
-            android:inputType="text" />
+            android:layout_height="wrap_content" />
     </TableRow>
 
     <TableRow

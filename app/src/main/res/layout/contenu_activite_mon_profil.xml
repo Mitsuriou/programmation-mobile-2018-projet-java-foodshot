@@ -8,6 +8,6 @@
     tools:context=".ActiviteMonProfil"
     tools:showIn="@layout/vue_activite_mon_profil">
 
-    <!-- ici une vue scroll infini avec les images postées soi-même -->
+    <!-- TODO : ici une vue scroll infini avec les images postées soi-même -->
 
 </android.support.v4.widget.NestedScrollView>
