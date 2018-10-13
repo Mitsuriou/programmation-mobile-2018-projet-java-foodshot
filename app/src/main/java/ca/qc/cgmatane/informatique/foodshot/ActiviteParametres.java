@@ -1,6 +1,8 @@
 package ca.qc.cgmatane.informatique.foodshot;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -8,6 +10,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import ca.qc.cgmatane.informatique.foodshot.constantes.Constantes;
 import ca.qc.cgmatane.informatique.foodshot.serveur.ModifierUtilisateurAPI;
 import ca.qc.cgmatane.informatique.foodshot.serveur.SupprimerUtilisateurAPI;
 
@@ -65,8 +68,9 @@ public class ActiviteParametres extends AppCompatActivity {
         this.reinitialiserErreurs();
 
         if (isNomValide() && isMotDePasseValide()) {
-            // TODO : prendre l'id depuis les constantes d'application
-            new ModifierUtilisateurAPI(20,
+            SharedPreferences preferencesPartagees = getSharedPreferences(Constantes.MES_PREFERENCES, Context.MODE_PRIVATE);
+            new ModifierUtilisateurAPI(
+                    preferencesPartagees.getInt("id_utilisateur", -1),
                     this.compteChampNomUtilisateur.getText().toString(),
                     this.compteChampMdp1.getText().toString()).execute();
 

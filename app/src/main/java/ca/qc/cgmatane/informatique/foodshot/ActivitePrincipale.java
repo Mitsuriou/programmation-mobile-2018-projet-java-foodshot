@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -16,7 +17,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
 import android.widget.Toast;
+
+import org.w3c.dom.Text;
 
 import java.util.List;
 import java.util.ArrayList;
@@ -65,6 +69,19 @@ public class ActivitePrincipale extends AppCompatActivity implements NavigationV
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        // Ajout des informations de l'utilisateur dans le header du drawer
+        View vueDrawer = navigationView.getHeaderView(0);
+        TextView nomDrawer = (TextView) vueDrawer.findViewById(R.id.drawer_header_nom);
+        nomDrawer.setText(preferencesPartagees.getString("nom", "Nom"));
+
+        TextView pseudonymeDrawer = (TextView) vueDrawer.findViewById(R.id.drawer_header_pseudonyme);
+        pseudonymeDrawer.setText("@");
+        pseudonymeDrawer.append(preferencesPartagees.getString("pseudonyme", "Pseudonyme"));
+
+        TextView nombreMentionsAime = (TextView) vueDrawer.findViewById(R.id.drawer_header_nombres_mentions_jaime);
+        nombreMentionsAime.setText(preferencesPartagees.getString("nombre_mentions_aime", "999999"));
+        nombreMentionsAime.append(" Coeurs");
 
         initImageBitmaps();
     }
@@ -118,7 +135,7 @@ public class ActivitePrincipale extends AppCompatActivity implements NavigationV
             Intent intentionNaviguerVersAutourDeMoi = new Intent(this, ActiviteCarte.class);
             startActivity(intentionNaviguerVersAutourDeMoi);
         } else if (id == R.id.notifications) {
-            //TODO
+            // TODO
             Toast.makeText(this, "A venir", Toast.LENGTH_SHORT).show();
         } else if (id == R.id.parametres) {
             Intent intentionNaviguerVersParametres = new Intent(this, ActiviteParametres.class);
@@ -284,7 +301,6 @@ public class ActivitePrincipale extends AppCompatActivity implements NavigationV
         editeur.apply();
         editeur.commit();
         Toast.makeText(this, "Déconnexion réussie.", Toast.LENGTH_SHORT).show();
-
         startActivity(new Intent(this, ActiviteConnexion.class));
     }
 
