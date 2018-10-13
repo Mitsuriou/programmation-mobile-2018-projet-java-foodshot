@@ -17,7 +17,6 @@ import java.util.HashMap;
 import java.util.List;
 
 import ca.qc.cgmatane.informatique.foodshot.modele.ModeleMessage;
-import ca.qc.cgmatane.informatique.foodshot.modele.ModeleUtilisateur;
 import ca.qc.cgmatane.informatique.foodshot.modele.ModeleUtilisateurRecherche;
 import ca.qc.cgmatane.informatique.foodshot.serveur.RechercherProfilAPI;
 
@@ -42,9 +41,7 @@ public class ActiviteRechercherProfil extends AppCompatActivity {
         champPseudonyme.addTextChangedListener(
                 new TextWatcher() {
                     @Override
-                    public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-                    }
+                    public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
 
                     @Override
                     public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -54,9 +51,7 @@ public class ActiviteRechercherProfil extends AppCompatActivity {
                     }
 
                     @Override
-                    public void afterTextChanged(Editable editable) {
-
-                    }
+                    public void afterTextChanged(Editable editable) {}
                 }
         );
     }

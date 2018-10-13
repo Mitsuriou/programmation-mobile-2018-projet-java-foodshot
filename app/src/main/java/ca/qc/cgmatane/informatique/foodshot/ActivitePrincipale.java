@@ -124,8 +124,7 @@ public class ActivitePrincipale extends AppCompatActivity implements NavigationV
             Intent intentionNaviguerVersParametres = new Intent(this, ActiviteParametres.class);
             startActivity(intentionNaviguerVersParametres);
         } else if (id == R.id.deconnexion) {
-            //TODO
-            Toast.makeText(this, "A venir", Toast.LENGTH_SHORT).show();
+            this.deconnexion();
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -276,6 +275,17 @@ public class ActivitePrincipale extends AppCompatActivity implements NavigationV
         RecyclerViewAdapter adapter = new RecyclerViewAdapter(getApplicationContext(),lURL, lNames,lUserNames,lPP,coeur,nbCoeur);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
+    }
+
+    private void deconnexion() {
+        SharedPreferences preferencesPartagees = getSharedPreferences(Constantes.MES_PREFERENCES, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editeur = preferencesPartagees.edit();
+        editeur.clear();
+        editeur.apply();
+        editeur.commit();
+        Toast.makeText(this, "Déconnexion réussie.", Toast.LENGTH_SHORT).show();
+
+        startActivity(new Intent(this, ActiviteConnexion.class));
     }
 
 }
