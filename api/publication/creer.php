@@ -45,24 +45,20 @@ $item_message = array();
 
 // création de la publication
 if ($publication->creer()) {
-    $item_message = array(
-        "code" => 0,
-        "type" => "info",
-        "message" => "La publication a été créée avec succès"
-    );
+
+    $item_message['code'] = 0;
+    $item_message['type'] = "info";
+    $item_message['message'] = "La publication a été créée avec succès";
 } else {
 
     // si la publication n'est pas créée, informe l'utilisateur
-    $item_message = array(
-        "code" => 0,
-        "type" => "erreur",
-        "message" => "Impossible de créer la publication"
-    );
+    $item_message['code'] = 0;
+    $item_message['type'] = "erreur";
+    $item_message['message'] = "Impossible de créer la publication";
 }
 
 array_push($reponseAPI->tab_message, $item_message);
 
-//$reponseAPI->ajouter_publication();
 $reponseAPI->statut = true;
 
 echo $reponseAPI->construire_reponse();
