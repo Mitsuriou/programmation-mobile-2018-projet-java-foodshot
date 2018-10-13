@@ -39,7 +39,7 @@ class Utilisateur
     function lire()
     {
         $requete = "SELECT
-                u.id_utilisateur, u.nom, u.pseudonyme
+                u.id_utilisateur, u.nom, u.pseudonyme, u.url_image
             FROM
                 " . $this->nom_table . " u
             ORDER BY
@@ -60,9 +60,9 @@ class Utilisateur
     {
         // requete pour insérer un enregistrement
         $requete = "INSERT INTO
-                " . $this->nom_table . "(nom, pseudonyme, mdp_hash)
+                " . $this->nom_table . "(nom, pseudonyme, url_image, mdp_hash)
             VALUES
-                (:nom, :pseudonyme, :mdp_hash)";
+                (:nom, :pseudonyme, :url_image, :mdp_hash)";
 
         // préparation de la requete
         $stmt = $this->connexion_bdd->prepare($requete);
@@ -70,11 +70,13 @@ class Utilisateur
         // sanitize
         $this->nom=htmlspecialchars(strip_tags($this->nom));
         $this->pseudonyme=htmlspecialchars(strip_tags($this->pseudonyme));
+        $this->url_image=htmlspecialchars(strip_tags($this->url_image));
         $this->mdp_hash=htmlspecialchars(strip_tags($this->mdp_hash));
 
         // liaison des variables
         $stmt->bindParam(":nom", $this->nom);
         $stmt->bindParam(":pseudonyme", $this->pseudonyme);
+        $stmt->bindParam(":url_image", $this->url_image);
         $stmt->bindParam(":mdp_hash", $this->mdp_hash);
 
         // exécution de la requete
@@ -93,7 +95,7 @@ class Utilisateur
     {
         // requete pour lire un seul enregistrement
         $requete = "SELECT
-                u.id_utilisateur, u.nom, u.pseudonyme, u.mdp_hash, u.creation
+                u.nom, u.pseudonyme, u.url_image, u.creation
             FROM
                 " . $this->nom_table . " u
             WHERE
@@ -116,7 +118,7 @@ class Utilisateur
         // définir les valeurs comme propriétés de l'objet
         $this->nom = $enregistrement['nom'];
         $this->pseudonyme = $enregistrement['pseudonyme'];
-        $this->mdp_hash = $enregistrement['mdp_hash'];
+        $this->url_image = $enregistrement['url_image'];
         $this->creation = $enregistrement['creation'];
     }
 
@@ -139,6 +141,7 @@ class Utilisateur
         $stmt = $this->connexion_bdd->prepare($requete);
 
         // sanitize
+        $this->id_utilisateur=htmlspecialchars(strip_tags($this->id_utilisateur));
         $this->nom=htmlspecialchars(strip_tags($this->nom));
         $this->mdp_hash=htmlspecialchars(strip_tags($this->mdp_hash));
 
@@ -234,6 +237,9 @@ class Utilisateur
 
         // préparation de la requete
         $stmt = $this->connexion_bdd->prepare($requete);
+
+        // sanitize
+        $this->id_utilisateur=htmlspecialchars(strip_tags($this->id_utilisateur));
 
         // liaison du pseudonyme et du mot de passe de l'utilisateur à authentifier
         $stmt->bindParam(1, $this->pseudonyme);

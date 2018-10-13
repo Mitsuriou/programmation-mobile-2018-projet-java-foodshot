@@ -37,30 +37,27 @@ $data = json_decode(file_get_contents("php://input"));
 // définition des valeurs des propriétés de l'utilisateur
 $utilisateur->nom = $data->nom;
 $utilisateur->pseudonyme = $data->pseudonyme;
+$utilisateur->url_image = $data->url_image;
 $utilisateur->mdp_hash = $data->mdp_hash;
 
 $item_message = array();
 
 // création de l'utilisateur
 if ($utilisateur->creer()) {
-    $item_message = array(
-        "code" => 0,
-        "type" => "info",
-        "message" => "L'utilisateur a été créé avec succès"
-    );
+
+    $item_message['code'] = 0;
+    $item_message['type'] = "info";
+    $item_message['message'] = "L'utilisateur a été créé avec succès";
+
+    $reponseAPI->statut = true;
 } else {
 
     // si l'utilisateur n'est pas créé, informe l'utilisateur
-    $item_message = array(
-        "code" => 0,
-        "type" => "erreur",
-        "message" => "Impossible de créer l'utilisateur"
-    );
+    $item_message['code'] = 0;
+    $item_message['type'] = "alerte";
+    $item_message['message'] = "Impossible de créer l'utilisateur";
 }
 
 array_push($reponseAPI->tab_message, $item_message);
-
-//$reponseAPI->ajouter_utilisateur();
-$reponseAPI->statut = true;
 
 echo $reponseAPI->construire_reponse();

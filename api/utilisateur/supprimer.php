@@ -15,18 +15,21 @@ header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers
 
 require_once '../config/Connexion.php';
 require_once '../objets/Utilisateur.php';
+require_once '../objets/ReponseAPI.php';
 
 //ini_set('display_errors', 'On');
 //error_reporting(E_ALL);
 
 use ProjetMobileAPI\Connexion;
+use ProjetMobileAPI\ReponseAPI;
 use ProjetMobileAPI\Utilisateur;
 
 // récupération de la connexion à la base de données
 $bdd = Connexion::get()->connect();
 
-// création de l'objet utilisateur
+// création des objet requis
 $utilisateur = new Utilisateur($bdd);
+$reponseAPI = new ReponseAPI();
 
 // récupération de l'id de l'utilisateur
 $data = json_decode(file_get_contents("php://input"));
@@ -37,33 +40,19 @@ $utilisateur->id_utilisateur = $data->id_utilisateur;
 // suppression de l'utilisateur
 if ($utilisateur->supprimer()) {
 
-    echo json_encode(
-        array(
-            "statut" => true,
-            "donnee" => array(),
-            "message" => [
-                array(
-                    "code" => 0,
-                    "type" => "info",
-                    "message" => "L'utilisateur a été supprimé avec succès"
-                )
-            ]
-        )
-    );
+    $item_message['code'] = 0;
+    $item_message['type'] = "info";
+    $item_message['message'] = "L'utilisateur a été supprimé avec succès";
+
+    $reponseAPI->statut = true;
 } else {
 
     // si l'utilisateur n'est pas supprimé, informe l'utilisateur
-    echo json_encode(
-        array(
-            "statut" => false,
-            "donnee" => array(),
-            "message" => [
-                array(
-                    "code" => 0,
-                    "type" => "erreur",
-                    "message" => "Impossible de supprimer l'utilisateur"
-                )
-            ]
-        )
-    );
+    $item_message['code'] = 0;
+    $item_message['type'] = "erreur";
+    $item_message['message'] = "Impossible de supprimer l'utilisateur";
 }
+
+array_push($reponseAPI->tab_message, $item_message);
+
+echo $reponseAPI->construire_reponse();

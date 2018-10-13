@@ -37,22 +37,20 @@ while ($enregistrement = $stmt->fetch(PDO::FETCH_ASSOC)) {
     // extraction de l'enregistrement
     extract($enregistrement);
 
-    $item_utilisateur = array(
-        "id_utilisateur" => $id_utilisateur,
-        "nom" => html_entity_decode($nom),
-        "pseudonyme" => $pseudonyme
-    );
+    $item_utilisateur['id_utilisateur'] = $id_utilisateur;
+    $item_utilisateur['nom'] = html_entity_decode($nom);
+    $item_utilisateur['pseudonyme'] = $pseudonyme;
+    $item_utilisateur['url_image'] = $url_image;
 
     array_push($reponseAPI->tab_utilisateur, $item_utilisateur);
 }
 
 // Ajout d'un message si aucun enregistrement n'a été trouvé
 if ($stmt->rowCount() == 0) {
-    $item_message = array(
-        "code" => 0,
-        "type" => "alerte",
-        "message" => "Aucun utilisateur n'a été trouvé"
-    );
+
+    $item_message['code'] = 0;
+    $item_message['type'] = "alerte";
+    $item_message['message'] = "Aucun utilisateur n'a été trouvé";
 
     array_push($reponseAPI->tab_message, $item_message);
 }

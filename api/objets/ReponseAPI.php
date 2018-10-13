@@ -14,9 +14,6 @@ class ReponseAPI
     // boolean représentant la réussite ou l'échec de l'opération
     public $statut = false;
 
-    // tableau de donnees
-    public $tab_donnee = array();
-
     // tableau de messages
     public $tab_message = array();
 
@@ -26,35 +23,40 @@ class ReponseAPI
     // tableau de publications
     public $tab_publication = array();
 
-    // tableau de pages
-    public $tab_page = array();
+    // tableau de donnees
+    private $tab_donnee = array();
 
     // tableau de la reponse
     private $tab_reponse = array();
 
     /**
-     * Constructeur de ReponseAPI.
+     * constructeur de ReponseAPI.
      */
     public function __construct()
     {
 
     }
 
+    /**
+     * fonction pour ajouter un élément utilisateur à la réponse de l'API
+     */
     function ajouter_utilisateur()
     {
         $this->tab_donnee["utilisateur"] = $this->tab_utilisateur;
     }
 
+    /**
+     * fonction pour ajouter un élément publication à la réponse de l'API
+     */
     function ajouter_publication()
     {
         $this->tab_donnee["publication"] = $this->tab_publication;
     }
 
-    function ajouter_pagination()
-    {
-        $this->tab_donnee["page"] = $this->tab_page;
-    }
-
+    /**
+     * fonction permettant de construire la réponse en fonction des données fournies
+     * @return false|string
+     */
     function construire_reponse()
     {
         $this->tab_reponse["statut"] = $this->statut;

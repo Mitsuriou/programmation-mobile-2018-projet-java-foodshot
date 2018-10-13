@@ -15,18 +15,21 @@ header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers
 
 require_once '../config/Connexion.php';
 require_once '../objets/Utilisateur.php';
+require_once '../objets/ReponseAPI.php';
 
 //ini_set('display_errors', 'On');
 //error_reporting(E_ALL);
 
 use ProjetMobileAPI\Connexion;
+use ProjetMobileAPI\ReponseAPI;
 use ProjetMobileAPI\Utilisateur;
 
 // récupération de la connexion à la base de données
 $bdd = Connexion::get()->connect();
 
-// création de l'objet utilisateur
+// création des objet requis
 $utilisateur = new Utilisateur($bdd);
+$reponseAPI = new ReponseAPI();
 
 // récupération des données de l'utilisateur à modifier
 $data = json_decode(file_get_contents("php://input"));
@@ -39,45 +42,21 @@ $utilisateur->nom = $data->nom;
 $utilisateur->mdp_hash = $data->mdp_hash;
 
 // modification de l'utilisateur
-if($utilisateur->modifier()){
-    echo json_encode(
-        array(
-            "statut" => true,
-            "donnee" => array(
-                "utilisateur" => array(
-                    "id_utilisateur" =>  $utilisateur->id_utilisateur,
-                    "nom" => html_entity_decode($utilisateur->nom)
-                )
-            ),
-            "message" => [
-                array(
-                    "code" => 0,
-                    "type" => "info",
-                    "message" => "L'utilisateur a été modifié avec succès"
-                )
-            ]
-        )
-    );
+if ($utilisateur->modifier()) {
+
+    $item_message['code'] = 0;
+    $item_message['type'] = "info";
+    $item_message['message'] = "L'utilisateur a été modifié avec succès";
+
+    $reponseAPI->statut = true;
+} else {
+
+    // si l'utilisateur n'est pas modifié, informe l'utilisateur
+    $item_message['code'] = 0;
+    $item_message['type'] = "erreur";
+    $item_message['message'] = "Impossible de modifier l'utilisateur";
 }
 
-// si l'utilisateur n'est pas modifié, informe l'utilisateur
-else{
-    echo json_encode(
-        array(
-            "statut" => false,
-            "donnee" => array(
-                "utilisateur" => array(
-                    "id_utilisateur" =>  $data->id_utilisateur,
-                    "nom" => $data->nom
-                )
-            ),
-            "message" => [
-                array(
-                    "code" => 0,
-                    "type" => "erreur",
-                    "message" => "Impossible de modifier l'utilisateur"
-                )
-            ]
-        )
-    );
-}
+array_push($reponseAPI->tab_message, $item_message);
+
+echo $reponseAPI->construire_reponse();

@@ -42,11 +42,10 @@ $stmt = $utilisateur->authentifier();
 
 // Ajout d'un message si aucun enregistrement n'a été trouvé
 if ($stmt->rowCount() == 0) {
-    $item_message = array(
-        "code" => 0,
-        "type" => "alerte",
-        "message" => "Aucun compte n'existe avec ce pseudonyme"
-    );
+
+    $item_message['code'] = 0;
+    $item_message['type'] = "alerte";
+    $item_message['message'] = "Aucun compte n'existe avec ce pseudonyme";
 
     array_push($reponseAPI->tab_message, $item_message);
 } else {
@@ -59,30 +58,24 @@ if ($stmt->rowCount() == 0) {
 
     if ($mdp_hash != $data->mdp_hash) {
 
-        $item_message = array(
-            "code" => 0,
-            "type" => "alerte",
-            "message" => "Le mot de passe est incorrect"
-        );
+        $item_message['code'] = 0;
+        $item_message['type'] = "alerte";
+        $item_message['message'] = "Le mot de passe est incorrect";
 
         array_push($reponseAPI->tab_message, $item_message);
     } else {
 
-        $item_utilisateur = array(
-            "id_utilisateur" => $id_utilisateur,
-            "nom" => html_entity_decode($nom),
-            "pseudonyme" => $utilisateur->pseudonyme,
-            "url_image" => $url_image,
-            "creation" => $creation
-        );
+        $item_utilisateur['id_utilisateur'] = $id_utilisateur;
+        $item_utilisateur['nom'] = html_entity_decode($nom);
+        $item_utilisateur['pseudonyme'] = $utilisateur->pseudonyme;
+        $item_utilisateur['url_image'] = $url_image;
+        $item_utilisateur['creation'] = $creation;
 
         array_push($reponseAPI->tab_utilisateur, $item_utilisateur);
 
-        $item_message = array(
-            "code" => 0,
-            "type" => "info",
-            "message" => "Connexion réussie"
-        );
+        $item_message['code'] = 0;
+        $item_message['type'] = "info";
+        $item_message['message'] = "Connexion réussie";
 
         array_push($reponseAPI->tab_message, $item_message);
     }
