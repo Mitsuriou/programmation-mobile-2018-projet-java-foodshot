@@ -69,6 +69,7 @@ if ($stmt->rowCount() == 0) {
         $item_utilisateur['nom'] = html_entity_decode($nom);
         $item_utilisateur['pseudonyme'] = $utilisateur->pseudonyme;
         $item_utilisateur['url_image'] = $url_image;
+        $item_utilisateur['nombre_mention_aime'] = $nombre_mention_aime;
         $item_utilisateur['creation'] = $creation;
 
         array_push($reponseAPI->tab_utilisateur, $item_utilisateur);

@@ -6,9 +6,6 @@
  * Time: 19:53
  */
 
-//ini_set('display_errors', 1);
-//error_reporting(E_ALL);
-
 // page donnée dans les paramètres de l'URL, la page par défaut est la une
 $page = isset($_GET['page']) ? $_GET['page'] : 1;
 

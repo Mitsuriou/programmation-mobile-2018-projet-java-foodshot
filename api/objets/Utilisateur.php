@@ -21,6 +21,7 @@ class Utilisateur
     public $pseudonyme;
     public $url_image;
     public $mdp_hash;
+    public $nombre_mention_aime;
     public $creation;
 
     /**
@@ -95,11 +96,20 @@ class Utilisateur
     {
         // requete pour lire un seul enregistrement
         $requete = "SELECT
+                count(a.*) as nombre_mention_aime,
                 u.nom, u.pseudonyme, u.url_image, u.creation
             FROM
                 " . $this->nom_table . " u
+                LEFT JOIN
+                    publication p
+                        ON u.id_utilisateur = p.id_utilisateur
+                LEFT JOIN
+                    aime a
+                        ON p.id_publication = a.id_publication
             WHERE
                 u.id_utilisateur = ?
+            GROUP BY
+                u.pseudonyme, u.nom, u.url_image, u.creation
             LIMIT
                 1";
 
@@ -119,6 +129,7 @@ class Utilisateur
         $this->nom = $enregistrement['nom'];
         $this->pseudonyme = $enregistrement['pseudonyme'];
         $this->url_image = $enregistrement['url_image'];
+        $this->nombre_mention_aime = $enregistrement['nombre_mention_aime'];
         $this->creation = $enregistrement['creation'];
     }
 
@@ -227,11 +238,20 @@ class Utilisateur
     {
         // requete pour chercher l'utilisateur
         $requete = "SELECT
+                count(a.*) as nombre_mention_aime,
                 u.id_utilisateur, u.nom, u.url_image, u.mdp_hash, u.creation
             FROM
                 " . $this->nom_table . " u
+                LEFT JOIN
+                    publication p
+                        ON u.id_utilisateur = p.id_utilisateur
+                LEFT JOIN
+                    aime a
+                        ON p.id_publication = a.id_publication
             WHERE
                 u.pseudonyme = ?
+            GROUP BY
+                u.id_utilisateur, u.nom, u.url_image, u.mdp_hash, u.creation
             LIMIT
                 1";
 

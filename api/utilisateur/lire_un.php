@@ -41,6 +41,7 @@ $item_utilisateur['id_utilisateur'] = $utilisateur->id_utilisateur;
 $item_utilisateur['nom'] = html_entity_decode($utilisateur->nom);
 $item_utilisateur['pseudonyme'] = $utilisateur->pseudonyme;
 $item_utilisateur['url_image'] = $utilisateur->url_image;
+$item_utilisateur['nombre_mention_aime'] = $utilisateur->nombre_mention_aime;
 $item_utilisateur['creation'] = $utilisateur->creation;
 
 array_push($reponseAPI->tab_utilisateur, $item_utilisateur);
