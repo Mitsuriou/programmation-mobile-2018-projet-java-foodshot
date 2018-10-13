@@ -4,10 +4,11 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.Handler;
+import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -17,27 +18,32 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.AbsListView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import org.w3c.dom.Text;
-
-import java.util.List;
 import java.util.ArrayList;
-import java.util.concurrent.ExecutionException;
 
 import ca.qc.cgmatane.informatique.foodshot.constantes.Constantes;
+import ca.qc.cgmatane.informatique.foodshot.modele.ModelePublication;
 import ca.qc.cgmatane.informatique.foodshot.serveur.LireUtilisateurCourantAPI;
+import ca.qc.cgmatane.informatique.foodshot.serveur.RecevoirPublicationAPI;
 
 public class ActivitePrincipale extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
-    // List
-    private List<String> lNames = new ArrayList<>();
-    private List<String> lURL = new ArrayList<>();
-    private List<String> lUserNames = new ArrayList<>();
-    private List<String> lPP = new ArrayList<>();
-    private String coeur;
-    private List<String> nbCoeur = new ArrayList<>();
+    // RecyclerView
+    private int count = 21;
+    private int page = 1;
+    private RecevoirPublicationAPI recevoirPublicationAPI;
+    private RecyclerView recyclerView;
+    private LinearLayoutManager manager;
+    private int currentItems, totalItems, scrollOutItems;
+    private boolean isScrolling = false;
+    private RecyclerViewAdapter adapter;
+    private ArrayList<ModelePublication> listePublication;
+    private int compteur = 1;
+    private ProgressBar progressBar;
 
     private SharedPreferences preferencesPartagees;
 
@@ -73,7 +79,10 @@ public class ActivitePrincipale extends AppCompatActivity implements NavigationV
 
         this.mettreAJourHeaderDuDrawer();
 
-        initImageBitmaps();
+        progressBar = (ProgressBar) findViewById(R.id.progress);
+        listePublication = new ArrayList<>();
+
+        initRecyclerView();
     }
 
     @Override
@@ -139,149 +148,58 @@ public class ActivitePrincipale extends AppCompatActivity implements NavigationV
         return true;
     }
 
-    private void initImageBitmaps(){
-        coeur="/res/mipmap/ic_launcher/ic_launcher.png";
+    private void initRecyclerView() {
+        recyclerView = findViewById(R.id.recycler_view);
+        adapter = new RecyclerViewAdapter(this, listePublication);
+        fetchData();
+        manager = new LinearLayoutManager(this);
+        recyclerView.setLayoutManager(manager);
+        recyclerView.setAdapter(adapter);
+        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+                if (newState == AbsListView.OnScrollListener.SCROLL_STATE_TOUCH_SCROLL) {
+                    isScrolling = true;
+                }
+            }
 
-        lURL.add("https://cdn.mos.cms.futurecdn.net/FUE7XiFApEqWZQ85wYcAfM.jpg");
-        lNames.add("Canada");
-        lUserNames.add("@Jackiedu25");
-        lPP.add("https://cdn.mos.cms.futurecdn.net/FUE7XiFApEqWZQ85wYcAfM.jpg");
-        nbCoeur.add("1");
+            @Override
+            public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+                currentItems = manager.getChildCount();
+                totalItems = manager.getItemCount();
+                scrollOutItems = manager.findFirstVisibleItemPosition();
 
-        lURL.add("http://flags.fmcdn.net/data/flags/w580/mx.png");
-        lNames.add("Mexico");
-        lUserNames.add("@jazocoti");
-        lPP.add("https://cdn.mos.cms.futurecdn.net/FUE7XiFApEqWZQ85wYcAfM.jpg");
-        nbCoeur.add("0");
-
-        lURL.add("http://flags.fmcdn.net/data/flags/w580/fr.png");
-        lNames.add("France!");
-        lUserNames.add("@mitsurio");
-        lPP.add("https://cdn.mos.cms.futurecdn.net/FUE7XiFApEqWZQ85wYcAfM.jpg");
-        nbCoeur.add("1,5M");
-
-        lURL.add("http://flags.fmcdn.net/data/flags/w580/de.png");
-        lNames.add("Germany");
-        lUserNames.add("@tenam");
-        lPP.add("https://cdn.mos.cms.futurecdn.net/FUE7XiFApEqWZQ85wYcAfM.jpg");
-        nbCoeur.add("3.6k");
-
-        lURL.add("http://flags.fmcdn.net/data/flags/w580/au.png");
-        lNames.add("Australia");
-        lUserNames.add("@xXxDarckBibidu7");
-        lPP.add("https://cdn.mos.cms.futurecdn.net/FUE7XiFApEqWZQ85wYcAfM.jpg");
-        nbCoeur.add("3.6k");
-
-        lURL.add("http://flags.fmcdn.net/data/flags/w580/gb.png");
-        lNames.add("United Kingdom");
-        lUserNames.add("@DIEU");
-        lPP.add("https://cdn.mos.cms.futurecdn.net/FUE7XiFApEqWZQ85wYcAfM.jpg");
-        nbCoeur.add("3.6k");
-
-        lURL.add("http://flags.fmcdn.net/data/flags/w580/ar.png");
-        lNames.add("Argentina");
-        lUserNames.add("@Mafia_Officiel");
-        lPP.add("https://cdn.mos.cms.futurecdn.net/FUE7XiFApEqWZQ85wYcAfM.jpg");
-        nbCoeur.add("3.6k");
-
-        lURL.add("http://www.commongroundgroup.net/wp-content/uploads/2011/10/earth-from-space-western-400x400.jpg");
-        lNames.add("South Africa");
-        lUserNames.add("@Womi");
-        lPP.add("https://cdn.mos.cms.futurecdn.net/FUE7XiFApEqWZQ85wYcAfM.jpg");
-        nbCoeur.add("3.6k");
-
-        lURL.add("https://cdn.mos.cms.futurecdn.net/FUE7XiFApEqWZQ85wYcAfM.jpg");
-        lNames.add("Spain");
-        lUserNames.add("@yadu");
-        lPP.add("https://cdn.mos.cms.futurecdn.net/FUE7XiFApEqWZQ85wYcAfM.jpg");
-        nbCoeur.add("3.6k");
-
-        lURL.add("http://flags.fmcdn.net/data/flags/w580/ar.png");
-        lNames.add("Russia");
-        lUserNames.add("@Rushbee");
-        lPP.add("https://cdn.mos.cms.futurecdn.net/FUE7XiFApEqWZQ85wYcAfM.jpg");
-        nbCoeur.add("3.6k");
-
-        lURL.add("http://flags.fmcdn.net/data/flags/w580/ar.png");
-        lNames.add("Croatia");
-        lUserNames.add("@Salteau!");
-        lPP.add("https://cdn.mos.cms.futurecdn.net/FUE7XiFApEqWZQ85wYcAfM.jpg");
-        nbCoeur.add("3.6k");
-
-        lURL.add("https://cdn.mos.cms.futurecdn.net/FUE7XiFApEqWZQ85wYcAfM.jpg");
-        lNames.add("Canada !");
-        lUserNames.add("@Jackiedu25");
-        lPP.add("https://cdn.mos.cms.futurecdn.net/FUE7XiFApEqWZQ85wYcAfM.jpg");
-        nbCoeur.add("1");
-
-        lURL.add("http://flags.fmcdn.net/data/flags/w580/mx.png");
-        lNames.add("Mexico");
-        lUserNames.add("@jazocoti");
-        lPP.add("https://cdn.mos.cms.futurecdn.net/FUE7XiFApEqWZQ85wYcAfM.jpg");
-        nbCoeur.add("0");
-
-        lURL.add("http://flags.fmcdn.net/data/flags/w580/fr.png");
-        lNames.add("France!");
-        lUserNames.add("@mitsurio");
-        lPP.add("https://cdn.mos.cms.futurecdn.net/FUE7XiFApEqWZQ85wYcAfM.jpg");
-        nbCoeur.add("11,5M");
-
-        lURL.add("http://flags.fmcdn.net/data/flags/w580/de.png");
-        lNames.add("Germany");
-        lUserNames.add("@tenam");
-        lPP.add("https://cdn.mos.cms.futurecdn.net/FUE7XiFApEqWZQ85wYcAfM.jpg");
-        nbCoeur.add("3.6k");
-
-        lURL.add("http://flags.fmcdn.net/data/flags/w580/au.png");
-        lNames.add("Australia");
-        lUserNames.add("@xXxDarckBibidu7");
-        lPP.add("https://cdn.mos.cms.futurecdn.net/FUE7XiFApEqWZQ85wYcAfM.jpg");
-        nbCoeur.add("3.6k");
-
-        lURL.add("http://flags.fmcdn.net/data/flags/w580/gb.png");
-        lNames.add("United Kingdom");
-        lUserNames.add("@DIEU");
-        lPP.add("https://cdn.mos.cms.futurecdn.net/FUE7XiFApEqWZQ85wYcAfM.jpg");
-        nbCoeur.add("3.6k");
-
-        lURL.add("http://flags.fmcdn.net/data/flags/w580/ar.png");
-        lNames.add("Argentina");
-        lUserNames.add("@Mafia_Officiel");
-        lPP.add("https://cdn.mos.cms.futurecdn.net/FUE7XiFApEqWZQ85wYcAfM.jpg");
-        nbCoeur.add("3.6k");
-
-        lURL.add("http://www.commongroundgroup.net/wp-content/uploads/2011/10/earth-from-space-western-400x400.jpg");
-        lNames.add("South Africa");
-        lUserNames.add("@Womi");
-        lPP.add("https://cdn.mos.cms.futurecdn.net/FUE7XiFApEqWZQ85wYcAfM.jpg");
-        nbCoeur.add("3.6k");
-
-        lURL.add("https://cdn.mos.cms.futurecdn.net/FUE7XiFApEqWZQ85wYcAfM.jpg");
-        lNames.add("Spain");
-        lUserNames.add("@yadu");
-        lPP.add("https://cdn.mos.cms.futurecdn.net/FUE7XiFApEqWZQ85wYcAfM.jpg");
-        nbCoeur.add("3.6k");
-
-        lURL.add("http://flags.fmcdn.net/data/flags/w580/ar.png");
-        lNames.add("Russia");
-        lUserNames.add("@Rushbee");
-        lPP.add("https://cdn.mos.cms.futurecdn.net/FUE7XiFApEqWZQ85wYcAfM.jpg");
-        nbCoeur.add("3.6k");
-
-        lURL.add("http://flags.fmcdn.net/data/flags/w580/ar.png");
-        lNames.add("Croatia");
-        lUserNames.add("@Salteau!");
-        lPP.add("https://cdn.mos.cms.futurecdn.net/FUE7XiFApEqWZQ85wYcAfM.jpg");
-        nbCoeur.add("3.6k");
-
-        initRecyclerView();
+                if (isScrolling && (currentItems + scrollOutItems == totalItems)) {
+                    isScrolling = false;
+                    fetchData();
+                }
+            }
+        });
     }
 
-    private void initRecyclerView(){
-        RecyclerView recyclerView = findViewById(R.id.recycler_view);
-        RecyclerViewAdapter adapter = new RecyclerViewAdapter(getApplicationContext(),lURL, lNames,lUserNames,lPP,coeur,nbCoeur);
-        recyclerView.setAdapter(adapter);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+    public void fetchData() {
+        progressBar.setVisibility(View.VISIBLE);
+        recevoirPublicationAPI = new RecevoirPublicationAPI(page);
+        try {
+            recevoirPublicationAPI.execute().get();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        page ++;
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                for (int i = 0; i < recevoirPublicationAPI.getListePublication().size()-1; i++) {
+                    adapter.ajouterPublication(recevoirPublicationAPI.getListePublication().get(i));
+                    count++;
+                    progressBar.setVisibility(View.GONE);
+                    adapter.notifyItemInserted(adapter.getItemCount() + 1);
+                }
+
+            }
+        }, 5000);
     }
 
     private void deconnexion() {

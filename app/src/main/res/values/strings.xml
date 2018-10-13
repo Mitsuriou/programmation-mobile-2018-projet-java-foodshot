@@ -9,6 +9,7 @@
     <string name="titre_vue_personnes_suivies">Personnes Suivies</string>
     <string name="titre_vue_activite_carte">Autour de moi</string>
     <string name="titre_vue_parametres">Paramètres</string>
+    <string name="titre_vue_parametres_modifier_infos_compte">Modifier mes informations</string>
 
     <!-- Drawer -->
     <string name="navigation_drawer_open">Ouvrir le Drawer de navigation</string>
@@ -48,8 +49,5 @@
     <string name="hint_creation_compte_champ_mot_de_passe">Mot de passe (5 caractères min.)</string>
     <string name="hint_creation_compte_champ_mot_de_passe_2">Répéter mot de passe</string>
     <string name="texte_bouton_creation_compte">Créer un compte</string>
-
-    <!-- Paramètres de compte -->
-    <string name="titre_param_modifier_infos_compte">Modifier mon compte</string>
 
 </resources>

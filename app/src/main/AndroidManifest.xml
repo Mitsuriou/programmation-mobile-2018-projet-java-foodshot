@@ -96,8 +96,14 @@
             android:name=".ActiviteCreationCompte"
             android:label="@string/titre_vue_activite_creation_compte" />
 
-        <activity android:name=".ActiviteParametres"
+        <activity
+            android:name=".ActiviteParametres"
             android:label="@string/titre_vue_parametres" />
+
+        <activity
+            android:name=".ActiviteParametresModifierInfosCompte"
+            android:label="@string/titre_vue_parametres_modifier_infos_compte"/>
+
     </application>
 
 </manifest>

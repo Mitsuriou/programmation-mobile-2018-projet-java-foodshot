@@ -69,12 +69,6 @@ public class ActiviteCreationCompte extends AppCompatActivity {
     }
 
     private boolean isPseudonymeValide() {
-        // TODO SAVOIR SI LE PSEUDONYME EXISTE DEJA EN BDD, ET RETURN FALSE
-        /*if () {
-            this.affichageErreurs.setText("Le pseudonyme choisi existe déjà. Veuillez en choisir un autre.");
-            return false;
-        }*/
-
         if (this.champPseudonyme.getText().toString().length() < 4) {
             this.affichageErreurs.setText("Votre pseudonyme doit être composé de 4 lettres et chiffres ou plus");
             return false;
