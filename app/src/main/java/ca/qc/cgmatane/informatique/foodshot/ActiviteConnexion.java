@@ -61,6 +61,7 @@ public class ActiviteConnexion extends AppCompatActivity {
             editeur.putString("nom", authentificationAPI.getUtilisateurCourant().getNom());
             editeur.putString("pseudonyme", authentificationAPI.getUtilisateurCourant().getPseudonyme());
             editeur.putString("url_image", authentificationAPI.getUtilisateurCourant().getUrlImage());
+            editeur.putInt("nombre_mention_aime", authentificationAPI.getUtilisateurCourant().getNbrMentionAime());
             editeur.putString("creation", authentificationAPI.getUtilisateurCourant().getCreation().toString());
             editeur.apply();
             editeur.commit();

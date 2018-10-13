@@ -1,20 +1,20 @@
 package ca.qc.cgmatane.informatique.foodshot.modele;
 
-import java.sql.Timestamp;
-
 public class ModeleUtilisateur {
 
     private int id_utilisateur;
     private String nom;
     private String pseudonyme;
     private String urlImage;
+    private int nbrMentionAime;
     private String creation;
 
-    public ModeleUtilisateur(int id_utilisateur, String nom, String pseudonyme, String urlImage, String creation) {
+    public ModeleUtilisateur(int id_utilisateur, String nom, String pseudonyme, String urlImage, int nbrMentionAime, String creation) {
         this.id_utilisateur = id_utilisateur;
         this.nom = nom;
         this.pseudonyme = pseudonyme;
         this.urlImage = urlImage;
+        this.nbrMentionAime = nbrMentionAime;
         this.creation = creation;
     }
 
@@ -32,6 +32,10 @@ public class ModeleUtilisateur {
 
     public String getUrlImage() {
         return urlImage;
+    }
+
+    public int getNbrMentionAime() {
+        return nbrMentionAime;
     }
 
     public String getCreation() {

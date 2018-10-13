@@ -91,6 +91,7 @@ public class AuthentificationAPI extends AsyncTask<String, String, String> {
                         utilisateurJson.getString("nom"),
                         utilisateurJson.getString("pseudonyme"),
                         utilisateurJson.getString("url_image"),
+                        utilisateurJson.getInt("nombre_mention_aime"),
                         utilisateurJson.getString("creation")
                 );
             }

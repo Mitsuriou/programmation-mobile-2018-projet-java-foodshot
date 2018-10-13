@@ -24,8 +24,10 @@ import org.w3c.dom.Text;
 
 import java.util.List;
 import java.util.ArrayList;
+import java.util.concurrent.ExecutionException;
 
 import ca.qc.cgmatane.informatique.foodshot.constantes.Constantes;
+import ca.qc.cgmatane.informatique.foodshot.serveur.LireUtilisateurCourantAPI;
 
 public class ActivitePrincipale extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -37,12 +39,14 @@ public class ActivitePrincipale extends AppCompatActivity implements NavigationV
     private String coeur;
     private List<String> nbCoeur = new ArrayList<>();
 
+    private SharedPreferences preferencesPartagees;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.vue_activite_principale);
 
-        SharedPreferences preferencesPartagees = getSharedPreferences(Constantes.MES_PREFERENCES, Context.MODE_PRIVATE);
+        preferencesPartagees = getSharedPreferences(Constantes.MES_PREFERENCES, Context.MODE_PRIVATE);
         if (!preferencesPartagees.contains("id_utilisateur")) {
             Intent intentionSeConnecter = new Intent(this, ActiviteConnexion.class);
             startActivity(intentionSeConnecter);
@@ -67,21 +71,7 @@ public class ActivitePrincipale extends AppCompatActivity implements NavigationV
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(this);
-
-        // Ajout des informations de l'utilisateur dans le header du drawer
-        View vueDrawer = navigationView.getHeaderView(0);
-        TextView nomDrawer = (TextView) vueDrawer.findViewById(R.id.drawer_header_nom);
-        nomDrawer.setText(preferencesPartagees.getString("nom", "Nom"));
-
-        TextView pseudonymeDrawer = (TextView) vueDrawer.findViewById(R.id.drawer_header_pseudonyme);
-        pseudonymeDrawer.setText("@");
-        pseudonymeDrawer.append(preferencesPartagees.getString("pseudonyme", "Pseudonyme"));
-
-        TextView nombreMentionsAime = (TextView) vueDrawer.findViewById(R.id.drawer_header_nombres_mentions_jaime);
-        nombreMentionsAime.setText(preferencesPartagees.getString("nombre_mentions_aime", "999999"));
-        nombreMentionsAime.append(" Coeurs");
+        this.mettreAJourHeaderDuDrawer();
 
         initImageBitmaps();
     }
@@ -302,6 +292,44 @@ public class ActivitePrincipale extends AppCompatActivity implements NavigationV
         editeur.commit();
         Toast.makeText(this, "Déconnexion réussie.", Toast.LENGTH_SHORT).show();
         startActivity(new Intent(this, ActiviteConnexion.class));
+    }
+
+    private void mettreProfilAJour() {
+        SharedPreferences preferencesPartagees = getSharedPreferences(Constantes.MES_PREFERENCES, Context.MODE_PRIVATE);
+        LireUtilisateurCourantAPI lireUtilisateurCourantAPI = new LireUtilisateurCourantAPI(preferencesPartagees.getInt("id_utilisateur", -1));
+        try {
+            lireUtilisateurCourantAPI.execute().get();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        SharedPreferences.Editor editeur = preferencesPartagees.edit();
+
+        editeur.putString("nom", lireUtilisateurCourantAPI.getNomUtilisateurCourant());
+        editeur.putString("url_image", lireUtilisateurCourantAPI.getUrlImageUtilisateurCourant());
+        editeur.putInt("nombre_mention_aime", lireUtilisateurCourantAPI.getNbrMentionAimeUtilisateurCourant());
+        editeur.apply();
+        editeur.commit();
+    }
+
+    private void mettreAJourHeaderDuDrawer() {
+        this.mettreProfilAJour();
+
+        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener(this);
+
+        // Ajout des informations de l'utilisateur dans le header du drawer
+        View vueDrawer = navigationView.getHeaderView(0);
+        TextView nomDrawer = (TextView) vueDrawer.findViewById(R.id.drawer_header_nom);
+        nomDrawer.setText(preferencesPartagees.getString("nom", "Nom"));
+
+        TextView pseudonymeDrawer = (TextView) vueDrawer.findViewById(R.id.drawer_header_pseudonyme);
+        pseudonymeDrawer.setText("@");
+        pseudonymeDrawer.append(preferencesPartagees.getString("pseudonyme", "Pseudonyme"));
+
+        TextView nombreMentionAime = (TextView) vueDrawer.findViewById(R.id.drawer_header_nombres_mentions_jaime);
+        nombreMentionAime.setText(String.valueOf(preferencesPartagees.getInt("nombre_mention_aime", 999999)));
+        nombreMentionAime.append(" Coeurs");
     }
 
 }
