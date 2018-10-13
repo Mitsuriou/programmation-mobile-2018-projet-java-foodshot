@@ -30,12 +30,12 @@ public class RecyclerViewAdapter extends ListAdapter<Publication, RecyclerViewAd
 
         CircleImageView photo_profil, coeur;
 
-        TextView image_desc, user_name, nbCoeur;
+        TextView image_titre, user_name, nbCoeur;
         RelativeLayout parentLayout;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            image_desc = itemView.findViewById(R.id.image_name);
+            image_titre = itemView.findViewById(R.id.image_name);
             image = itemView.findViewById(R.id.imageView);
             user_name = itemView.findViewById(R.id.user_name);
             parentLayout = itemView.findViewById(R.id.parent_layout);
@@ -165,8 +165,8 @@ public class RecyclerViewAdapter extends ListAdapter<Publication, RecyclerViewAd
                 .apply(new RequestOptions().fitCenter().override(60, 60)).
                 into(holder.coeur);
 
-        holder.image_desc.setText(listePublication.get(position).getDescImage());
-        holder.nbCoeur.setText(listePublication.get(position).getNbLike());
+        holder.image_titre.setText(listePublication.get(position).getDescImage());
+        holder.nbCoeur.setText("" + listePublication.get(position).getNbLike());
         holder.user_name.setText(listePublication.get(position).getUsername());
 
 

@@ -16,7 +16,8 @@ import java.util.ArrayList;
 public class MainActivity extends Activity {
 
     private int count = 21;
-    private int page = 0;
+    private int page = 1;
+    private RecevoirPublicationAPI recevoirPublicationAPI;
     private RecyclerView recyclerView;
     private LinearLayoutManager manager;
     private int currentItems, totalItems, scrollOutItems;
@@ -24,7 +25,6 @@ public class MainActivity extends Activity {
     private RecyclerViewAdapter adapter;
     private ArrayList<Publication> listePublication;
     private int compteur = 1;
-    private RecevoirPublicationAPI recevoirPublicationAPI;
     private ProgressBar progressBar;
     private static final String TAG = "MainActivity";
 
@@ -41,159 +41,159 @@ public class MainActivity extends Activity {
 
     private void initImageBitmaps() {
 
-        listePublication.add(new Publication(1
-                , "https://cdn.mos.cms.futurecdn.net/FUE7XiFApEqWZQ85wYcAfM.jpg"
-                , "https://cdn.mos.cms.futurecdn.net/FUE7XiFApEqWZQ85wYcAfM.jpg"
-                , "Canada"
-                , "@Jackiedu25"
-                , "1"));
-
-        listePublication.add(new Publication(2
-                , "http://flags.fmcdn.net/data/flags/w580/mx.png"
-                , "https://cdn.mos.cms.futurecdn.net/FUE7XiFApEqWZQ85wYcAfM.jpg"
-                , "Mexico"
-                , "@jazocoti"
-                , "0"));
-
-        listePublication.add(new Publication(3
-                , "http://flags.fmcdn.net/data/flags/w580/fr.png"
-                , "https://cdn.mos.cms.futurecdn.net/FUE7XiFApEqWZQ85wYcAfM.jpg"
-                , "France!"
-                , "@mitsurio"
-                , "1,5M"));
-
-        listePublication.add(new Publication(4
-                , "http://flags.fmcdn.net/data/flags/w580/de.png"
-                , "https://cdn.mos.cms.futurecdn.net/FUE7XiFApEqWZQ85wYcAfM.jpg"
-                , "Germany"
-                , "@tenam"
-                , "3.6k"));
-
-        listePublication.add(new Publication(5
-                , "http://flags.fmcdn.net/data/flags/w580/au.png"
-                , "https://cdn.mos.cms.futurecdn.net/FUE7XiFApEqWZQ85wYcAfM.jpg"
-                , "Australia"
-                , "@xXxDarckBibidu7"
-                , "3.6k"));
-
-        listePublication.add(new Publication(6
-                , "http://flags.fmcdn.net/data/flags/w580/gb.png"
-                , "https://cdn.mos.cms.futurecdn.net/FUE7XiFApEqWZQ85wYcAfM.jpg"
-                , "United Kingdom"
-                , "@DIEU"
-                , "3.6k"));
-
-        listePublication.add(new Publication(7
-                , "http://flags.fmcdn.net/data/flags/w580/ar.png"
-                , "https://cdn.mos.cms.futurecdn.net/FUE7XiFApEqWZQ85wYcAfM.jpg"
-                , "Argentina"
-                , "@Mafia_Officiel"
-                , "3.6k"));
-
-        listePublication.add(new Publication(8
-                , "http://www.commongroundgroup.net/wp-content/uploads/2011/10/earth-from-space-western-400x400.jpg"
-                , "https://cdn.mos.cms.futurecdn.net/FUE7XiFApEqWZQ85wYcAfM.jpg"
-                , "South Africa"
-                , "@Womi"
-                , "3.6k"));
-
-        listePublication.add(new Publication(9
-                , "https://cdn.mos.cms.futurecdn.net/FUE7XiFApEqWZQ85wYcAfM.jpg"
-                , "https://cdn.mos.cms.futurecdn.net/FUE7XiFApEqWZQ85wYcAfM.jpg"
-                , "Spain"
-                , "@yadu"
-                , "3.6k"));
-
-        listePublication.add(new Publication(10,
-                "http://flags.fmcdn.net/data/flags/w580/ar.png"
-                , "https://cdn.mos.cms.futurecdn.net/FUE7XiFApEqWZQ85wYcAfM.jpg"
-                , "Russia"
-                , "@Rushbee"
-                , "3.6k"));
-
-        listePublication.add(new Publication(11
-                , "http://flags.fmcdn.net/data/flags/w580/ar.png"
-                , "https://cdn.mos.cms.futurecdn.net/FUE7XiFApEqWZQ85wYcAfM.jpg"
-                , "Croatia"
-                , "@Salteau!"
-                , "3.6k"));
-
-        listePublication.add(new Publication(1,
-                "https://cdn.mos.cms.futurecdn.net/FUE7XiFApEqWZQ85wYcAfM.jpg"
-                , "https://cdn.mos.cms.futurecdn.net/FUE7XiFApEqWZQ85wYcAfM.jpg"
-                , "Canada"
-                , "@Jackiedu25"
-                , "1"));
-
-        listePublication.add(new Publication(12
-                , "http://flags.fmcdn.net/data/flags/w580/mx.png"
-                , "https://cdn.mos.cms.futurecdn.net/FUE7XiFApEqWZQ85wYcAfM.jpg"
-                , "Mexico"
-                , "@jazocoti"
-                , "0"));
-
-        listePublication.add(new Publication(13
-                , "http://flags.fmcdn.net/data/flags/w580/fr.png"
-                , "https://cdn.mos.cms.futurecdn.net/FUE7XiFApEqWZQ85wYcAfM.jpg"
-                , "France!"
-                , "@mitsurio"
-                , "1,5M"));
-
-        listePublication.add(new Publication(14
-                , "http://flags.fmcdn.net/data/flags/w580/de.png"
-                , "https://cdn.mos.cms.futurecdn.net/FUE7XiFApEqWZQ85wYcAfM.jpg"
-                , "Germany"
-                , "@tenam"
-                , "3.6k"));
-
-        listePublication.add(new Publication(15
-                , "http://flags.fmcdn.net/data/flags/w580/au.png"
-                , "https://cdn.mos.cms.futurecdn.net/FUE7XiFApEqWZQ85wYcAfM.jpg"
-                , "Australia"
-                , "@xXxDarckBibidu7"
-                , "3.6k"));
-
-        listePublication.add(new Publication(16
-                , "http://flags.fmcdn.net/data/flags/w580/gb.png"
-                , "https://cdn.mos.cms.futurecdn.net/FUE7XiFApEqWZQ85wYcAfM.jpg"
-                , "United Kingdom"
-                , "@DIEU"
-                , "3.6k"));
-
-        listePublication.add(new Publication(17
-                , "http://flags.fmcdn.net/data/flags/w580/ar.png"
-                , "https://cdn.mos.cms.futurecdn.net/FUE7XiFApEqWZQ85wYcAfM.jpg"
-                , "Argentina"
-                , "@Mafia_Officiel"
-                , "3.6k"));
-
-        listePublication.add(new Publication(18
-                , "http://www.commongroundgroup.net/wp-content/uploads/2011/10/earth-from-space-western-400x400.jpg"
-                , "https://cdn.mos.cms.futurecdn.net/FUE7XiFApEqWZQ85wYcAfM.jpg"
-                , "South Africa"
-                , "@Womi"
-                , "3.6k"));
-
-        listePublication.add(new Publication(19
-                , "https://cdn.mos.cms.futurecdn.net/FUE7XiFApEqWZQ85wYcAfM.jpg"
-                , "https://cdn.mos.cms.futurecdn.net/FUE7XiFApEqWZQ85wYcAfM.jpg"
-                , "Spain"
-                , "@yadu"
-                , "3.6k"));
-
-        listePublication.add(new Publication(20
-                , "http://flags.fmcdn.net/data/flags/w580/ar.png"
-                , "https://cdn.mos.cms.futurecdn.net/FUE7XiFApEqWZQ85wYcAfM.jpg"
-                , "Russia"
-                , "@Rushbee"
-                , "3.6k"));
-
-        listePublication.add(new Publication(21
-                , "http://flags.fmcdn.net/data/flags/w580/ar.png"
-                , "https://cdn.mos.cms.futurecdn.net/FUE7XiFApEqWZQ85wYcAfM.jpg"
-                , "Croatiannnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn"
-                , "@Salteau!"
-                , "3.6k"));
+//        listePublication.add(new Publication(1
+//                , "https://cdn.mos.cms.futurecdn.net/FUE7XiFApEqWZQ85wYcAfM.jpg"
+//                , "https://cdn.mos.cms.futurecdn.net/FUE7XiFApEqWZQ85wYcAfM.jpg"
+//                , "Canada"
+//                , "@Jackiedu25"
+//                , "1"));
+//
+//        listePublication.add(new Publication(2
+//                , "http://flags.fmcdn.net/data/flags/w580/mx.png"
+//                , "https://cdn.mos.cms.futurecdn.net/FUE7XiFApEqWZQ85wYcAfM.jpg"
+//                , "Mexico"
+//                , "@jazocoti"
+//                , "0"));
+//
+//        listePublication.add(new Publication(3
+//                , "http://flags.fmcdn.net/data/flags/w580/fr.png"
+//                , "https://cdn.mos.cms.futurecdn.net/FUE7XiFApEqWZQ85wYcAfM.jpg"
+//                , "France!"
+//                , "@mitsurio"
+//                , "1,5M"));
+//
+//        listePublication.add(new Publication(4
+//                , "http://flags.fmcdn.net/data/flags/w580/de.png"
+//                , "https://cdn.mos.cms.futurecdn.net/FUE7XiFApEqWZQ85wYcAfM.jpg"
+//                , "Germany"
+//                , "@tenam"
+//                , "3.6k"));
+//
+//        listePublication.add(new Publication(5
+//                , "http://flags.fmcdn.net/data/flags/w580/au.png"
+//                , "https://cdn.mos.cms.futurecdn.net/FUE7XiFApEqWZQ85wYcAfM.jpg"
+//                , "Australia"
+//                , "@xXxDarckBibidu7"
+//                , "3.6k"));
+//
+//        listePublication.add(new Publication(6
+//                , "http://flags.fmcdn.net/data/flags/w580/gb.png"
+//                , "https://cdn.mos.cms.futurecdn.net/FUE7XiFApEqWZQ85wYcAfM.jpg"
+//                , "United Kingdom"
+//                , "@DIEU"
+//                , "3.6k"));
+//
+//        listePublication.add(new Publication(7
+//                , "http://flags.fmcdn.net/data/flags/w580/ar.png"
+//                , "https://cdn.mos.cms.futurecdn.net/FUE7XiFApEqWZQ85wYcAfM.jpg"
+//                , "Argentina"
+//                , "@Mafia_Officiel"
+//                , "3.6k"));
+//
+//        listePublication.add(new Publication(8
+//                , "http://www.commongroundgroup.net/wp-content/uploads/2011/10/earth-from-space-western-400x400.jpg"
+//                , "https://cdn.mos.cms.futurecdn.net/FUE7XiFApEqWZQ85wYcAfM.jpg"
+//                , "South Africa"
+//                , "@Womi"
+//                , "3.6k"));
+//
+//        listePublication.add(new Publication(9
+//                , "https://cdn.mos.cms.futurecdn.net/FUE7XiFApEqWZQ85wYcAfM.jpg"
+//                , "https://cdn.mos.cms.futurecdn.net/FUE7XiFApEqWZQ85wYcAfM.jpg"
+//                , "Spain"
+//                , "@yadu"
+//                , "3.6k"));
+//
+//        listePublication.add(new Publication(10,
+//                "http://flags.fmcdn.net/data/flags/w580/ar.png"
+//                , "https://cdn.mos.cms.futurecdn.net/FUE7XiFApEqWZQ85wYcAfM.jpg"
+//                , "Russia"
+//                , "@Rushbee"
+//                , "3.6k"));
+//
+//        listePublication.add(new Publication(11
+//                , "http://flags.fmcdn.net/data/flags/w580/ar.png"
+//                , "https://cdn.mos.cms.futurecdn.net/FUE7XiFApEqWZQ85wYcAfM.jpg"
+//                , "Croatia"
+//                , "@Salteau!"
+//                , "3.6k"));
+//
+//        listePublication.add(new Publication(1,
+//                "https://cdn.mos.cms.futurecdn.net/FUE7XiFApEqWZQ85wYcAfM.jpg"
+//                , "https://cdn.mos.cms.futurecdn.net/FUE7XiFApEqWZQ85wYcAfM.jpg"
+//                , "Canada"
+//                , "@Jackiedu25"
+//                , "1"));
+//
+//        listePublication.add(new Publication(12
+//                , "http://flags.fmcdn.net/data/flags/w580/mx.png"
+//                , "https://cdn.mos.cms.futurecdn.net/FUE7XiFApEqWZQ85wYcAfM.jpg"
+//                , "Mexico"
+//                , "@jazocoti"
+//                , "0"));
+//
+//        listePublication.add(new Publication(13
+//                , "http://flags.fmcdn.net/data/flags/w580/fr.png"
+//                , "https://cdn.mos.cms.futurecdn.net/FUE7XiFApEqWZQ85wYcAfM.jpg"
+//                , "France!"
+//                , "@mitsurio"
+//                , "1,5M"));
+//
+//        listePublication.add(new Publication(14
+//                , "http://flags.fmcdn.net/data/flags/w580/de.png"
+//                , "https://cdn.mos.cms.futurecdn.net/FUE7XiFApEqWZQ85wYcAfM.jpg"
+//                , "Germany"
+//                , "@tenam"
+//                , "3.6k"));
+//
+//        listePublication.add(new Publication(15
+//                , "http://flags.fmcdn.net/data/flags/w580/au.png"
+//                , "https://cdn.mos.cms.futurecdn.net/FUE7XiFApEqWZQ85wYcAfM.jpg"
+//                , "Australia"
+//                , "@xXxDarckBibidu7"
+//                , "3.6k"));
+//
+//        listePublication.add(new Publication(16
+//                , "http://flags.fmcdn.net/data/flags/w580/gb.png"
+//                , "https://cdn.mos.cms.futurecdn.net/FUE7XiFApEqWZQ85wYcAfM.jpg"
+//                , "United Kingdom"
+//                , "@DIEU"
+//                , "3.6k"));
+//
+//        listePublication.add(new Publication(17
+//                , "http://flags.fmcdn.net/data/flags/w580/ar.png"
+//                , "https://cdn.mos.cms.futurecdn.net/FUE7XiFApEqWZQ85wYcAfM.jpg"
+//                , "Argentina"
+//                , "@Mafia_Officiel"
+//                , "3.6k"));
+//
+//        listePublication.add(new Publication(18
+//                , "http://www.commongroundgroup.net/wp-content/uploads/2011/10/earth-from-space-western-400x400.jpg"
+//                , "https://cdn.mos.cms.futurecdn.net/FUE7XiFApEqWZQ85wYcAfM.jpg"
+//                , "South Africa"
+//                , "@Womi"
+//                , "3.6k"));
+//
+//        listePublication.add(new Publication(19
+//                , "https://cdn.mos.cms.futurecdn.net/FUE7XiFApEqWZQ85wYcAfM.jpg"
+//                , "https://cdn.mos.cms.futurecdn.net/FUE7XiFApEqWZQ85wYcAfM.jpg"
+//                , "Spain"
+//                , "@yadu"
+//                , "3.6k"));
+//
+//        listePublication.add(new Publication(20
+//                , "http://flags.fmcdn.net/data/flags/w580/ar.png"
+//                , "https://cdn.mos.cms.futurecdn.net/FUE7XiFApEqWZQ85wYcAfM.jpg"
+//                , "Russia"
+//                , "@Rushbee"
+//                , "3.6k"));
+//
+//        listePublication.add(new Publication(21
+//                , "http://flags.fmcdn.net/data/flags/w580/ar.png"
+//                , "https://cdn.mos.cms.futurecdn.net/FUE7XiFApEqWZQ85wYcAfM.jpg"
+//                , "Croatiannnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn"
+//                , "@Salteau!"
+//                , "3.6k"));
 
         initRecyclerView();
     }
@@ -202,7 +202,7 @@ public class MainActivity extends Activity {
 
         recyclerView = findViewById(R.id.recycler_view);
         adapter = new RecyclerViewAdapter(this, listePublication);
-
+        fetchData();
         manager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(manager);
         recyclerView.setAdapter(adapter);
@@ -232,11 +232,20 @@ public class MainActivity extends Activity {
 
     public void fetchData() {
         progressBar.setVisibility(View.VISIBLE);
+        recevoirPublicationAPI = new RecevoirPublicationAPI(page);
+        try {
+            Log.d("ALED", "ALED");
+            recevoirPublicationAPI.execute().get();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        page ++;
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                for (int i = 0; i < 20; i++) {
-                    adapter.ajouterPublication(new Publication(count + 1, "https://static.cuisineaz.com/240x192/i32834-profiteroles-a-la-vanille.jpg", "https://cdn.mos.cms.futurecdn.net/FUE7XiFApEqWZQ85wYcAfM.jpg", "Here !", "@Jako", "55M"));
+                Log.d("SIZEEEEE","" + recevoirPublicationAPI.getListePublication().size());
+                for (int i = 0; i < recevoirPublicationAPI.getListePublication().size()-1; i++) {
+                    adapter.ajouterPublication(recevoirPublicationAPI.getListePublication().get(i));
                     Log.d("CHANGED", "" + adapter.getListePublication().get(adapter.getItemCount() - 1).getURLimage());
                     Log.d("CHANGED", "" + adapter.getItemCount());
                     count++;
@@ -246,6 +255,7 @@ public class MainActivity extends Activity {
 
             }
         }, 5000);
+
     }
 
 }
