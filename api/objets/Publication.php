@@ -132,4 +132,54 @@ class Publication
 
         return $stmt;
     }
+
+    /**
+     * rechercher des publications proches
+     * @param $latitude double
+     * @param $longitude double
+     * @return mixed résultat de la requete à la base de données
+     */
+    function rechercher()
+    {
+        // requete pour selectionner les utilisateurs correspondants à la recherche
+        $requete = "SELECT
+                (SELECT count(*) FROM aime WHERE aime.id_publication = p.id_publication) as nombre_mention_aime,
+                u.pseudonyme as pseudonyme_utilisateur, u.url_image as url_image_utilisateur,
+                p.id_publication, p.titre, p.description, p.url_image, p.latitude, p.longitude, p.id_utilisateur, p.creation
+            FROM
+                " . $this->nom_table . " p
+                LEFT JOIN
+                    utilisateur u
+                        ON p.id_utilisateur = u.id_utilisateur
+            WHERE
+                p.latitude BETWEEN :latitude_min AND :latitude_max AND
+                p.longitude BETWEEN :longitude_min AND :longitude_max
+            ORDER BY
+                p.creation DESC
+            LIMIT
+                30";
+
+        // préparation de la requete
+        $stmt = $this->connexion_bdd->prepare($requete);
+
+        // sanitize
+        $this->latitude=htmlspecialchars(strip_tags($this->latitude));
+        $this->longitude=htmlspecialchars(strip_tags($this->longitude));
+
+        $latitude_min = $this->latitude - 0.2;
+        $latitude_max = $this->latitude + 0.2;
+        $longitude_min = $this->longitude - 0.1;
+        $longitude_max = $this->longitude + 0.1;
+
+        // liaison des variables
+        $stmt->bindParam(":latitude_min", $latitude_min);
+        $stmt->bindParam(":latitude_max", $latitude_max);
+        $stmt->bindParam(":longitude_min", $longitude_min);
+        $stmt->bindParam(":longitude_max", $longitude_max);
+
+        // exécution de la requete
+        $stmt->execute();
+
+        return $stmt;
+    }
 }

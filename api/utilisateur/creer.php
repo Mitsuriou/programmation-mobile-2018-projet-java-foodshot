@@ -43,6 +43,8 @@ if ($stmt->rowCount() > 0) {
     $item_message['code'] = 0;
     $item_message['type'] = "erreur";
     $item_message['message'] = "Ce pseudonyme existe déjà";
+
+    $reponseAPI->statut = true;
 } else {
 
     // définition des valeurs des propriétés de l'utilisateur
