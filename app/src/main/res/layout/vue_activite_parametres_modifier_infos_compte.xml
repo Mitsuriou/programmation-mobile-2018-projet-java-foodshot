@@ -18,8 +18,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <!-- TODO: GET LE NOM DE L'UTILISATEUR POUR LE METTRE DANS LE CHAMP -->
-
         <EditText
             android:id="@+id/param_modifier_infos_compte_champ_nom"
             android:layout_width="match_parent"

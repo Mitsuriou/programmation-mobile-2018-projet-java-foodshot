@@ -21,6 +21,8 @@ public class ActiviteParametresModifierInfosCompte extends AppCompatActivity {
     private EditText compteChampMdp2;
     private TextView compteAffichageErreurs;
 
+    private SharedPreferences preferencesPartagees;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         new ThemeColors(this);
@@ -32,6 +34,9 @@ public class ActiviteParametresModifierInfosCompte extends AppCompatActivity {
         this.compteChampMdp1 = (EditText) findViewById(R.id.param_modifier_infos_compte_champ_mdp_1);
         this.compteChampMdp2 = (EditText) findViewById(R.id.param_modifier_infos_compte_champ_mdp_2);
         this.compteAffichageErreurs = (TextView) findViewById(R.id.param_compte_affichage_erreurs);
+
+        preferencesPartagees = getSharedPreferences(Constantes.MES_PREFERENCES, Context.MODE_PRIVATE);
+        this.compteChampNomUtilisateur.setText(preferencesPartagees.getString("nom", ""));
 
         Button boutonValiderModifications = (Button) findViewById(R.id.bouton_param_valider_modification_infos_compte);
         boutonValiderModifications.setOnClickListener(new View.OnClickListener() {

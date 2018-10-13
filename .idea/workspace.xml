@@ -21,13 +21,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="0a46d808-7ea2-4aec-98d8-c5af3ae2c11f" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/ca/qc/cgmatane/informatique/foodshot/ActiviteConnexion.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/ca/qc/cgmatane/informatique/foodshot/ActiviteConnexion.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/ca/qc/cgmatane/informatique/foodshot/ActiviteCreationCompte.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/ca/qc/cgmatane/informatique/foodshot/ActiviteCreationUtilisateur.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/ca/qc/cgmatane/informatique/foodshot/serveur/AuthentificationAPI.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/ca/qc/cgmatane/informatique/foodshot/serveur/AuthentificationAPI.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/ca/qc/cgmatane/informatique/foodshot/serveur/CreerUtilisateurAPI.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/ca/qc/cgmatane/informatique/foodshot/serveur/CreerUtilisateurAPI.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/vue_activite_creation_compte.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/vue_activite_creation_compte.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/debug/res/values/google_maps_api.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/debug/res/values/google_maps_api.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/ca/qc/cgmatane/informatique/foodshot/ActiviteParametresModifierInfosCompte.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/ca/qc/cgmatane/informatique/foodshot/ActiviteParametresModifierInfosCompte.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -50,55 +45,20 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="ActiviteConnexion.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/ca/qc/cgmatane/informatique/foodshot/ActiviteConnexion.java">
+      <file leaf-file-name="ActivitePrincipale.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/ca/qc/cgmatane/informatique/foodshot/ActivitePrincipale.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="389">
-              <caret line="102" column="13" selection-start-line="100" selection-start-column="12" selection-end-line="102" selection-end-column="13" />
+            <state relative-caret-position="493">
+              <caret line="55" column="102" lean-forward="true" selection-start-line="55" selection-start-column="8" selection-end-line="55" selection-end-column="102" />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ActiviteCreationUtilisateur.java" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/ca/qc/cgmatane/informatique/foodshot/ActiviteCreationUtilisateur.java">
+      <file leaf-file-name="ActiviteParametresModifierInfosCompte.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/ca/qc/cgmatane/informatique/foodshot/ActiviteParametresModifierInfosCompte.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="432">
-              <caret line="62" column="13" selection-start-line="62" selection-start-column="13" selection-end-line="62" selection-end-column="13" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="vue_activite_creation_compte.xml" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/vue_activite_creation_compte.xml">
-          <provider editor-type-id="android-designer2">
-            <state />
-          </provider>
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="733">
-              <caret line="81" column="35" selection-start-line="81" selection-start-column="35" selection-end-line="81" selection-end-column="35" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="AuthentificationAPI.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/ca/qc/cgmatane/informatique/foodshot/serveur/AuthentificationAPI.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="250">
-              <caret line="27" column="46" selection-start-line="27" selection-start-column="46" selection-end-line="27" selection-end-column="46" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="CreerUtilisateurAPI.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/ca/qc/cgmatane/informatique/foodshot/serveur/CreerUtilisateurAPI.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="777">
-              <caret line="104" column="51" selection-start-line="104" selection-start-column="51" selection-end-line="104" selection-end-column="51" />
-              <folding>
-                <element signature="e#1858#1859#0" expanded="true" />
-                <element signature="e#1896#1897#0" expanded="true" />
-                <element signature="e#3435#3436#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="350">
+              <caret line="38" column="90" selection-start-line="38" selection-start-column="90" selection-end-line="38" selection-end-column="90" />
             </state>
           </provider>
         </entry>
@@ -123,6 +83,7 @@
       <find>26</find>
       <find>WindowActionBar</find>
       <find>new Theme</find>
+      <find>TODO</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -2418,7 +2379,6 @@
         <option value="$PROJECT_DIR$/app/src/main/res/layout/vue_activite_parametres_modifier_infos_compte.xml" />
         <option value="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/values/strings.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/java/ca/qc/cgmatane/informatique/foodshot/ActiviteParametresModifierInfosCompte.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/ca/qc/cgmatane/informatique/foodshot/ActiviteParametres.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/ca/qc/cgmatane/informatique/foodshot/ActiviteCreationCompte.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/ca/qc/cgmatane/informatique/foodshot/ActiviteNouvellePublication.java" />
@@ -2430,14 +2390,15 @@
         <option value="$PROJECT_DIR$/app/src/main/res/values/styles.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/ca/qc/cgmatane/informatique/foodshot/ThemeColors.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/ca/qc/cgmatane/informatique/foodshot/serveur/AuthentificationAPI.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/ca/qc/cgmatane/informatique/foodshot/ActiviteConnexion.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/ca/qc/cgmatane/informatique/foodshot/serveur/CreerUtilisateurAPI.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/ca/qc/cgmatane/informatique/foodshot/ActiviteCreationUtilisateur.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/vue_activite_creation_compte.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/java/ca/qc/cgmatane/informatique/foodshot/ActiviteCreationUtilisateur.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/ca/qc/cgmatane/informatique/foodshot/ActiviteConnexion.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/ca/qc/cgmatane/informatique/foodshot/ActiviteParametresModifierInfosCompte.java" />
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds" extendedState="6">
+  <component name="ProjectFrameBounds" extendedState="7">
     <option name="x" value="267" />
     <option name="y" value="-8" />
     <option name="width" value="1437" />
@@ -2483,12 +2444,6 @@
               <item name="app" type="feadf853:AndroidModuleNode" />
               <item name="res" type="d4f16f75:AndroidResFolderNode" />
               <item name="layout" type="ddeffd01:AndroidResFolderTypeNode" />
-            </path>
-            <path>
-              <item name="FoodShot" type="1abcf292:AndroidViewProjectNode" />
-              <item name="app" type="feadf853:AndroidModuleNode" />
-              <item name="res" type="d4f16f75:AndroidResFolderNode" />
-              <item name="values" type="ddeffd01:AndroidResFolderTypeNode" />
             </path>
             <path>
               <item name="FoodShot" type="1abcf292:AndroidViewProjectNode" />
@@ -3039,13 +2994,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/ca/qc/cgmatane/informatique/foodshot/ActiviteParametresModifierInfosCompte.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="288">
-          <caret line="24" column="56" lean-forward="true" selection-start-line="24" selection-start-column="56" selection-end-line="24" selection-end-column="56" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/values/strings.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="578">
@@ -3095,13 +3043,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/ca/qc/cgmatane/informatique/foodshot/ActivitePrincipale.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="374">
-          <caret line="51" column="56" selection-start-line="51" selection-start-column="56" selection-end-line="51" selection-end-column="56" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml">
       <provider editor-type-id="android-manifest">
         <state />
@@ -3121,8 +3062,32 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/ca/qc/cgmatane/informatique/foodshot/ActiviteConnexion.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="389">
-          <caret line="102" column="13" selection-start-line="100" selection-start-column="12" selection-end-line="102" selection-end-column="13" />
+        <state relative-caret-position="259">
+          <caret line="97" column="9" lean-forward="true" selection-start-line="97" selection-start-column="9" selection-end-line="97" selection-end-column="9" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/ca/qc/cgmatane/informatique/foodshot/ActiviteCreationUtilisateur.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="380">
+          <caret line="60" column="69" selection-start-line="60" selection-start-column="69" selection-end-line="60" selection-end-column="69" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/vue_activite_creation_compte.xml">
+      <provider editor-type-id="android-designer2">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="733">
+          <caret line="81" column="35" selection-start-line="81" selection-start-column="35" selection-end-line="81" selection-end-column="35" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/ca/qc/cgmatane/informatique/foodshot/serveur/AuthentificationAPI.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="250">
+          <caret line="27" column="46" selection-start-line="27" selection-start-column="46" selection-end-line="27" selection-end-column="46" />
         </state>
       </provider>
     </entry>
@@ -3138,27 +3103,17 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/ca/qc/cgmatane/informatique/foodshot/serveur/AuthentificationAPI.java">
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/ca/qc/cgmatane/informatique/foodshot/ActivitePrincipale.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="250">
-          <caret line="27" column="46" selection-start-line="27" selection-start-column="46" selection-end-line="27" selection-end-column="46" />
+        <state relative-caret-position="493">
+          <caret line="55" column="102" lean-forward="true" selection-start-line="55" selection-start-column="8" selection-end-line="55" selection-end-column="102" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/vue_activite_creation_compte.xml">
-      <provider editor-type-id="android-designer2">
-        <state />
-      </provider>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/ca/qc/cgmatane/informatique/foodshot/ActiviteParametresModifierInfosCompte.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="733">
-          <caret line="81" column="35" selection-start-line="81" selection-start-column="35" selection-end-line="81" selection-end-column="35" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/ca/qc/cgmatane/informatique/foodshot/ActiviteCreationUtilisateur.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="432">
-          <caret line="62" column="13" selection-start-line="62" selection-start-column="13" selection-end-line="62" selection-end-column="13" />
+        <state relative-caret-position="350">
+          <caret line="38" column="90" selection-start-line="38" selection-start-column="90" selection-end-line="38" selection-end-column="90" />
         </state>
       </provider>
     </entry>
