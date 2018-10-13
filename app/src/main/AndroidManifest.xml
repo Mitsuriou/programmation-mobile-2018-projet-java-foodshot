@@ -93,7 +93,7 @@
             android:label="@string/titre_vue_activite_connexion"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".ActiviteCreationCompte"
+            android:name=".ActiviteCreationUtilisateur"
             android:label="@string/titre_vue_activite_creation_compte" />
 
         <activity

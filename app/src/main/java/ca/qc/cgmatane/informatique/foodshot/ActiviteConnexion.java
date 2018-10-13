@@ -47,7 +47,7 @@ public class ActiviteConnexion extends AppCompatActivity {
         boutonCreerCompte.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intentionNaviguerVersVueCreerCompte = new Intent(getApplicationContext(), ActiviteCreationCompte.class);
+                Intent intentionNaviguerVersVueCreerCompte = new Intent(getApplicationContext(), ActiviteCreationUtilisateur.class);
                 startActivity(intentionNaviguerVersVueCreerCompte);
             }
         });
@@ -81,9 +81,8 @@ public class ActiviteConnexion extends AppCompatActivity {
     }
 
     private boolean isIdentificationValide() {
-        if (this.champPseudonyme.getText().toString().equals("")
-                || this.champMdp.getText().toString().equals("")) {
-            this.affichageErreurs.setText("Veuillez renseigner un pseudonyme et un mot de passe");
+        if (this.champPseudonyme.getText().toString().equals("")) {
+            this.affichageErreurs.setText("Veuillez renseigner un pseudonyme");
             return false;
         }
 
@@ -99,8 +98,15 @@ public class ActiviteConnexion extends AppCompatActivity {
         }
 
         if (authentificationAPI.getUtilisateurCourant() == null) {
-            for (ModeleMessage message : authentificationAPI.getListeMessages()) {
-                this.affichageErreurs.append(message.getMessage() + "\n");
+            if (authentificationAPI.getListeMessages().size() == 1) {
+                for (ModeleMessage message : authentificationAPI.getListeMessages()) {
+                    this.affichageErreurs.append(message.getMessage());
+                }
+            }
+            else {
+                for (ModeleMessage message : authentificationAPI.getListeMessages()) {
+                    this.affichageErreurs.append(message.getMessage() + "\n");
+                }
             }
             return false;
         }

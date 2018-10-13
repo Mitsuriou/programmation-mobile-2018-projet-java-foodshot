@@ -9,9 +9,10 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import ca.qc.cgmatane.informatique.foodshot.modele.ModeleMessage;
 import ca.qc.cgmatane.informatique.foodshot.serveur.CreerUtilisateurAPI;
 
-public class ActiviteCreationCompte extends AppCompatActivity {
+public class ActiviteCreationUtilisateur extends AppCompatActivity {
 
     private EditText champNom;
     private EditText champPseudonyme;
@@ -45,13 +46,29 @@ public class ActiviteCreationCompte extends AppCompatActivity {
         this.reinitialiserErreurs();
 
         if (isNomValide() && isPseudonymeValide() && isMotDePasseValide()) {
-            new CreerUtilisateurAPI(this.champNom.getText().toString(),
+            CreerUtilisateurAPI creerUtilisateurAPI = new CreerUtilisateurAPI(
+                    this.champNom.getText().toString(),
                     this.champPseudonyme.getText().toString(),
-                    this.champMdp.getText().toString()).execute();
+                    this.champMdp.getText().toString()
+            );
 
-            Intent intentionNaviguerVersVueConnexion = new Intent(this, ActiviteConnexion.class);
-            startActivity(intentionNaviguerVersVueConnexion);
-            this.finish();
+            try {
+                creerUtilisateurAPI.execute().get();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+            if (creerUtilisateurAPI.getListeMessages().size() == 1) {
+                for (ModeleMessage message : creerUtilisateurAPI.getListeMessages()) {
+                    this.affichageErreurs.append(message.getMessage());
+                }
+            }
+            else {
+                for (ModeleMessage message : creerUtilisateurAPI.getListeMessages()) {
+                    this.affichageErreurs.append(message.getMessage() + "\n");
+                }
+            }
+
         }
     }
 

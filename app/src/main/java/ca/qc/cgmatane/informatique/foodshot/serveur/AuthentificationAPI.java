@@ -84,8 +84,6 @@ public class AuthentificationAPI extends AsyncTask<String, String, String> {
             }
             else {
                 JSONObject utilisateurJson = new JSONObject(utilisateurJsonArray.getJSONObject(0).toString());
-
-                Log.d("date_creation_compte", utilisateurJson.getString("creation"));
                 this.utilisateurCourant = new ModeleUtilisateur(
                         utilisateurJson.getInt("id_utilisateur"),
                         utilisateurJson.getString("nom"),
