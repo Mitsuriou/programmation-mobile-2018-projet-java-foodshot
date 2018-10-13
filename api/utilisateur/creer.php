@@ -21,8 +21,8 @@ require_once '../objets/ReponseAPI.php';
 //error_reporting(E_ALL);
 
 use ProjetMobileAPI\Connexion;
-use ProjetMobileAPI\Utilisateur;
 use ProjetMobileAPI\ReponseAPI;
+use ProjetMobileAPI\Utilisateur;
 
 // récupération de la connexion à la base de données
 $bdd = Connexion::get()->connect();
@@ -34,28 +34,40 @@ $reponseAPI = new ReponseAPI();
 // récupération des données transmises en POST
 $data = json_decode(file_get_contents("php://input"));
 
-// définition des valeurs des propriétés de l'utilisateur
-$utilisateur->nom = $data->nom;
-$utilisateur->pseudonyme = $data->pseudonyme;
-$utilisateur->url_image = $data->url_image;
-$utilisateur->mdp_hash = $data->mdp_hash;
+// recherche si un utilisateur existe avec le même pseudonyme
+$stmt = $utilisateur->rechercher($data->pseudonyme);
 
-$item_message = array();
-
-// création de l'utilisateur
-if ($utilisateur->creer()) {
+// Ajout d'un message si un enregistrement avec le même pseudonyme existe déjà
+if ($stmt->rowCount() > 0) {
 
     $item_message['code'] = 0;
-    $item_message['type'] = "info";
-    $item_message['message'] = "L'utilisateur a été créé avec succès";
-
-    $reponseAPI->statut = true;
+    $item_message['type'] = "erreur";
+    $item_message['message'] = "Ce pseudonyme existe déjà";
 } else {
 
-    // si l'utilisateur n'est pas créé, informe l'utilisateur
-    $item_message['code'] = 0;
-    $item_message['type'] = "alerte";
-    $item_message['message'] = "Impossible de créer l'utilisateur";
+    // définition des valeurs des propriétés de l'utilisateur
+    $utilisateur->nom = $data->nom;
+    $utilisateur->pseudonyme = $data->pseudonyme;
+    $utilisateur->url_image = $data->url_image;
+    $utilisateur->mdp_hash = $data->mdp_hash;
+
+    $item_message = array();
+
+    // création de l'utilisateur
+    if ($utilisateur->creer()) {
+
+        $item_message['code'] = 0;
+        $item_message['type'] = "info";
+        $item_message['message'] = "L'utilisateur a été créé avec succès";
+
+        $reponseAPI->statut = true;
+    } else {
+
+        // si l'utilisateur n'est pas créé, informe l'utilisateur
+        $item_message['code'] = 0;
+        $item_message['type'] = "erreur";
+        $item_message['message'] = "Impossible de créer l'utilisateur";
+    }
 }
 
 array_push($reponseAPI->tab_message, $item_message);
