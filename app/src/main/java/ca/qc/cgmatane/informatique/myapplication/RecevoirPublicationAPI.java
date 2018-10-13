@@ -64,17 +64,28 @@ public class RecevoirPublicationAPI extends AsyncTask<String, String, String> {
 
             this.listePublication = new ArrayList<>();
             for (JSONObject valeur : listeDesPublicationsJson) {
+
+                String urlImage = valeur.getString("url_image");
+                if ((urlImage != null) || (urlImage.equals(""))) {
+                    urlImage = "https://cdn.mos.cms.futurecdn.net/FUE7XiFApEqWZQ85wYcAfM.jpg";
+                }
+
+                String urlProfil = valeur.getString("url_image_utilisateur");
+                if ((urlProfil == null) || (urlProfil.equals(""))) {
+                    urlProfil = "https://cdn.mos.cms.futurecdn.net/FUE7XiFApEqWZQ85wYcAfM.jpg";
+                }
+
                 this.listePublication.add(new Publication(
                         valeur.getInt("id_publication"),
                         valeur.getString("titre"),
                         valeur.getString("description"),
-                        valeur.getString("url_image"),
+                        urlImage,
                         valeur.getDouble("latitude"),
                         valeur.getDouble("longitude"),
                         valeur.getInt("nombre_mention_aime"),
                         valeur.getInt("id_utilisateur"),
                         valeur.getString("pseudonyme_utilisateur"),
-                        valeur.getString("url_image_utilisateur"),
+                        urlProfil,
                         valeur.getString("creation")
                 ));
 
