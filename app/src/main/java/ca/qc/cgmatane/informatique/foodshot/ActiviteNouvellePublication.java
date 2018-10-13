@@ -2,7 +2,9 @@ package ca.qc.cgmatane.informatique.foodshot;
 
 import android.Manifest;
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.icu.text.SimpleDateFormat;
 import android.location.Location;
@@ -18,7 +20,9 @@ import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.location.LocationCallback;
@@ -35,6 +39,11 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.Date;
+import java.util.concurrent.ExecutionException;
+
+import ca.qc.cgmatane.informatique.foodshot.constantes.Constantes;
+import ca.qc.cgmatane.informatique.foodshot.modele.ModeleMessage;
+import ca.qc.cgmatane.informatique.foodshot.serveur.NouvellePublicationAPI;
 
 import static android.Manifest.permission.ACCESS_FINE_LOCATION;
 import static android.Manifest.permission.CAMERA;
@@ -59,6 +68,9 @@ public class ActiviteNouvellePublication extends AppCompatActivity {
     // composants graphiques
     protected Button boutonCaptureImage;
     protected Button boutonPosterPublication;
+    protected EditText champTitre;
+    protected EditText champDescription;
+    protected TextView affichageErreurs;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,6 +81,10 @@ public class ActiviteNouvellePublication extends AppCompatActivity {
 
         this.demanderPermissions();
         startLocationUpdates();
+
+        this.champTitre = (EditText) findViewById(R.id.champ_titre_nouvelle_publication);
+        this.champDescription = (EditText) findViewById(R.id.champ_description_nouvelle_publication);
+        this.affichageErreurs = (TextView) findViewById(R.id.affichage_erreurs_nouvelle_publication);
 
         this.boutonCaptureImage = (Button) findViewById(R.id.bouton_demarrer_appareil_photo);
         this.boutonCaptureImage.setOnClickListener(new View.OnClickListener() {
@@ -86,16 +102,51 @@ public class ActiviteNouvellePublication extends AppCompatActivity {
         this.boutonPosterPublication.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // TODO call API
+                affichageErreurs.setText("");
 
                 if (aucuneAutorisationPourPublier()) {
                     finish();
                     return;
                 }
-                Log.d("coord_lat", "" + latitude);
-                Log.d("coord_long", "" + longitude);
-                Toast.makeText(ActiviteNouvellePublication.this, "Publication postée avec succès ! :D", Toast.LENGTH_SHORT).show();
-                finirActivite();
+                if (champTitre.equals("")) {
+                    affichageErreurs.setText("Veuillez donner un titre à votre publication");
+                    return;
+                }
+
+                SharedPreferences preferencesPartagees = getSharedPreferences(Constantes.MES_PREFERENCES, Context.MODE_PRIVATE);
+
+                NouvellePublicationAPI nouvellePublicationAPI = new NouvellePublicationAPI(
+                        champTitre.getText().toString(),
+                        champDescription.getText().toString(),
+                        latitude,
+                        longitude,
+                        preferencesPartagees.getInt("id_utilisateur", -1)
+                );
+
+                try {
+                    nouvellePublicationAPI.execute().get();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+                if (nouvellePublicationAPI.getListeMessages().size() == 1) {
+                    for (ModeleMessage message : nouvellePublicationAPI.getListeMessages()) {
+                        affichageErreurs.append(message.getMessage());
+                    }
+                }
+                else {
+                    for (ModeleMessage message : nouvellePublicationAPI.getListeMessages()) {
+                        affichageErreurs.append(message.getMessage() + "\n");
+                    }
+                }
+
+                for (ModeleMessage message : nouvellePublicationAPI.getListeMessages()) {
+                    if (!message.getType().equals("info")) {
+                        return;
+                    }
+                    Toast.makeText(ActiviteNouvellePublication.this, "Publication postée avec succès ! :D", Toast.LENGTH_SHORT).show();
+                    finirActivite();
+                }
             }
         });
 
