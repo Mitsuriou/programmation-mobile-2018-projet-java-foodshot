@@ -4,6 +4,7 @@ import android.os.AsyncTask;
 import android.util.Log;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
@@ -11,20 +12,24 @@ import java.util.ArrayList;
 import java.util.List;
 
 import ca.qc.cgmatane.informatique.foodshot.modele.ModeleMessage;
-import ca.qc.cgmatane.informatique.foodshot.modele.ModeleUtilisateurRecherche;
+import ca.qc.cgmatane.informatique.foodshot.modele.ModeleUtilisateur;
+import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
+import okhttp3.RequestBody;
 import okhttp3.Response;
 
-public class RechercherProfilAPI extends AsyncTask<String, String, String> {
-    private String pseudonymeRecherche;
+public class AuthentificationAPI extends AsyncTask<String, String, String> {
+    private String pseudonyme;
+    private String mdpHash;
 
     private boolean statut;
-    private List<ModeleUtilisateurRecherche> listeUtilisateurs;
+    private ModeleUtilisateur utilisateurCourant;
     private List<ModeleMessage> listeMessages;
 
-    public RechercherProfilAPI(String pseudonymeRecherche) {
-        this.pseudonymeRecherche = pseudonymeRecherche;
+    public AuthentificationAPI(String pseudonyme, String mdpHash) {
+        this.pseudonyme = pseudonyme;
+        this.mdpHash = mdpHash;
     }
 
     @Override
@@ -35,9 +40,22 @@ public class RechercherProfilAPI extends AsyncTask<String, String, String> {
     @Override
     protected String doInBackground(String... params) {
         Response reponse;
+        MediaType JSON = MediaType.parse("application/json; charset=utf-8");
+
         OkHttpClient client = new OkHttpClient();
+        JSONObject data = new JSONObject();
+        try {
+            data.put("pseudonyme", this.pseudonyme)
+                    .put("mdp_hash", this.mdpHash);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        RequestBody body = RequestBody.create(JSON, data.toString());
+
         Request request = new Request.Builder()
-                .url("http://54.37.152.134/api/utilisateur/rechercher.php?pseudonyme=" + this.pseudonymeRecherche)
+                .url("http://54.37.152.134/api/utilisateur/auth.php")
+                .post(body)
                 .build();
 
         try {
@@ -52,8 +70,6 @@ public class RechercherProfilAPI extends AsyncTask<String, String, String> {
 
             // statut
             String statutString = jsonDonneesObjet.getString("statut");
-            Log.d("json_recherche_statut", statutString);
-
             this.statut = statutString.equals("true");
 
             // donnee
@@ -63,21 +79,20 @@ public class RechercherProfilAPI extends AsyncTask<String, String, String> {
             String utilsateurString = jsonObjectDonnee.getString("utilisateur");
             JSONArray utilisateurJsonArray = new JSONArray(utilsateurString);
 
-            List<JSONObject> listeDesUtilisateursJson = new ArrayList<>();
-            for (int i = 0; i < utilisateurJsonArray.length(); i++) {
-                listeDesUtilisateursJson.add(utilisateurJsonArray.getJSONObject(i));
+            if (utilisateurJsonArray.length() == 0) {
+                this.utilisateurCourant = null;
             }
+            else {
+                JSONObject utilisateurJson = new JSONObject(utilisateurJsonArray.getJSONObject(0).toString());
 
-            this.listeUtilisateurs = new ArrayList<>();
-            for (JSONObject valeur : listeDesUtilisateursJson) {
-                this.listeUtilisateurs.add(new ModeleUtilisateurRecherche(
-                        valeur.getInt("id_utilisateur"),
-                        valeur.getString("nom"),
-                        valeur.getString("pseudonyme")
-                ));
-                Log.d("utilisateur_id", "" + valeur.getInt("id_utilisateur"));
-                Log.d("utilisateur_nom", valeur.getString("nom"));
-                Log.d("utilisateur_pseudonyme", valeur.getString("pseudonyme"));
+                Log.d("date_creation_compte", utilisateurJson.getString("creation"));
+                this.utilisateurCourant = new ModeleUtilisateur(
+                        utilisateurJson.getInt("id_utilisateur"),
+                        utilisateurJson.getString("nom"),
+                        utilisateurJson.getString("pseudonyme"),
+                        utilisateurJson.getString("url_image"),
+                        utilisateurJson.getString("creation")
+                );
             }
 
             // message
@@ -117,8 +132,8 @@ public class RechercherProfilAPI extends AsyncTask<String, String, String> {
         return statut;
     }
 
-    public List<ModeleUtilisateurRecherche> getListeUtilisateurs() {
-        return listeUtilisateurs;
+    public ModeleUtilisateur getUtilisateurCourant() {
+        return utilisateurCourant;
     }
 
     public List<ModeleMessage> getListeMessages() {

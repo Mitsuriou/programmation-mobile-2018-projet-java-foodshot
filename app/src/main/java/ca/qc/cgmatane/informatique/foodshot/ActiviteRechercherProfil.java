@@ -18,6 +18,7 @@ import java.util.List;
 
 import ca.qc.cgmatane.informatique.foodshot.modele.ModeleMessage;
 import ca.qc.cgmatane.informatique.foodshot.modele.ModeleUtilisateur;
+import ca.qc.cgmatane.informatique.foodshot.modele.ModeleUtilisateurRecherche;
 import ca.qc.cgmatane.informatique.foodshot.serveur.RechercherProfilAPI;
 
 public class ActiviteRechercherProfil extends AppCompatActivity {
@@ -83,11 +84,11 @@ public class ActiviteRechercherProfil extends AppCompatActivity {
         this.actualiserListe(rechercherProfilAPI.getListeUtilisateurs());
     }
 
-    public List<HashMap<String, String>> actualiserListe(List<ModeleUtilisateur> listeDesUtilisateurs) {
+    public List<HashMap<String, String>> actualiserListe(List<ModeleUtilisateurRecherche> listeDesUtilisateurs) {
         List<HashMap<String,String>> listeComptes = new ArrayList<>();
         HashMap<String,String> compte;
 
-        for (ModeleUtilisateur modeleUtilisateur : listeDesUtilisateurs) {
+        for (ModeleUtilisateurRecherche modeleUtilisateur : listeDesUtilisateurs) {
             compte = new HashMap<>();
             compte.put("nom", modeleUtilisateur.getNom());
             compte.put("pseudonyme", "@" + modeleUtilisateur.getPseudonyme());

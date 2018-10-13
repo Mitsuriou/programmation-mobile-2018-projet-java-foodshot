@@ -1,6 +1,8 @@
 package ca.qc.cgmatane.informatique.foodshot;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.LinearLayoutManager;
@@ -19,10 +21,9 @@ import android.widget.Toast;
 import java.util.List;
 import java.util.ArrayList;
 
-public class ActivitePrincipale extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+import ca.qc.cgmatane.informatique.foodshot.constantes.Constantes;
 
-    // TODO REMOVE DEBUG
-    public static boolean IS_CONNECTE = true;
+public class ActivitePrincipale extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     // List
     private List<String> lNames = new ArrayList<>();
@@ -37,8 +38,8 @@ public class ActivitePrincipale extends AppCompatActivity implements NavigationV
         super.onCreate(savedInstanceState);
         setContentView(R.layout.vue_activite_principale);
 
-        // TODO : Gérer si l'utilisateur est déjà connecté
-        if (!IS_CONNECTE) {
+        SharedPreferences preferencesPartagees = getSharedPreferences(Constantes.MES_PREFERENCES, Context.MODE_PRIVATE);
+        if (!preferencesPartagees.contains("id_utilisateur")) {
             Intent intentionSeConnecter = new Intent(this, ActiviteConnexion.class);
             startActivity(intentionSeConnecter);
             finish();
@@ -66,7 +67,6 @@ public class ActivitePrincipale extends AppCompatActivity implements NavigationV
         navigationView.setNavigationItemSelectedListener(this);
 
         initImageBitmaps();
-
     }
 
     @Override

@@ -1,6 +1,8 @@
 package ca.qc.cgmatane.informatique.foodshot;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -9,7 +11,13 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import ca.qc.cgmatane.informatique.foodshot.constantes.Constantes;
+import ca.qc.cgmatane.informatique.foodshot.modele.ModeleMessage;
+import ca.qc.cgmatane.informatique.foodshot.serveur.AuthentificationAPI;
+
 public class ActiviteConnexion extends AppCompatActivity {
+
+    private AuthentificationAPI authentificationAPI;
 
     private EditText champPseudonyme;
     private EditText champMdp;
@@ -46,14 +54,21 @@ public class ActiviteConnexion extends AppCompatActivity {
         this.reinitialiserErreurs();
 
         if (isIdentificationValide()) {
+            SharedPreferences preferencesPartagees = getSharedPreferences(Constantes.MES_PREFERENCES, Context.MODE_PRIVATE);
+            SharedPreferences.Editor editeur = preferencesPartagees.edit();
+
+            editeur.putInt("id_utilisateur", authentificationAPI.getUtilisateurCourant().getId_utilisateur());
+            editeur.putString("nom", authentificationAPI.getUtilisateurCourant().getNom());
+            editeur.putString("pseudonyme", authentificationAPI.getUtilisateurCourant().getPseudonyme());
+            editeur.putString("url_image", authentificationAPI.getUtilisateurCourant().getUrlImage());
+            editeur.putString("creation", authentificationAPI.getUtilisateurCourant().getCreation().toString());
+            editeur.apply();
+            editeur.commit();
+
             Toast.makeText(ActiviteConnexion.this, "Connexion réussie !", Toast.LENGTH_SHORT).show();
             Intent intentionSeConnecter = new Intent(this, ActivitePrincipale.class);
             startActivity(intentionSeConnecter);
             this.finish();
-        }
-        else {
-            Toast.makeText(this, "Identifiant ou mot de passe invalide", Toast.LENGTH_SHORT).show();
-            this.affichageErreurs.setText("Identifiant ou mot de passe invalide.");
         }
     }
 
@@ -62,8 +77,30 @@ public class ActiviteConnexion extends AppCompatActivity {
     }
 
     private boolean isIdentificationValide() {
-        // TODO : call l'API pour savoir si les identifiants sont corrects
-        return false;
+        if (this.champPseudonyme.getText().toString().equals("")
+                || this.champMdp.getText().toString().equals("")) {
+            this.affichageErreurs.setText("Veuillez renseigner un pseudonyme et un mot de passe");
+            return false;
+        }
+
+        authentificationAPI = new AuthentificationAPI(
+                this.champPseudonyme.getText().toString(),
+                this.champMdp.getText().toString()
+        );
+
+        try {
+            authentificationAPI.execute().get();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        if (authentificationAPI.getUtilisateurCourant() == null) {
+            for (ModeleMessage message : authentificationAPI.getListeMessages()) {
+                this.affichageErreurs.append(message.getMessage() + "\n");
+            }
+            return false;
+        }
+        return true;
     }
 
     @Override
