@@ -18,10 +18,15 @@ import okhttp3.Response;
 
 public class RecevoirPublicationAPI extends AsyncTask<String, String, String> {
 
-    private int compteur;
+    private int compteur, dernierId=-1;
     private boolean statut;
     private List<Publication> listePublication;
     private List<ModeleMessage> listeMessages;
+
+    public RecevoirPublicationAPI(int compteur, int dernierId) {
+        this.compteur = compteur;
+        this.dernierId = dernierId;
+    }
 
     public RecevoirPublicationAPI(int compteur) {
         this.compteur = compteur;
@@ -38,7 +43,7 @@ public class RecevoirPublicationAPI extends AsyncTask<String, String, String> {
         OkHttpClient client = new OkHttpClient();
 
         Request request = new Request.Builder()
-                .url("http://54.37.152.134/api/publication/lire_pagination.php?page=" + compteur)
+                .url("http://54.37.152.134/api/publication/lire_pagination.php?page=" + compteur + "&dernierId=" + dernierId)
                 .build();
 
         try {
