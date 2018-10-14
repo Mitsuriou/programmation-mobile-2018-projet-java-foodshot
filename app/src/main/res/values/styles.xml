@@ -1,41 +1,54 @@
 <resources>
-    <style name="AppTheme" parent="Theme.AppCompat.Light">
-        <item name="colorPrimary">#000</item>
-        <item name="colorPrimaryDark">#000</item>
-        <item name="colorAccent">#000</item>
-        <item name="android:windowAnimationStyle">@style/WindowAnimationTransition</item>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="editTextColor">@color/editTextColor</item>
     </style>
 
-    <style name="AppThemeRouge" parent="Theme.AppCompat.Light">
+    <style name="AppThemeRougeBar" parent="Theme.AppCompat.Light">
         <item name="colorPrimary">#ff0000</item>
         <item name="colorPrimaryDark">#8f0000</item>
         <item name="colorAccent">#b7a7a7</item>
-        <item name="android:windowAnimationStyle">@style/WindowAnimationTransition</item>
     </style>
 
-    <style name="AppThemeBleu" parent="Theme.AppCompat.Light">
+    <style name="AppThemeRougeNoBar" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="colorPrimary">#ff0000</item>
+        <item name="colorPrimaryDark">#8f0000</item>
+        <item name="colorAccent">#b7a7a7</item>
+        <item name="windowActionBar">true</item>
+    </style>
+
+    <style name="AppThemeBleuBar" parent="Theme.AppCompat.Light">
         <item name="colorPrimary">#004cff</item>
         <item name="colorPrimaryDark">#000c96</item>
         <item name="colorAccent">#b7a7a7</item>
-        <item name="android:windowAnimationStyle">@style/WindowAnimationTransition</item>
+    </style>
+    <style name="AppThemeBleuNoBar" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="colorPrimary">#004cff</item>
+        <item name="colorPrimaryDark">#000c96</item>
+        <item name="colorAccent">#b7a7a7</item>
+        <item name="windowActionBar">true</item>
     </style>
 
-    <style name="AppThemeVert" parent="Theme.AppCompat.Light">
+    <style name="AppThemeVertBar" parent="Theme.AppCompat.Light">
         <item name="colorPrimary">#2bff00</item>
         <item name="colorPrimaryDark">#009f23</item>
         <item name="colorAccent">#b7a7a7</item>
-        <item name="android:windowAnimationStyle">@style/WindowAnimationTransition</item>
     </style>
 
-    <style name="AppThemeDarkActionBar" parent="Theme.AppCompat.Light.DarkActionBar">
-        <item name="colorPrimary">#000</item>
-        <item name="colorPrimaryDark">#000</item>
-        <item name="colorAccent">#000</item>
-        <item name="android:windowAnimationStyle">@style/WindowAnimationTransition</item>
+    <style name="AppThemeVertNoBar" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="colorPrimary">#2bff00</item>
+        <item name="colorPrimaryDark">#009f23</item>
+        <item name="colorAccent">#b7a7a7</item>
+        <item name="windowActionBar">true</item>
     </style>
 
-    <style name="WindowAnimationTransition">
-        <item name="android:windowEnterAnimation">@android:anim/fade_in</item>
-        <item name="android:windowExitAnimation">@android:anim/fade_out</item>
-    </style>
+
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
 </resources>

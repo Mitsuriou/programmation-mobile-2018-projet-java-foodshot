@@ -16,23 +16,46 @@ public class ThemeColors {
     @ColorInt
     public int color;
 
-    public ThemeColors(Context context) {
+    public ThemeColors(Context context, String packageName) {
         SharedPreferences sharedPreferences = context.getSharedPreferences(NAME, Context.MODE_PRIVATE);
         String id_Color = sharedPreferences.getString(KEY, "1");
-        Log.d("COLORRRRRRRRRRRRRR", id_Color);
 
         switch (id_Color){
             case "1":
-                context.setTheme(R.style.AppThemeRouge);
+                    context.setTheme(R.style.AppTheme);
                 break;
+
             case "2":
-                context.setTheme(R.style.AppThemeVert);
+
+                if(packageName.equals("ca.qc.cgmatane.informatique.foodshot.drawer")){
+                    context.setTheme(R.style.AppThemeRougeNoBar);
+                }
+                else {
+                    context.setTheme(R.style.AppThemeRougeBar);
+                }
                 break;
+
             case "3":
-                context.setTheme(R.style.AppThemeBleu);
+
+                if(packageName.equals("ca.qc.cgmatane.informatique.foodshot.drawer")){
+                    context.setTheme(R.style.AppThemeVertNoBar);
+                }
+                else {
+                    context.setTheme(R.style.AppThemeVertBar);
+                }
+                break;
+
+            case "4":
+
+                if(packageName.equals("ca.qc.cgmatane.informatique.foodshot.drawer")){
+                    context.setTheme(R.style.AppThemeBleuNoBar);
+                }
+                else {
+                    context.setTheme(R.style.AppThemeBleuBar);
+                }
+
                 break;
         }
-        //context.setTheme(context.getResources().getIdentifier("T_" + stringColor, "style", context.getPackageName()));
     }
 
     public static void switchThemeColor(Activity activity, int id_color) {

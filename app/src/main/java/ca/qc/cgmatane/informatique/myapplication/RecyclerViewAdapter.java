@@ -170,13 +170,13 @@ public class RecyclerViewAdapter extends ListAdapter<Publication, RecyclerViewAd
 
         final Activity activity = (Activity) context;
 
-        holder.photo_profil.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ThemeColors.switchThemeColor(activity,2);
-
-            }
-        });
+//        holder.photo_profil.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                ThemeColors.switchThemeColor(activity,2);
+//
+//            }
+//        });
 //
 //        image.setOnClickListener(new View.OnClickListener() {
 //            @Override

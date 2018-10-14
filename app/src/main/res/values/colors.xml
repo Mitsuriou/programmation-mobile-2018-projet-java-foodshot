@@ -3,4 +3,6 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#FF0099CC</color>
     <color name="colorAccent">#FF4081</color>
+    <color name="editTextColor">#fff</color>
+<color name="statusBarColor">#0eb247</color>
 </resources>
