@@ -12,12 +12,10 @@ namespace ProjetMobileAPI;
 class Publication
 {
     // Connexion à la base de données et nom de la table
-    private $connexion_bdd;
-    private $nom_table = "publication";
-
-    // propriétés de l'objet
     public $id_publication;
     public $titre;
+
+    // propriétés de l'objet
     public $description;
     public $url_image;
     public $latitude;
@@ -27,12 +25,15 @@ class Publication
     public $pseudonyme_utilisateur;
     public $url_image_utilisateur;
     public $creation;
+    private $connexion_bdd;
+    private $nom_table = "publication";
 
     /**
      * Constructeur de Publication.
      * @param $bdd connexion à la base de données
      */
-    public function __construct($bdd){
+    public function __construct($bdd)
+    {
         $this->connexion_bdd = $bdd;
     }
 
@@ -77,11 +78,11 @@ class Publication
         $stmt = $this->connexion_bdd->prepare($requete);
 
         // sanitize
-        $this->titre=htmlspecialchars(strip_tags($this->titre));
-        $this->description=htmlspecialchars(strip_tags($this->description));
-        $this->latitude=htmlspecialchars(strip_tags($this->latitude));
-        $this->longitude=htmlspecialchars(strip_tags($this->longitude));
-        $this->id_utilisateur=htmlspecialchars(strip_tags($this->id_utilisateur));
+        $this->titre = htmlspecialchars(strip_tags($this->titre));
+        $this->description = htmlspecialchars(strip_tags($this->description));
+        $this->latitude = htmlspecialchars(strip_tags($this->latitude));
+        $this->longitude = htmlspecialchars(strip_tags($this->longitude));
+        $this->id_utilisateur = htmlspecialchars(strip_tags($this->id_utilisateur));
 
         // liaison des variables
         $stmt->bindParam(":titre", $this->titre);
@@ -91,7 +92,7 @@ class Publication
         $stmt->bindParam(":id_utilisateur", $this->id_utilisateur);
 
         // exécution de la requete
-        if($stmt->execute()){
+        if ($stmt->execute()) {
             return true;
         }
 
@@ -100,32 +101,38 @@ class Publication
 
     /**
      * lire les publications avec pagination
-     * @param $numero_enregistrement_debut
-     * @param $enregistrements_par_page
+     * @param integer $numero_enregistrement_debut
+     * @param integer $enregistrements_par_page
+     * @param integer $id_utilisateur sur lequel on doit vérifer la présence d'un j'aime
      * @return mixed
      */
-    public function lirePagination($numero_enregistrement_debut, $enregistrements_par_page){
-
+    public function lirePagination($numero_enregistrement_debut, $enregistrements_par_page, $id_utilisateur)
+    {
         // requete de selection
         $requete = "SELECT
-                (SELECT count(*) FROM aime WHERE aime.id_publication = p.id_publication) as nombre_mention_aime,
-                u.pseudonyme as pseudonyme_utilisateur, u.url_image as url_image_utilisateur,
-                p.id_publication, p.titre, p.description, p.url_image, p.latitude, p.longitude, p.id_utilisateur, p.creation
-            FROM
-                " . $this->nom_table . " p
-                LEFT JOIN
-                    utilisateur u
-                        ON p.id_utilisateur = u.id_utilisateur
-            ORDER BY p.creation DESC
-            LIMIT ?
-            OFFSET ?";
+            (SELECT count(*) FROM aime WHERE aime.id_publication = p.id_publication) as nombre_mention_aime,
+            EXISTS(SELECT id_utilisateur, id_publication FROM aime WHERE aime.id_utilisateur = ? AND aime.id_publication = p.id_publication) as j_aime,
+            u.pseudonyme as pseudonyme_utilisateur, u.url_image as url_image_utilisateur,
+            p.id_publication, p.titre, p.description, p.url_image, p.latitude, p.longitude, p.id_utilisateur, p.creation
+        FROM
+            " . $this->nom_table . " p
+            LEFT JOIN
+                utilisateur u
+                    ON p.id_utilisateur = u.id_utilisateur
+        ORDER BY p.creation DESC
+        LIMIT ?
+        OFFSET ?";
 
         // préparation de la requete
         $stmt = $this->connexion_bdd->prepare($requete);
 
+        // sanitize
+        $id_utilisateur = htmlspecialchars(strip_tags($id_utilisateur));
+
         // liaison des variables
-        $stmt->bindParam(1, $enregistrements_par_page, \PDO::PARAM_INT);
-        $stmt->bindParam(2, $numero_enregistrement_debut, \PDO::PARAM_INT);
+        $stmt->bindParam(1, $id_utilisateur, \PDO::PARAM_INT);
+        $stmt->bindParam(2, $enregistrements_par_page, \PDO::PARAM_INT);
+        $stmt->bindParam(3, $numero_enregistrement_debut, \PDO::PARAM_INT);
 
         // exécution de la requete
         $stmt->execute();
@@ -163,8 +170,8 @@ class Publication
         $stmt = $this->connexion_bdd->prepare($requete);
 
         // sanitize
-        $this->latitude=htmlspecialchars(strip_tags($this->latitude));
-        $this->longitude=htmlspecialchars(strip_tags($this->longitude));
+        $this->latitude = htmlspecialchars(strip_tags($this->latitude));
+        $this->longitude = htmlspecialchars(strip_tags($this->longitude));
 
         $latitude_min = $this->latitude - 0.1;
         $latitude_max = $this->latitude + 0.1;

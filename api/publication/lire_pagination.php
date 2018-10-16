@@ -15,8 +15,8 @@ require_once '../config/Connexion.php';
 require_once '../objets/Publication.php';
 require_once '../objets/ReponseAPI.php';
 
-//ini_set('display_errors', 'On');
-//error_reporting(E_ALL);
+ini_set('display_errors', 'On');
+error_reporting(E_ALL);
 
 use ProjetMobileAPI\Connexion;
 use ProjetMobileAPI\Publication;
@@ -29,8 +29,11 @@ $bdd = Connexion::get()->connect();
 $publication = new Publication($bdd);
 $reponseAPI = new ReponseAPI();
 
+// définition de l'id de l'utilisateur dont on doit vérifier les publications aimées
+$id_utilisateur_j_aime = (isset($_GET['id_utilisateur']) AND $_GET['id_utilisateur'] != '') ? $_GET['id_utilisateur'] : 0;
+
 // recherche de publications
-$stmt = $publication->lirePagination($numero_enregistrement_debut, $enregistrements_par_page);
+$stmt = $publication->lirePagination($numero_enregistrement_debut, $enregistrements_par_page, $id_utilisateur_j_aime);
 
 // récupération du contenu de la table
 while ($enregistrement = $stmt->fetch(PDO::FETCH_ASSOC)) {
@@ -44,6 +47,7 @@ while ($enregistrement = $stmt->fetch(PDO::FETCH_ASSOC)) {
     $item_publication['url_image'] = $url_image;
     $item_publication['latitude'] = $latitude;
     $item_publication['longitude'] = $longitude;
+    if ($id_utilisateur_j_aime != 0) $item_publication['j_aime'] = $j_aime;
     $item_publication['nombre_mention_aime'] = $nombre_mention_aime;
     $item_publication['id_utilisateur'] = $id_utilisateur;
     $item_publication['pseudonyme_utilisateur'] = $pseudonyme_utilisateur;
