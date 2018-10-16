@@ -28,9 +28,7 @@
             android:id="@+id/bouton_demarrer_appareil_photo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Prendre une photo !"
-            android:textColor="#fff"
-            android:backgroundTint="@color/colorAccent" />
+            android:text="Prendre une photo !" />
     </TableRow>
 
     <TableRow
@@ -97,8 +95,6 @@
             android:id="@+id/poster_nouvelle_publication"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColor="#fff"
-            android:backgroundTint="@color/colorAccent"
             android:text="Publier !" />
     </TableRow>
 </TableLayout>

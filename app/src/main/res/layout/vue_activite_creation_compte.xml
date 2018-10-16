@@ -77,8 +77,6 @@
         android:id="@+id/bouton_creation_compte"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:backgroundTint="@color/colorAccent"
-        android:text="@string/texte_bouton_creation_compte"
-        android:textColor="#fff" />
+        android:text="@string/texte_bouton_creation_compte" />
 
 </LinearLayout>

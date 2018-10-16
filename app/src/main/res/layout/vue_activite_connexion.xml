@@ -41,9 +41,7 @@
         android:id="@+id/bouton_connexion"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Se connecter"
-        android:textColor="#fff"
-        android:backgroundTint="@color/colorAccent" />
+        android:text="Se connecter" />
 
     <TextView
         android:id="@+id/connexion_affichage_erreurs"
@@ -69,18 +67,14 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:backgroundTint="@color/colorAccent"
-                    android:text="Créer un compte"
-                    android:textColor="#fff" />
+                    android:text="@string/creer_un_compte" />
 
                 <Button
                     android:id="@+id/bouton_mot_de_passe_oublie"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:backgroundTint="@color/colorAccent"
-                    android:text="Mot de passe oublié"
-                    android:textColor="#fff" />
+                    android:text="@string/mot_de_passe_oublie" />
             </TableRow>
 
         </TableLayout>

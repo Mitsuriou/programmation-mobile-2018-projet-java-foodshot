@@ -11,24 +11,19 @@
         android:id="@+id/general"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Général"
-        android:textColor="@color/colorAccent"
-        android:backgroundTint="@color/editTextColor" />
+        android:text="@string/param_bouton_general" />
 
     <Button
         android:id="@+id/bouton_param_compte"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Compte"
-        android:textColor="@color/colorAccent"
-        android:backgroundTint="@color/editTextColor" />
+        android:text="@string/param_bouton_compte" />
 
     <Button
         android:id="@+id/bouton_suppr_compte"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Supprimer mon compte"
-        android:textColor="#f00"
-        android:backgroundTint="@color/editTextColor" />
+        android:text="@string/param_bouton_supprimer_mon_compte"
+        android:textColor="#f00" />
 
 </LinearLayout>

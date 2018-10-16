@@ -166,16 +166,7 @@ public class RecyclerViewAdapter extends ListAdapter<ModelePublication, Recycler
         holder.nbCoeur.setText("" + listePublication.get(position).getNbLike());
         holder.user_name.setText(listePublication.get(position).getUsername());
 
-        final Activity activity = (Activity) context;
 
-        holder.photo_profil.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ThemeColors.switchThemeColor(activity,2);
-
-            }
-        });
-//
 //        image.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View v) {

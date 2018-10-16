@@ -11,8 +11,7 @@
         android:id="@+id/textView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Nom d'utilisateur"
-        android:textColor="@color/colorAccent" />
+        android:text="Nom d'utilisateur" />
 
     <android.support.design.widget.TextInputLayout
         android:layout_width="match_parent"
@@ -33,15 +32,13 @@
         android:id="@+id/divider2"
         android:layout_width="match_parent"
         android:layout_height="2dp"
-        android:background="?android:attr/listDivider"
-        android:backgroundTint="@color/colorAccent" />
+        android:background="?android:attr/listDivider" />
 
     <TextView
         android:id="@+id/textView2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Mot de passe"
-        android:textColor="@color/colorAccent" />
+        android:text="Mot de passe" />
 
     <android.support.design.widget.TextInputLayout
         android:layout_width="match_parent"
@@ -54,8 +51,7 @@
             android:hint="@string/hint_creation_compte_champ_mot_de_passe"
             android:inputType="textPassword"
             android:maxLines="1"
-            android:singleLine="true"
-            android:textColor="@color/colorAccent" />
+            android:singleLine="true" />
 
     </android.support.design.widget.TextInputLayout>
 
@@ -70,8 +66,7 @@
             android:hint="@string/hint_creation_compte_champ_mot_de_passe_2"
             android:inputType="textPassword"
             android:maxLines="1"
-            android:singleLine="true"
-            android:textColor="@color/colorAccent" />
+            android:singleLine="true" />
 
     </android.support.design.widget.TextInputLayout>
 
@@ -79,9 +74,7 @@
         android:id="@+id/bouton_param_valider_modification_infos_compte"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:backgroundTint="@color/colorAccent"
-        android:text="Valider les modifications"
-        android:textColor="@color/editTextColor" />
+        android:text="Valider les modifications" />
 
     <TextView
         android:id="@+id/param_compte_affichage_erreurs"

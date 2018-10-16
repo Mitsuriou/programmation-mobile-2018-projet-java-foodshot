@@ -21,13 +21,7 @@ public class ThemeColors {
                 context.setTheme(R.style.AppTheme);
                 break;
             case "2":
-                context.setTheme(R.style.AppThemeRouge);
-                break;
-            case "3":
-                context.setTheme(R.style.AppThemeVert);
-                break;
-            case "4":
-                context.setTheme(R.style.AppThemeBleu);
+                context.setTheme(R.style.AppThemeNoir);
                 break;
         }
     }

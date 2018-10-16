@@ -3,6 +3,7 @@ package ca.qc.cgmatane.informatique.foodshot;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.NonNull;
@@ -19,6 +20,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.AbsListView;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -136,6 +138,9 @@ public class ActivitePrincipale extends AppCompatActivity implements NavigationV
         } else if (id == R.id.notifications) {
             // TODO
             Toast.makeText(this, "A venir", Toast.LENGTH_SHORT).show();
+        } else if (id == R.id.theme_noir) {
+            // TODO prendre les prefs
+            // TODO échanger le theme en fonction de celui déja en vigueur
         } else if (id == R.id.parametres) {
             Intent intentionNaviguerVersParametres = new Intent(this, ActiviteParametres.class);
             startActivity(intentionNaviguerVersParametres);
@@ -238,6 +243,11 @@ public class ActivitePrincipale extends AppCompatActivity implements NavigationV
 
         // Ajout des informations de l'utilisateur dans le header du drawer
         View vueDrawer = navigationView.getHeaderView(0);
+
+        // change to red background color for the drawer
+        // vueDrawer.setBackgroundColor(0xFFFF0000);
+        // vueDrawer.invalidate();
+
         TextView nomDrawer = (TextView) vueDrawer.findViewById(R.id.drawer_header_nom);
         nomDrawer.setText(preferencesPartagees.getString("nom", "Nom"));
 

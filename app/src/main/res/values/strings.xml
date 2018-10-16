@@ -49,5 +49,10 @@
     <string name="hint_creation_compte_champ_mot_de_passe">Mot de passe (5 caractères min.)</string>
     <string name="hint_creation_compte_champ_mot_de_passe_2">Répéter mot de passe</string>
     <string name="texte_bouton_creation_compte">Créer un compte</string>
+    <string name="creer_un_compte">Créer un compte</string>
+    <string name="mot_de_passe_oublie">Mot de passe oublié</string>
+    <string name="param_bouton_supprimer_mon_compte">Supprimer mon compte</string>
+    <string name="param_bouton_compte">Compte</string>
+    <string name="param_bouton_general">Général</string>
 
 </resources>

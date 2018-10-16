@@ -4,7 +4,6 @@
     android:id="@+id/drawer_header_layout"
     android:layout_width="match_parent"
     android:layout_height="@dimen/nav_header_height"
-    android:background="@drawable/side_nav_bar"
     android:gravity="bottom"
     android:orientation="vertical"
     android:paddingLeft="@dimen/activity_horizontal_margin"
@@ -25,19 +24,16 @@
     <TextView
         android:id="@+id/drawer_header_nom"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
+        android:layout_height="wrap_content" />
 
     <TextView
         android:id="@+id/drawer_header_pseudonyme"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
+        android:layout_height="wrap_content" />
 
     <TextView
         android:id="@+id/drawer_header_nombres_mentions_jaime"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
+        android:layout_height="wrap_content" />
 
 </LinearLayout>
