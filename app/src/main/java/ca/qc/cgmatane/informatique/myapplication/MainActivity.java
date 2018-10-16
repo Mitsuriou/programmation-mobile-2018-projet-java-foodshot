@@ -34,7 +34,7 @@ public class MainActivity extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        new ThemeColors(this,getClass().getPackage().getName());
+        new ThemeColors(this, getClass().getPackage().getName());
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
@@ -86,12 +86,13 @@ public class MainActivity extends Activity {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        page ++;
+        page++;
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                Log.d("SIZEEEEE","" + recevoirPublicationAPI.getListePublication().size());
-                for (int i = 0; i < recevoirPublicationAPI.getListePublication().size()-1; i++) {
+                Log.d("SIZEEEEE", "" + recevoirPublicationAPI.getListePublication().size());
+                for (int i = 0; i < recevoirPublicationAPI.getListePublication().size(); i++) {
+                    Log.d("IDDDDDDDDDDDDD", "" + recevoirPublicationAPI.getListePublication().get(i).getId());
                     adapter.ajouterPublication(recevoirPublicationAPI.getListePublication().get(i));
                     Log.d("CHANGED", "" + adapter.getListePublication().get(adapter.getItemCount() - 1).getURLimage());
                     Log.d("CHANGED", "" + adapter.getItemCount());
