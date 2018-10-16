@@ -49,7 +49,7 @@ public class RecyclerViewAdapter extends ListAdapter<Publication, RecyclerViewAd
     }
 
     private ArrayList<Publication> listePublication;
-    private int id_utilisateur;
+    private int id_utilisateur=11;
     private String coeur = "/res/mipmap/ic_launcher/ic_launcher.png";
     private Context context;
     private ImageView image;
@@ -182,21 +182,22 @@ public class RecyclerViewAdapter extends ListAdapter<Publication, RecyclerViewAd
 //            }
 //        });
 //
-//        image.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Log.d(TAG,"onClick: image on: "+userNames.get(position));
-//
-//                //Toast.makeText(context,imageNames.get(position),Toast.LENGTH_SHORT).show();
-//            }
-//        });
-//
-        holder.coeur.setOnClickListener(new View.OnClickListener() {
+        image.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 AjoutAimeAPI ajoutAimeAPI = new AjoutAimeAPI(id_utilisateur, listePublication.get(position).getId());
+                ajoutAimeAPI.execute();
+
+                //Toast.makeText(context,imageNames.get(position),Toast.LENGTH_SHORT).show();
             }
         });
+//
+//        holder.coeur.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                AjoutAimeAPI ajoutAimeAPI = new AjoutAimeAPI(id_utilisateur, listePublication.get(position).getId());
+//            }
+//        });
 //
 //        holder.user_name.setOnClickListener(new View.OnClickListener() {
 //            @Override

@@ -35,16 +35,29 @@ public class AjoutAimeAPI extends AsyncTask<String, String, String> {
     @Override
     protected String doInBackground(String... params) {
         Response reponse;
+        MediaType JSON = MediaType.parse("application/json; charset=utf-8");
+
         OkHttpClient client = new OkHttpClient();
+        JSONObject data = new JSONObject();
+        try{
+            data.put("id_utilisateur", this.id_utilisateur)
+                    .put("id_publication",this.id_publication);
+        }catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        RequestBody body = RequestBody.create(JSON, data.toString());
 
         Request request = new Request.Builder()
-                .url("http://54.37.152.134/api/publication/ajout_aime.php?utilisateur=" + id_utilisateur + "&publication=" + id_publication)
+                .url("http://54.37.152.134/api/aime/creer.php")
+                .post(body)
                 .build();
 
         try {
             reponse = client.newCall(request).execute();
             String jsonDonneesString = reponse.body().string();
             JSONObject jsonDonneesObjet = new JSONObject(jsonDonneesString);
+            Log.d("json_reponse_serveur", jsonDonneesObjet.toString());
 
             // statut
             String statutString = jsonDonneesObjet.getString("statut");
