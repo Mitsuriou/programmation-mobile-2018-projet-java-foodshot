@@ -70,7 +70,7 @@ public class RecyclerViewAdapter extends ListAdapter<Publication, RecyclerViewAd
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_listitem, parent, false);
         ViewHolder holder = new ViewHolder(view);
-        holder.setIsRecyclable(false);
+        holder.setIsRecyclable(true);
         return holder;
     }
 
@@ -187,14 +187,14 @@ public class RecyclerViewAdapter extends ListAdapter<Publication, RecyclerViewAd
 //            }
 //        });
 //
-//        holder.coeur.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Log.d(TAG,"onClick: coeur on: "+userNames.get(position));
-//
-//                //Toast.makeText(context,imageNames.get(position),Toast.LENGTH_SHORT).show();
-//            }
-//        });
+        holder.coeur.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AjoutAimeAPI ajoutAimeAPI = new AjoutAimeAPI();
+
+                //Toast.makeText(context,imageNames.get(position),Toast.LENGTH_SHORT).show();
+            }
+        });
 //
 //        holder.user_name.setOnClickListener(new View.OnClickListener() {
 //            @Override

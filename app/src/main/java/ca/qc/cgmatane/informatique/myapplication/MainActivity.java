@@ -1,9 +1,6 @@
 package ca.qc.cgmatane.informatique.myapplication;
 
 import android.app.Activity;
-import android.content.Context;
-import android.content.SharedPreferences;
-import android.content.res.Resources;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.NonNull;
@@ -18,7 +15,7 @@ import java.util.ArrayList;
 
 public class MainActivity extends Activity {
 
-    private int count = 21;
+    private int id_utilisateur;
     private int page = 1;
     private RecevoirPublicationAPI recevoirPublicationAPI;
     private RecyclerView recyclerView;
@@ -27,7 +24,7 @@ public class MainActivity extends Activity {
     private boolean isScrolling = false;
     private RecyclerViewAdapter adapter;
     private ArrayList<Publication> listePublication;
-    private int compteur = 1;
+    private int dernierId = 1;
     private ProgressBar progressBar;
     private static final String TAG = "MainActivity";
 
@@ -79,7 +76,12 @@ public class MainActivity extends Activity {
 
     public void fetchData() {
         progressBar.setVisibility(View.VISIBLE);
-        recevoirPublicationAPI = new RecevoirPublicationAPI(page);
+
+        if(page>1){
+            recevoirPublicationAPI = new RecevoirPublicationAPI(id_utilisateur,page, dernierId);
+        }
+        else recevoirPublicationAPI = new RecevoirPublicationAPI(id_utilisateur,page);
+        
         try {
             Log.d("ALED", "ALED");
             recevoirPublicationAPI.execute().get();
@@ -96,7 +98,7 @@ public class MainActivity extends Activity {
                     adapter.ajouterPublication(recevoirPublicationAPI.getListePublication().get(i));
                     Log.d("CHANGED", "" + adapter.getListePublication().get(adapter.getItemCount() - 1).getURLimage());
                     Log.d("CHANGED", "" + adapter.getItemCount());
-                    count++;
+                    dernierId = recevoirPublicationAPI.getListePublication().get(i).getId();
                     progressBar.setVisibility(View.GONE);
                     adapter.notifyItemInserted(adapter.getItemCount() + 1);
                 }
