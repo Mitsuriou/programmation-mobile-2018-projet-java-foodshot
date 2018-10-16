@@ -15,7 +15,7 @@ import java.util.ArrayList;
 
 public class MainActivity extends Activity {
 
-    private int id_utilisateur=11;
+    private int id_utilisateur=14;
     private int page = 1;
     private RecevoirPublicationAPI recevoirPublicationAPI;
     private RecyclerView recyclerView;
@@ -89,7 +89,8 @@ public class MainActivity extends Activity {
             e.printStackTrace();
         }
 
-       if (recevoirPublicationAPI.getProgress()){
+        Log.d("TESSSSSSSSSSSSSSSSSSST", "" + recevoirPublicationAPI.getProgress());
+        if (recevoirPublicationAPI.getProgress()){
             page++;
             new Handler().postDelayed(new Runnable() {
                 @Override

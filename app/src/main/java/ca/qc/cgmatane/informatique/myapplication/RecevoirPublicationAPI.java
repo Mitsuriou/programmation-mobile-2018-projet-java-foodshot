@@ -19,7 +19,7 @@ import okhttp3.Response;
 public class RecevoirPublicationAPI extends AsyncTask<String, String, String> {
 
     private int compteur, dernierId=-1, id_utilisateur;
-    private boolean statut, progress=false;
+    private boolean statut, progress=true;
     private List<Publication> listePublication;
     private List<ModeleMessage> listeMessages;
 
@@ -45,7 +45,7 @@ public class RecevoirPublicationAPI extends AsyncTask<String, String, String> {
         OkHttpClient client = new OkHttpClient();
 
         Request request = new Request.Builder()
-                .url("http://54.37.152.134/api/publication/lire_pagination.php?id_utilisaeur=" + id_utilisateur + "&page=" + compteur + "&dernierId=" + dernierId)
+                .url("http://54.37.152.134/api/publication/lire_pagination.php?id_utilisateur=" + id_utilisateur + "&page=" + compteur + "&dernierId=" + dernierId)
                 .build();
 
         try {
@@ -99,18 +99,17 @@ public class RecevoirPublicationAPI extends AsyncTask<String, String, String> {
 
                 Log.d("utilisateur_id", "" + valeur.getInt("id_publication"));
                 Log.d("utilisateur_nom", valeur.getString("titre"));
-                Log.d("utilisateur_pseudonyme", valeur.getString("description"));
-                Log.d("utilisateur_pseudonyme", valeur.getString("url_image"));
-                Log.d("utilisateur_pseudonyme", "" + valeur.getDouble("latitude"));
-                Log.d("utilisateur_pseudonyme", "" + valeur.getDouble("longitude"));
+                Log.d("utilisateur_description", valeur.getString("description"));
+                Log.d("utilisateur_urlImage", valeur.getString("url_image"));
+                Log.d("utilisateur_latitude", "" + valeur.getDouble("latitude"));
+                Log.d("utilisateur_longitude", "" + valeur.getDouble("longitude"));
                 Log.d("utilisateur_j_aime","" + valeur.getBoolean("j_aime"));
-                Log.d("utilisateur_pseudonyme", "" + valeur.getInt("nombre_mention_aime"));
-                Log.d("utilisateur_pseudonyme", valeur.getString("pseudonyme_utilisateur"));
-                Log.d("utilisateur_pseudonyme", "" + valeur.getInt("id_utilisateur"));
-                Log.d("utilisateur_pseudonyme", "" + valeur.getString("creation"));
+                Log.d("utilisateur_nb_Aime", "" + valeur.getInt("nombre_mention_aime"));
+                Log.d("utilisateur_pseudo2", valeur.getString("pseudonyme_utilisateur"));
+                Log.d("utilisateur_id2", "" + valeur.getInt("id_utilisateur"));
+                Log.d("utilisateur_dateCrea", "" + valeur.getString("creation"));
 
             }
-            this.progress = true;
 
             // message
             String messageString = jsonDonneesObjet.getString("message");
@@ -135,6 +134,7 @@ public class RecevoirPublicationAPI extends AsyncTask<String, String, String> {
 
         } catch (Exception e) {
             e.printStackTrace();
+            this.progress = false;
         }
 
 
