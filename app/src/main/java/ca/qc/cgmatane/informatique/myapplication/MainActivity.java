@@ -15,7 +15,7 @@ import java.util.ArrayList;
 
 public class MainActivity extends Activity {
 
-    private int id_utilisateur;
+    private int id_utilisateur=11;
     private int page = 1;
     private RecevoirPublicationAPI recevoirPublicationAPI;
     private RecyclerView recyclerView;
@@ -88,23 +88,28 @@ public class MainActivity extends Activity {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        page++;
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                Log.d("SIZEEEEE", "" + recevoirPublicationAPI.getListePublication().size());
-                for (int i = 0; i < recevoirPublicationAPI.getListePublication().size(); i++) {
-                    Log.d("IDDDDDDDDDDDDD", "" + recevoirPublicationAPI.getListePublication().get(i).getId());
-                    adapter.ajouterPublication(recevoirPublicationAPI.getListePublication().get(i));
-                    Log.d("CHANGED", "" + adapter.getListePublication().get(adapter.getItemCount() - 1).getURLimage());
-                    Log.d("CHANGED", "" + adapter.getItemCount());
-                    dernierId = recevoirPublicationAPI.getListePublication().get(i).getId();
-                    progressBar.setVisibility(View.GONE);
-                    adapter.notifyItemInserted(adapter.getItemCount() + 1);
-                }
 
-            }
-        }, 5000);
+       if (recevoirPublicationAPI.getProgress()){
+            page++;
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    Log.d("SIZEEEEE", "" + recevoirPublicationAPI.getListePublication().size());
+                    for (int i = 0; i < recevoirPublicationAPI.getListePublication().size(); i++) {
+                        Log.d("IDDDDDDDDDDDDD", "" + recevoirPublicationAPI.getListePublication().get(i).getId());
+                        adapter.ajouterPublication(recevoirPublicationAPI.getListePublication().get(i));
+                        Log.d("CHANGED", "" + adapter.getListePublication().get(adapter.getItemCount() - 1).getURLimage());
+                        Log.d("CHANGED", "" + adapter.getItemCount());
+                        dernierId = recevoirPublicationAPI.getListePublication().get(i).getId();
+                        progressBar.setVisibility(View.GONE);
+                        adapter.notifyItemInserted(adapter.getItemCount() + 1);
+                    }
+
+                }
+            }, 5000);
+        }
+
+
 
     }
 

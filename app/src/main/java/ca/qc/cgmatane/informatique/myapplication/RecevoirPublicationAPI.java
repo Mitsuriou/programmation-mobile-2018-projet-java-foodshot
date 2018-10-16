@@ -19,7 +19,7 @@ import okhttp3.Response;
 public class RecevoirPublicationAPI extends AsyncTask<String, String, String> {
 
     private int compteur, dernierId=-1, id_utilisateur;
-    private boolean statut;
+    private boolean statut, progress=false;
     private List<Publication> listePublication;
     private List<ModeleMessage> listeMessages;
 
@@ -89,6 +89,7 @@ public class RecevoirPublicationAPI extends AsyncTask<String, String, String> {
                         urlImage,
                         valeur.getDouble("latitude"),
                         valeur.getDouble("longitude"),
+                        valeur.getBoolean("j_aime"),
                         valeur.getInt("nombre_mention_aime"),
                         valeur.getInt("id_utilisateur"),
                         valeur.getString("pseudonyme_utilisateur"),
@@ -102,12 +103,14 @@ public class RecevoirPublicationAPI extends AsyncTask<String, String, String> {
                 Log.d("utilisateur_pseudonyme", valeur.getString("url_image"));
                 Log.d("utilisateur_pseudonyme", "" + valeur.getDouble("latitude"));
                 Log.d("utilisateur_pseudonyme", "" + valeur.getDouble("longitude"));
+                Log.d("utilisateur_j_aime","" + valeur.getBoolean("j_aime"));
                 Log.d("utilisateur_pseudonyme", "" + valeur.getInt("nombre_mention_aime"));
                 Log.d("utilisateur_pseudonyme", valeur.getString("pseudonyme_utilisateur"));
                 Log.d("utilisateur_pseudonyme", "" + valeur.getInt("id_utilisateur"));
                 Log.d("utilisateur_pseudonyme", "" + valeur.getString("creation"));
 
             }
+            this.progress = true;
 
             // message
             String messageString = jsonDonneesObjet.getString("message");
@@ -154,4 +157,6 @@ public class RecevoirPublicationAPI extends AsyncTask<String, String, String> {
     public List<ModeleMessage> getListeMessages() {
         return listeMessages;
     }
+
+    public boolean getProgress(){ return this.progress;}
 }
