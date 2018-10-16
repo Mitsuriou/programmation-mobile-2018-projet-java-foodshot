@@ -166,10 +166,10 @@ class Publication
         $this->latitude=htmlspecialchars(strip_tags($this->latitude));
         $this->longitude=htmlspecialchars(strip_tags($this->longitude));
 
-        $latitude_min = $this->latitude - 0.2;
-        $latitude_max = $this->latitude + 0.2;
-        $longitude_min = $this->longitude - 0.1;
-        $longitude_max = $this->longitude + 0.1;
+        $latitude_min = $this->latitude - 0.1;
+        $latitude_max = $this->latitude + 0.1;
+        $longitude_min = $this->longitude - 0.2;
+        $longitude_max = $this->longitude + 0.2;
 
         // liaison des variables
         $stmt->bindParam(":latitude_min", $latitude_min);
