@@ -8,6 +8,7 @@
 
 namespace ProjetMobileAPI;
 
+require_once 'ReponseAPI.php';
 
 class Aime
 {
@@ -19,12 +20,15 @@ class Aime
     public $id_utilisateur;
     public $id_publication;
 
+    public $reponseAPI;
+
     /**
      * Constructeur de Aime.
      * @param $bdd connexion à la base de données
      */
     public function __construct($bdd){
         $this->connexion_bdd = $bdd;
+        $this->reponseAPI = new ReponseAPI();
     }
 
     /**
@@ -50,11 +54,28 @@ class Aime
         $stmt->bindParam(":id_utilisateur", $this->id_utilisateur);
         $stmt->bindParam(":id_publication", $this->id_publication);
 
-        // exécution de la requete
-        if($stmt->execute()){
-            return true;
+        try {
+            // exécution de la requete
+            $stmt->execute();
+        } catch (\PDOException $e) {
+
+            //code d'erreur correspondant à une violation de contrainte de clé primaire
+            $SQLSTATE = '23505';
+            if ($e->getCode() === $SQLSTATE) {
+
+                // si la mention j'aime existe déjà, informe l'utilisateur
+                $item_message['code'] = 0;
+                $item_message['type'] = "erreur";
+                $item_message['message'] = "La mention j'aime existe déjà";
+
+                array_push($this->reponseAPI->tab_message, $item_message);
+            } else {
+                throw $e;
+            }
+
+            return false;
         }
 
-        return false;
+        return true;
     }
 }

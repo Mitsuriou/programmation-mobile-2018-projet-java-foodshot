@@ -15,21 +15,18 @@ header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers
 
 require_once '../config/Connexion.php';
 require_once '../objets/Aime.php';
-require_once '../objets/ReponseAPI.php';
 
-ini_set('display_errors', 'On');
+ini_set('display_errors', 1);
 error_reporting(E_ALL);
 
 use ProjetMobileAPI\Connexion;
 use ProjetMobileAPI\Aime;
-use ProjetMobileAPI\ReponseAPI;
 
 // récupération de la connexion à la base de données
 $bdd = Connexion::get()->connect();
 
 // création des objet requis
 $aime = new Aime($bdd);
-$reponseAPI = new ReponseAPI();
 
 // récupération des données transmises en POST
 $data = json_decode(file_get_contents("php://input"));
@@ -54,8 +51,8 @@ if ($aime->creer()) {
     $item_message['message'] = "Impossible d'ajouter la mention j'aime";
 }
 
-array_push($reponseAPI->tab_message, $item_message);
+array_push($aime->reponseAPI->tab_message, $item_message);
 
-$reponseAPI->statut = true;
+$aime->reponseAPI->statut = true;
 
-echo $reponseAPI->construire_reponse();
+echo $aime->reponseAPI->construire_reponse();
