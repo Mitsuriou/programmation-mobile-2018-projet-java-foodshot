@@ -16,6 +16,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
@@ -194,8 +195,6 @@ public class RecyclerViewAdapter extends ListAdapter<Publication, RecyclerViewAd
             @Override
             public void onClick(View v) {
                 AjoutAimeAPI ajoutAimeAPI = new AjoutAimeAPI(id_utilisateur, listePublication.get(position).getId());
-
-                //Toast.makeText(context,imageNames.get(position),Toast.LENGTH_SHORT).show();
             }
         });
 //

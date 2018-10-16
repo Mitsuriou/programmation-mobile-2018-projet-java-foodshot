@@ -43,7 +43,7 @@
         android:contentDescription="@string/image"
         android:layout_below="@+id/user_name"
 
-        android:layout_marginTop="-60dp"
+        android:layout_marginTop="10dp"
         android:layout_marginLeft="45dp" />
 
     <!-- A renplacer par un bouton pour la hitbox ronde -->
@@ -76,7 +76,6 @@
         android:layout_alignParentBottom="true"
         android:layout_below="@+id/imageView"
 
-        android:layout_marginTop="-40dp"
         android:layout_marginRight="30dp"
         android:layout_marginLeft="45dp"
 
