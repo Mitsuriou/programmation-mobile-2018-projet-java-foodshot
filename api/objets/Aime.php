@@ -78,4 +78,32 @@ class Aime
 
         return true;
     }
+
+    /**
+     * supprimer une mention j'aime
+     * @return bool indiquant l'état d'exécution de la requete
+     */
+    function supprimer()
+    {
+        // requete de suppression
+        $query = "DELETE FROM " . $this->nom_table . " WHERE id_utilisateur = ? AND id_publication = ?";
+
+        // préparation de la requete
+        $stmt = $this->connexion_bdd->prepare($query);
+
+        // sanitize
+        $this->id_utilisateur=htmlspecialchars(strip_tags($this->id_utilisateur));
+        $this->id_publication=htmlspecialchars(strip_tags($this->id_publication));
+
+        // liaison de l'id de l'utilisateur et de l'id de la publication de la mention j'aime à supprimer
+        $stmt->bindParam(1, $this->id_utilisateur);
+        $stmt->bindParam(2, $this->id_publication);
+
+        // exécution de la requete
+        if($stmt->execute()){
+            return true;
+        }
+
+        return false;
+    }
 }
