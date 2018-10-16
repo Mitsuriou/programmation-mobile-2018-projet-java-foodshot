@@ -81,7 +81,7 @@ public class MainActivity extends Activity {
             recevoirPublicationAPI = new RecevoirPublicationAPI(id_utilisateur,page, dernierId);
         }
         else recevoirPublicationAPI = new RecevoirPublicationAPI(id_utilisateur,page);
-        
+
         try {
             Log.d("ALED", "ALED");
             recevoirPublicationAPI.execute().get();

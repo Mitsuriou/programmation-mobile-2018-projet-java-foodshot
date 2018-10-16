@@ -48,7 +48,8 @@ public class RecyclerViewAdapter extends ListAdapter<Publication, RecyclerViewAd
     }
 
     private ArrayList<Publication> listePublication;
-    private String coeur;
+    private int id_utilisateur;
+    private String coeur = "/res/mipmap/ic_launcher/ic_launcher.png";
     private Context context;
     private ImageView image;
     private GestureDetector gestureDetector;
@@ -61,6 +62,8 @@ public class RecyclerViewAdapter extends ListAdapter<Publication, RecyclerViewAd
         this.context = context;
         this.listePublication = new ArrayList<>();
         this.listePublication.addAll(p_listePublication);
+
+        // Ajouter l'id_utilisateur via les préférences partagés.
 
 
     }
@@ -77,7 +80,7 @@ public class RecyclerViewAdapter extends ListAdapter<Publication, RecyclerViewAd
     @Override
     public void onBindViewHolder(@NonNull final ViewHolder holder, final int position) {
 
-        coeur = "/res/mipmap/ic_launcher/ic_launcher.png";
+
 
         GestureDetector.SimpleOnGestureListener gestureListener = new GestureListener();
         final GestureDetector gd = new GestureDetector(context, gestureListener);
@@ -190,7 +193,7 @@ public class RecyclerViewAdapter extends ListAdapter<Publication, RecyclerViewAd
         holder.coeur.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                AjoutAimeAPI ajoutAimeAPI = new AjoutAimeAPI();
+                AjoutAimeAPI ajoutAimeAPI = new AjoutAimeAPI(id_utilisateur, listePublication.get(position).getId());
 
                 //Toast.makeText(context,imageNames.get(position),Toast.LENGTH_SHORT).show();
             }
