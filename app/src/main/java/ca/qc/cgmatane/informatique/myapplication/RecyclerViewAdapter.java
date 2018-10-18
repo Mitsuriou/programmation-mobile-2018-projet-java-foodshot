@@ -49,7 +49,7 @@ public class RecyclerViewAdapter extends ListAdapter<Publication, RecyclerViewAd
     }
 
     private ArrayList<Publication> listePublication;
-    private int id_utilisateur=14;
+    private int id_utilisateur=11;
     private String coeur = "/res/mipmap/ic_launcher/ic_launcher.png";
     private Context context;
     private ImageView image;
@@ -188,7 +188,8 @@ public class RecyclerViewAdapter extends ListAdapter<Publication, RecyclerViewAd
                 if (listePublication.get(position).getJ_aime()){
                     EnleveAimeAPI enleveAimeAPI = new EnleveAimeAPI(id_utilisateur, listePublication.get(position).getId());
                     try {
-                        enleveAimeAPI.execute();
+                        enleveAimeAPI.execute().get();
+                        listePublication.get(position).setAime(false);
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
@@ -196,14 +197,12 @@ public class RecyclerViewAdapter extends ListAdapter<Publication, RecyclerViewAd
                 else{
                     AjoutAimeAPI ajoutAimeAPI = new AjoutAimeAPI(id_utilisateur, listePublication.get(position).getId());
                     try {
-                        ajoutAimeAPI.execute();
+                        ajoutAimeAPI.execute().get();
+                        listePublication.get(position).setAime(true);
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
                 }
-
-
-                //Toast.makeText(context,imageNames.get(position),Toast.LENGTH_SHORT).show();
             }
         });
 //

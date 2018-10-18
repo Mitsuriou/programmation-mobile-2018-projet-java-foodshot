@@ -15,7 +15,7 @@ import java.util.ArrayList;
 
 public class MainActivity extends Activity {
 
-    private int id_utilisateur=14;
+    private int id_utilisateur=11;
     private int page = 1;
     private RecevoirPublicationAPI recevoirPublicationAPI;
     private RecyclerView recyclerView;

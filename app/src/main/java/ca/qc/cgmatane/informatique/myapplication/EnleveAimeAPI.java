@@ -7,6 +7,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -34,15 +35,17 @@ public class EnleveAimeAPI extends AsyncTask<String, String, String> {
 
     @Override
     protected String doInBackground(String... params) {
+
         Response reponse;
         MediaType JSON = MediaType.parse("application/json; charset=utf-8");
 
         OkHttpClient client = new OkHttpClient();
         JSONObject data = new JSONObject();
-        try{
+
+        try {
             data.put("id_utilisateur", this.id_utilisateur)
-                    .put("id_publication",this.id_publication);
-        }catch (JSONException e) {
+                    .put("id_publication", this.id_publication);
+        } catch (JSONException e) {
             e.printStackTrace();
         }
 
@@ -55,13 +58,13 @@ public class EnleveAimeAPI extends AsyncTask<String, String, String> {
 
         try {
             reponse = client.newCall(request).execute();
+
+            if (!reponse.isSuccessful())
+                throw new IOException("Unexpected code " + reponse.toString());
+
             String jsonDonneesString = reponse.body().string();
             JSONObject jsonDonneesObjet = new JSONObject(jsonDonneesString);
             Log.d("json_reponse_serveur", jsonDonneesObjet.toString());
-
-            // statut
-            String statutString = jsonDonneesObjet.getString("statut");
-            this.statut = statutString.equals("true");
 
             // message
             String messageString = jsonDonneesObjet.getString("message");
@@ -73,7 +76,7 @@ public class EnleveAimeAPI extends AsyncTask<String, String, String> {
             }
 
             this.listeMessages = new ArrayList<>();
-            for (JSONObject valeur : listeDesMessages) {
+            for (JSONObject valeur: listeDesMessages) {
                 this.listeMessages.add(new ModeleMessage(
                         valeur.getInt("code"),
                         valeur.getString("type"),
@@ -85,9 +88,9 @@ public class EnleveAimeAPI extends AsyncTask<String, String, String> {
             }
 
         } catch (Exception e) {
+            Log.d("FAILED!","");
             e.printStackTrace();
         }
-
 
         return "";
     }

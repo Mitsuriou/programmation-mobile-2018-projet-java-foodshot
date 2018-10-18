@@ -77,4 +77,8 @@ public class Publication {
         }
     }
 
+    public void setAime(boolean etat){
+        this.j_aime = etat;
+    }
+
 }
