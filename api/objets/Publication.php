@@ -106,22 +106,24 @@ class Publication
      * @param integer $id_utilisateur sur lequel on doit vérifer la présence d'un j'aime
      * @return mixed
      */
-    public function lirePagination($numero_enregistrement_debut, $enregistrements_par_page, $id_utilisateur)
+    public function lirePagination($numero_enregistrement_debut, $enregistrements_par_page, $id_utilisateur, $publication_perso)
     {
+        $texte_publication_perso = ($publication_perso) ? " WHERE p.id_utilisateur = :id_utilisateur " : " ";
         // requete de selection
         $requete = "SELECT
             (SELECT count(*) FROM aime WHERE aime.id_publication = p.id_publication) as nombre_mention_aime,
-            EXISTS(SELECT id_utilisateur, id_publication FROM aime WHERE aime.id_utilisateur = ? AND aime.id_publication = p.id_publication) as j_aime,
+            EXISTS(SELECT id_utilisateur, id_publication FROM aime WHERE aime.id_utilisateur = :id_utilisateur AND aime.id_publication = p.id_publication) as j_aime,
             u.pseudonyme as pseudonyme_utilisateur, u.url_image as url_image_utilisateur,
             p.id_publication, p.titre, p.description, p.url_image, p.latitude, p.longitude, p.id_utilisateur, p.creation
         FROM
             " . $this->nom_table . " p
             LEFT JOIN
                 utilisateur u
-                    ON p.id_utilisateur = u.id_utilisateur
-        ORDER BY p.creation DESC
-        LIMIT ?
-        OFFSET ?";
+                    ON p.id_utilisateur = u.id_utilisateur"
+        . $texte_publication_perso
+        . "ORDER BY p.creation DESC
+        LIMIT :enregistrements_par_page
+        OFFSET :numero_enregistrement_debut";
 
         // préparation de la requete
         $stmt = $this->connexion_bdd->prepare($requete);
@@ -130,9 +132,9 @@ class Publication
         $id_utilisateur = htmlspecialchars(strip_tags($id_utilisateur));
 
         // liaison des variables
-        $stmt->bindParam(1, $id_utilisateur, \PDO::PARAM_INT);
-        $stmt->bindParam(2, $enregistrements_par_page, \PDO::PARAM_INT);
-        $stmt->bindParam(3, $numero_enregistrement_debut, \PDO::PARAM_INT);
+        $stmt->bindParam(":id_utilisateur", $id_utilisateur, \PDO::PARAM_INT);
+        $stmt->bindParam(":enregistrements_par_page", $enregistrements_par_page, \PDO::PARAM_INT);
+        $stmt->bindParam(":numero_enregistrement_debut", $numero_enregistrement_debut, \PDO::PARAM_INT);
 
         // exécution de la requete
         $stmt->execute();
