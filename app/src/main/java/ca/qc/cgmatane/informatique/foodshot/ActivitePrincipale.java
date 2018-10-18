@@ -20,6 +20,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.AbsListView;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -51,8 +52,9 @@ public class ActivitePrincipale extends AppCompatActivity implements NavigationV
         if (getSharedPreferences(Constantes.COULEURS_PREFERENCES, Context.MODE_PRIVATE).getInt("theme", 1) == 1) {
             setTheme(R.style.AppThemeNoActionBar);
         }
-        else
+        else {
             setTheme(R.style.AppThemeNoirNoActionBar);
+        }
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.vue_activite_principale);
@@ -66,6 +68,14 @@ public class ActivitePrincipale extends AppCompatActivity implements NavigationV
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.barre_outils);
         setSupportActionBar(toolbar);
+
+        // TODO everywhere
+        if (getSharedPreferences(Constantes.COULEURS_PREFERENCES, Context.MODE_PRIVATE).getInt("theme", 1) == 1) {
+            toolbar.setTitleTextColor(0xffffffff);
+        }
+        else {
+            toolbar.setTitleTextColor(0xff999999);
+        }
 
         FloatingActionButton boutonCreerNouvellePublication = (FloatingActionButton) findViewById(R.id.bouton_creer_nouvelle_publication);
         boutonCreerNouvellePublication.setOnClickListener(new View.OnClickListener() {
@@ -88,6 +98,7 @@ public class ActivitePrincipale extends AppCompatActivity implements NavigationV
         listePublication = new ArrayList<>();
 
         initRecyclerView();
+
     }
 
     @Override

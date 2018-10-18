@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:padding="3dp"
-    android:id="@+id/parent_layout">
+    android:id="@+id/layout_list_item">
 
     <TextView
         android:id="@+id/user_name"
@@ -37,7 +37,8 @@
         android:layout_width="90dp"
         android:layout_height="wrap_content"
         android:src="@drawable/ic_launcher_background"
-        android:paddingTop="5dp"/>
+        android:paddingTop="5dp"
+        android:background="@android:color/transparent" />
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/coeur"
@@ -45,7 +46,8 @@
         android:layout_height="wrap_content"
         android:src="@drawable/ic_launcher_background"
         android:paddingTop="18dp"
-        android:layout_marginLeft="300dp" />
+        android:layout_marginLeft="300dp"
+        android:background="@android:color/transparent" />
 
     <TextView
         android:id="@+id/image_name"
@@ -62,6 +64,5 @@
         android:layout_width="match_parent"
         android:layout_height="3dp"
         android:background="?android:attr/listDivider" />
-
 
 </RelativeLayout>

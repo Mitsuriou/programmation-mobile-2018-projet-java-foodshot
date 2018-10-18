@@ -1,5 +1,6 @@
 package ca.qc.cgmatane.informatique.foodshot;
 
+import android.content.Context;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 
@@ -10,12 +11,20 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import ca.qc.cgmatane.informatique.foodshot.constantes.Constantes;
+
 public class ActiviteCarte extends FragmentActivity implements OnMapReadyCallback {
 
     private GoogleMap mMap;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        if (getSharedPreferences(Constantes.COULEURS_PREFERENCES, Context.MODE_PRIVATE).getInt("theme", 1) == 1) {
+            setTheme(R.style.AppThemeNoirNoActionBar);
+        }
+        else {
+            setTheme(R.style.AppThemeNoirNoActionBar);
+        }
         super.onCreate(savedInstanceState);
         setContentView(R.layout.vue_activite_carte);
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.

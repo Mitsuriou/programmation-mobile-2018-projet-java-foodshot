@@ -1,9 +1,7 @@
 package ca.qc.cgmatane.informatique.foodshot;
 
-import android.app.Activity;
 import android.content.Context;
 import android.support.annotation.NonNull;
-import android.support.v4.view.GestureDetectorCompat;
 import android.support.v7.recyclerview.extensions.ListAdapter;
 import android.support.v7.util.DiffUtil;
 import android.support.v7.widget.RecyclerView;
@@ -38,7 +36,7 @@ public class RecyclerViewAdapter extends ListAdapter<ModelePublication, Recycler
             image_titre = itemView.findViewById(R.id.image_name);
             image = itemView.findViewById(R.id.imageView);
             user_name = itemView.findViewById(R.id.user_name);
-            parentLayout = itemView.findViewById(R.id.parent_layout);
+            parentLayout = itemView.findViewById(R.id.layout_list_item);
             photo_profil = itemView.findViewById(R.id.profile_image);
             coeur = itemView.findViewById(R.id.coeur);
             nbCoeur = itemView.findViewById(R.id.nb_coeur);
@@ -49,18 +47,13 @@ public class RecyclerViewAdapter extends ListAdapter<ModelePublication, Recycler
     private String coeur;
     private Context context;
     private ImageView image;
-    private GestureDetector gestureDetector;
-    private GestureDetectorCompat gestureDetectorCompat;
 
     public RecyclerViewAdapter(Context context, ArrayList<ModelePublication> p_listePublication) {
-
         super(DIFF_CALLBACK);
 
         this.context = context;
         this.listePublication = new ArrayList<>();
         this.listePublication.addAll(p_listePublication);
-
-
     }
 
     @NonNull

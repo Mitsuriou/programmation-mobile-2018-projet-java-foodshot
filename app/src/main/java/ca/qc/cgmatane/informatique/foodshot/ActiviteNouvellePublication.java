@@ -78,7 +78,6 @@ public class ActiviteNouvellePublication extends AppCompatActivity {
         else
             setTheme(R.style.AppThemeNoir);
 
-        getWindow().requestFeature(Window.FEATURE_ACTION_BAR);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.vue_activite_nouvelle_publication);
 

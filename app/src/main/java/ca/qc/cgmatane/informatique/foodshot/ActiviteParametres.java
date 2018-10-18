@@ -19,7 +19,13 @@ public class ActiviteParametres extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        getWindow().requestFeature(Window.FEATURE_ACTION_BAR);
+        if (getSharedPreferences(Constantes.COULEURS_PREFERENCES, Context.MODE_PRIVATE).getInt("theme", 1) == 1) {
+            setTheme(R.style.AppTheme);
+        }
+        else {
+            setTheme(R.style.AppThemeNoir);
+        }
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.vue_activite_parametres);
 

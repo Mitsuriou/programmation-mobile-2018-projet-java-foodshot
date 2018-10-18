@@ -1,5 +1,6 @@
 package ca.qc.cgmatane.informatique.foodshot;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -8,10 +9,18 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.Window;
 
+import ca.qc.cgmatane.informatique.foodshot.constantes.Constantes;
+
 public class ActiviteMonProfil extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        if (getSharedPreferences(Constantes.COULEURS_PREFERENCES, Context.MODE_PRIVATE).getInt("theme", 1) == 1) {
+            setTheme(R.style.AppThemeNoActionBar);
+        }
+        else {
+            setTheme(R.style.AppThemeNoirNoActionBar);
+        }
         super.onCreate(savedInstanceState);
         setContentView(R.layout.vue_activite_mon_profil);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);

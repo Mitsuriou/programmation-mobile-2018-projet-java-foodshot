@@ -1,5 +1,6 @@
 package ca.qc.cgmatane.informatique.foodshot;
 
+import android.content.Context;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
@@ -17,6 +18,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import ca.qc.cgmatane.informatique.foodshot.constantes.Constantes;
 import ca.qc.cgmatane.informatique.foodshot.modele.ModeleMessage;
 import ca.qc.cgmatane.informatique.foodshot.modele.ModeleUtilisateurRecherche;
 import ca.qc.cgmatane.informatique.foodshot.serveur.RechercherProfilAPI;
@@ -29,7 +31,12 @@ public class ActiviteRechercherProfil extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        getWindow().requestFeature(Window.FEATURE_ACTION_BAR);
+        if (getSharedPreferences(Constantes.COULEURS_PREFERENCES, Context.MODE_PRIVATE).getInt("theme", 1) == 1) {
+            setTheme(R.style.AppTheme);
+        }
+        else {
+            setTheme(R.style.AppThemeNoir);
+        }
         super.onCreate(savedInstanceState);
         setContentView(R.layout.vue_activite_rechercher_profil);
         gererChampRecherche();
