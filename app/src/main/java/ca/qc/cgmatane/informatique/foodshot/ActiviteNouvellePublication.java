@@ -72,7 +72,12 @@ public class ActiviteNouvellePublication extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        new ThemeColors(this);
+        if (getSharedPreferences(Constantes.COULEURS_PREFERENCES, Context.MODE_PRIVATE).getInt("theme", 1) == 1) {
+            setTheme(R.style.AppTheme);
+        }
+        else
+            setTheme(R.style.AppThemeNoir);
+
         getWindow().requestFeature(Window.FEATURE_ACTION_BAR);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.vue_activite_nouvelle_publication);

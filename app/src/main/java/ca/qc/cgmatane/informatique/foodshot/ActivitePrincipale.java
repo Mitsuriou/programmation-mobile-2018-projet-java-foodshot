@@ -48,7 +48,12 @@ public class ActivitePrincipale extends AppCompatActivity implements NavigationV
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        //setTheme(android.R.style.Theme_Black);
+        if (getSharedPreferences(Constantes.COULEURS_PREFERENCES, Context.MODE_PRIVATE).getInt("theme", 1) == 1) {
+            setTheme(R.style.AppThemeNoActionBar);
+        }
+        else
+            setTheme(R.style.AppThemeNoirNoActionBar);
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.vue_activite_principale);
 
@@ -138,11 +143,19 @@ public class ActivitePrincipale extends AppCompatActivity implements NavigationV
             Toast.makeText(this, "A venir", Toast.LENGTH_SHORT).show();
         } else if (id == R.id.theme_noir) {
             SharedPreferences preferencesPartagees = getSharedPreferences(Constantes.COULEURS_PREFERENCES, Context.MODE_PRIVATE);
+
             if (preferencesPartagees.getInt("theme", 1) == 1) {
-                ThemeColors.switchThemeColor(this, 2);
+                SharedPreferences.Editor editeur = getSharedPreferences(Constantes.COULEURS_PREFERENCES, Context.MODE_PRIVATE).edit();
+                editeur.putInt("theme", 2);
+                editeur.apply();
+                this.recreate();
             }
-            else
-                ThemeColors.switchThemeColor(this, 1);
+            else {
+                SharedPreferences.Editor editeur = getSharedPreferences(Constantes.COULEURS_PREFERENCES, Context.MODE_PRIVATE).edit();
+                editeur.putInt("theme", 1);
+                editeur.apply();
+                this.recreate();
+            }
         } else if (id == R.id.parametres) {
             Intent intentionNaviguerVersParametres = new Intent(this, ActiviteParametres.class);
             startActivity(intentionNaviguerVersParametres);
@@ -156,7 +169,6 @@ public class ActivitePrincipale extends AppCompatActivity implements NavigationV
     }
 
     private void initRecyclerView() {
-
         recyclerView = findViewById(R.id.recycler_view);
         adapter = new RecyclerViewAdapter(this, listePublication);
         fetchData();
