@@ -1,6 +1,7 @@
 package ca.qc.cgmatane.informatique.foodshot.serveur;
 
 import android.os.AsyncTask;
+import android.util.Log;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -8,21 +9,28 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
-import ca.qc.cgmatane.informatique.foodshot.modele.ModelePublication;
 import ca.qc.cgmatane.informatique.foodshot.modele.ModeleMessage;
+import ca.qc.cgmatane.informatique.foodshot.modele.ModelePublication;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 
 public class RecevoirPublicationAPI extends AsyncTask<String, String, String> {
 
-    private int compteur;
-    private boolean statut;
+    private int compteur, dernierId=-1, id_utilisateur;
+    private boolean statut, progress=true;
     private List<ModelePublication> listePublication;
     private List<ModeleMessage> listeMessages;
 
-    public RecevoirPublicationAPI(int compteur) {
+    public RecevoirPublicationAPI(int id_utilisateur ,int compteur, int dernierId) {
         this.compteur = compteur;
+        this.dernierId = dernierId;
+        this.id_utilisateur = id_utilisateur;
+    }
+
+    public RecevoirPublicationAPI(int id_utilisateur, int compteur) {
+        this.compteur = compteur;
+        this.id_utilisateur = id_utilisateur;
     }
 
     @Override
@@ -36,7 +44,7 @@ public class RecevoirPublicationAPI extends AsyncTask<String, String, String> {
         OkHttpClient client = new OkHttpClient();
 
         Request request = new Request.Builder()
-                .url("http://54.37.152.134/api/publication/lire_pagination.php?page=" + compteur)
+                .url("http://54.37.152.134/api/publication/lire_pagination.php?id_utilisateur=" + id_utilisateur + "&page=" + compteur + "&dernierId=" + dernierId)
                 .build();
 
         try {
@@ -80,6 +88,7 @@ public class RecevoirPublicationAPI extends AsyncTask<String, String, String> {
                         urlImage,
                         valeur.getDouble("latitude"),
                         valeur.getDouble("longitude"),
+                        valeur.getBoolean("j_aime"),
                         valeur.getInt("nombre_mention_aime"),
                         valeur.getInt("id_utilisateur"),
                         valeur.getString("pseudonyme_utilisateur"),
@@ -108,6 +117,7 @@ public class RecevoirPublicationAPI extends AsyncTask<String, String, String> {
 
         } catch (Exception e) {
             e.printStackTrace();
+            this.progress = false;
         }
 
 
@@ -129,5 +139,9 @@ public class RecevoirPublicationAPI extends AsyncTask<String, String, String> {
 
     public List<ModeleMessage> getListeMessages() {
         return listeMessages;
+    }
+
+    public boolean getProgress() {
+        return this.progress;
     }
 }

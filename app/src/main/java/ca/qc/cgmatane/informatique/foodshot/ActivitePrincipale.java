@@ -3,7 +3,6 @@ package ca.qc.cgmatane.informatique.foodshot;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.NonNull;
@@ -20,7 +19,6 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.AbsListView;
-import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -35,7 +33,6 @@ import ca.qc.cgmatane.informatique.foodshot.serveur.RecevoirPublicationAPI;
 public class ActivitePrincipale extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     // RecyclerView
-    private int count = 21;
     private int page = 1;
     private RecevoirPublicationAPI recevoirPublicationAPI;
     private RecyclerView recyclerView;
@@ -44,13 +41,14 @@ public class ActivitePrincipale extends AppCompatActivity implements NavigationV
     private boolean isScrolling = false;
     private RecyclerViewAdapter adapter;
     private ArrayList<ModelePublication> listePublication;
-    private int compteur = 1;
+    private int dernierId = 1;
     private ProgressBar progressBar;
 
     private SharedPreferences preferencesPartagees;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        //setTheme(android.R.style.Theme_Black);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.vue_activite_principale);
 
@@ -139,8 +137,12 @@ public class ActivitePrincipale extends AppCompatActivity implements NavigationV
             // TODO
             Toast.makeText(this, "A venir", Toast.LENGTH_SHORT).show();
         } else if (id == R.id.theme_noir) {
-            // TODO prendre les prefs
-            // TODO échanger le theme en fonction de celui déja en vigueur
+            SharedPreferences preferencesPartagees = getSharedPreferences(Constantes.COULEURS_PREFERENCES, Context.MODE_PRIVATE);
+            if (preferencesPartagees.getInt("theme", 1) == 1) {
+                ThemeColors.switchThemeColor(this, 2);
+            }
+            else
+                ThemeColors.switchThemeColor(this, 1);
         } else if (id == R.id.parametres) {
             Intent intentionNaviguerVersParametres = new Intent(this, ActiviteParametres.class);
             startActivity(intentionNaviguerVersParametres);
@@ -154,6 +156,7 @@ public class ActivitePrincipale extends AppCompatActivity implements NavigationV
     }
 
     private void initRecyclerView() {
+
         recyclerView = findViewById(R.id.recycler_view);
         adapter = new RecyclerViewAdapter(this, listePublication);
         fetchData();
@@ -186,25 +189,34 @@ public class ActivitePrincipale extends AppCompatActivity implements NavigationV
 
     public void fetchData() {
         progressBar.setVisibility(View.VISIBLE);
-        recevoirPublicationAPI = new RecevoirPublicationAPI(page);
+        SharedPreferences preferencesPartagees = getSharedPreferences(Constantes.MES_PREFERENCES, Context.MODE_PRIVATE);
+
+        if(page>1){
+            recevoirPublicationAPI = new RecevoirPublicationAPI(preferencesPartagees.getInt("id_utilisateur", -1),page, dernierId);
+        }
+        else recevoirPublicationAPI = new RecevoirPublicationAPI(preferencesPartagees.getInt("id_utilisateur", -1),page);
+
         try {
             recevoirPublicationAPI.execute().get();
         } catch (Exception e) {
             e.printStackTrace();
         }
-        page ++;
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                for (int i = 0; i < recevoirPublicationAPI.getListePublication().size()-1; i++) {
-                    adapter.ajouterPublication(recevoirPublicationAPI.getListePublication().get(i));
-                    count++;
-                    progressBar.setVisibility(View.GONE);
-                    adapter.notifyItemInserted(adapter.getItemCount() + 1);
-                }
 
-            }
-        }, 5000);
+        if (recevoirPublicationAPI.getProgress()){
+            page++;
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    for (int i = 0; i < recevoirPublicationAPI.getListePublication().size(); i++) {
+                        adapter.ajouterPublication(recevoirPublicationAPI.getListePublication().get(i));
+                        dernierId = recevoirPublicationAPI.getListePublication().get(i).getId();
+                        progressBar.setVisibility(View.GONE);
+                        adapter.notifyItemInserted(adapter.getItemCount() + 1);
+                    }
+
+                }
+            }, 5000);
+        }
     }
 
     private void deconnexion() {

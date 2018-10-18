@@ -5,30 +5,30 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.support.annotation.ColorInt;
 
-public class ThemeColors {
+import ca.qc.cgmatane.informatique.foodshot.constantes.Constantes;
 
-    private static final String NAME = "ThemeColors", KEY = "color";
+public class ThemeColors {
 
     @ColorInt
     public int color;
 
     public ThemeColors(Context context) {
-        SharedPreferences sharedPreferences = context.getSharedPreferences(NAME, Context.MODE_PRIVATE);
-        String id_Color = sharedPreferences.getString(KEY, "1");
+        SharedPreferences sharedPreferences = context.getSharedPreferences(Constantes.COULEURS_PREFERENCES, Context.MODE_PRIVATE);
+        int id_Color = sharedPreferences.getInt("theme", 1);
 
         switch (id_Color){
-            case "1":
+            case 1:
                 context.setTheme(R.style.AppTheme);
                 break;
-            case "2":
+            case 2:
                 context.setTheme(R.style.AppThemeNoir);
                 break;
         }
     }
 
     public static void switchThemeColor(Activity activity, int id_color) {
-        SharedPreferences.Editor editor = activity.getSharedPreferences(NAME, Context.MODE_PRIVATE).edit();
-        editor.putString(KEY, "" + id_color);
+        SharedPreferences.Editor editor = activity.getSharedPreferences(Constantes.COULEURS_PREFERENCES, Context.MODE_PRIVATE).edit();
+        editor.putInt("theme", id_color);
         editor.apply();
         activity.recreate();
     }
