@@ -11,10 +11,6 @@ namespace ProjetMobileAPI;
 
 class Utilisateur
 {
-    private $connexion_bdd;
-    private $nom_table = "utilisateur";
-    private $limite_taille_recherche = 10;
-
     // propriétés de l'objet
     public $id_utilisateur;
     public $nom;
@@ -23,6 +19,11 @@ class Utilisateur
     public $mdp_hash;
     public $nombre_mention_aime;
     public $creation;
+
+    // Connexion à la base de données et nom de la table
+    private $connexion_bdd;
+    private $nom_table = "utilisateur";
+    private $limite_taille_recherche = 10;
 
     /**
      * constructeur d'Utilisateur
@@ -69,10 +70,10 @@ class Utilisateur
         $stmt = $this->connexion_bdd->prepare($requete);
 
         // sanitize
-        $this->nom=htmlspecialchars(strip_tags($this->nom));
-        $this->pseudonyme=htmlspecialchars(strip_tags($this->pseudonyme));
-        $this->url_image=htmlspecialchars(strip_tags($this->url_image));
-        $this->mdp_hash=htmlspecialchars(strip_tags($this->mdp_hash));
+        $this->nom = htmlspecialchars(strip_tags($this->nom));
+        $this->pseudonyme = htmlspecialchars(strip_tags($this->pseudonyme));
+        $this->url_image = htmlspecialchars(strip_tags($this->url_image));
+        $this->mdp_hash = htmlspecialchars(strip_tags($this->mdp_hash));
 
         // liaison des variables
         $stmt->bindParam(":nom", $this->nom);
@@ -81,7 +82,7 @@ class Utilisateur
         $stmt->bindParam(":mdp_hash", $this->mdp_hash);
 
         // exécution de la requete
-        if($stmt->execute()){
+        if ($stmt->execute()) {
             return true;
         }
 
@@ -152,9 +153,9 @@ class Utilisateur
         $stmt = $this->connexion_bdd->prepare($requete);
 
         // sanitize
-        $this->id_utilisateur=htmlspecialchars(strip_tags($this->id_utilisateur));
-        $this->nom=htmlspecialchars(strip_tags($this->nom));
-        $this->mdp_hash=htmlspecialchars(strip_tags($this->mdp_hash));
+        $this->id_utilisateur = htmlspecialchars(strip_tags($this->id_utilisateur));
+        $this->nom = htmlspecialchars(strip_tags($this->nom));
+        $this->mdp_hash = htmlspecialchars(strip_tags($this->mdp_hash));
 
         // liaison des variables
         $stmt->bindParam(':nom', $this->nom);
@@ -162,7 +163,7 @@ class Utilisateur
         $stmt->bindParam(':id_utilisateur', $this->id_utilisateur);
 
         // exécution de la requete
-        if($stmt->execute()){
+        if ($stmt->execute()) {
             return true;
         }
 
@@ -182,13 +183,13 @@ class Utilisateur
         $stmt = $this->connexion_bdd->prepare($query);
 
         // sanitize
-        $this->id_utilisateur=htmlspecialchars(strip_tags($this->id_utilisateur));
+        $this->id_utilisateur = htmlspecialchars(strip_tags($this->id_utilisateur));
 
         // liaison de l'id de l'utilisateur à supprimer
         $stmt->bindParam(1, $this->id_utilisateur);
 
         // exécution de la requete
-        if($stmt->execute()){
+        if ($stmt->execute()) {
             return true;
         }
 
@@ -218,7 +219,7 @@ class Utilisateur
         $stmt = $this->connexion_bdd->prepare($requete);
 
         // sanitize
-        $mot_clef=htmlspecialchars(strip_tags($mot_clef));
+        $mot_clef = htmlspecialchars(strip_tags($mot_clef));
         $mot_clef = "%{$mot_clef}%";
 
         // liaison du mot-clef de l'utilisateur à rechercher
@@ -259,7 +260,7 @@ class Utilisateur
         $stmt = $this->connexion_bdd->prepare($requete);
 
         // sanitize
-        $this->id_utilisateur=htmlspecialchars(strip_tags($this->id_utilisateur));
+        $this->id_utilisateur = htmlspecialchars(strip_tags($this->id_utilisateur));
 
         // liaison du pseudonyme et du mot de passe de l'utilisateur à authentifier
         $stmt->bindParam(1, $this->pseudonyme);

@@ -32,8 +32,19 @@ $reponseAPI = new ReponseAPI();
 $publication->latitude = (isset($_GET["latitude"])) ? $_GET["latitude"] : die();
 $publication->longitude = (isset($_GET["longitude"])) ? $_GET["longitude"] : die();
 
+// définition de l'id de l'utilisateur dont on doit vérifier les publications aimées
+$id_utilisateur_j_aime = isset($_GET['id_utilisateur']) ? filter_var(
+    $_GET['id_utilisateur'],
+    FILTER_VALIDATE_INT,
+    array(
+        'options' => array(
+            'min_range' => 1
+        )
+    )
+) : die();
+
 // recherche des publications
-$stmt = $publication->rechercher();
+$stmt = $publication->rechercher($id_utilisateur_j_aime);
 
 // récupération du contenu de la table
 while ($enregistrement = $stmt->fetch(PDO::FETCH_ASSOC)) {
@@ -47,6 +58,7 @@ while ($enregistrement = $stmt->fetch(PDO::FETCH_ASSOC)) {
     $item_publication['url_image'] = $url_image;
     $item_publication['latitude'] = $latitude;
     $item_publication['longitude'] = $longitude;
+    $item_publication['j_aime'] = $j_aime;
     $item_publication['nombre_mention_aime'] = $nombre_mention_aime;
     $item_publication['id_utilisateur'] = $id_utilisateur;
     $item_publication['pseudonyme_utilisateur'] = $pseudonyme_utilisateur;

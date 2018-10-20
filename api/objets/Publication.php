@@ -11,11 +11,9 @@ namespace ProjetMobileAPI;
 
 class Publication
 {
-    // Connexion à la base de données et nom de la table
+    // propriétés de l'objet
     public $id_publication;
     public $titre;
-
-    // propriétés de l'objet
     public $description;
     public $url_image;
     public $latitude;
@@ -25,6 +23,8 @@ class Publication
     public $pseudonyme_utilisateur;
     public $url_image_utilisateur;
     public $creation;
+
+    // Connexion à la base de données et nom de la table
     private $connexion_bdd;
     private $nom_table = "publication";
 
@@ -148,30 +148,32 @@ class Publication
      * @param $longitude double
      * @return mixed résultat de la requete à la base de données
      */
-    function rechercher()
+    function rechercher($id_utilisateur)
     {
         // requete pour selectionner les utilisateurs correspondants à la recherche
         $requete = "SELECT
-                (SELECT count(*) FROM aime WHERE aime.id_publication = p.id_publication) as nombre_mention_aime,
-                u.pseudonyme as pseudonyme_utilisateur, u.url_image as url_image_utilisateur,
-                p.id_publication, p.titre, p.description, p.url_image, p.latitude, p.longitude, p.id_utilisateur, p.creation
-            FROM
-                " . $this->nom_table . " p
-                LEFT JOIN
-                    utilisateur u
-                        ON p.id_utilisateur = u.id_utilisateur
-            WHERE
-                p.latitude BETWEEN :latitude_min AND :latitude_max AND
-                p.longitude BETWEEN :longitude_min AND :longitude_max
-            ORDER BY
-                p.creation DESC
-            LIMIT
-                30";
+            (SELECT count(*) FROM aime WHERE aime.id_publication = p.id_publication) as nombre_mention_aime,
+            EXISTS(SELECT id_utilisateur, id_publication FROM aime WHERE aime.id_utilisateur = :id_utilisateur AND aime.id_publication = p.id_publication) as j_aime,
+            u.pseudonyme as pseudonyme_utilisateur, u.url_image as url_image_utilisateur,
+            p.id_publication, p.titre, p.description, p.url_image, p.latitude, p.longitude, p.id_utilisateur, p.creation
+        FROM
+            " . $this->nom_table . " p
+            LEFT JOIN
+                utilisateur u
+                    ON p.id_utilisateur = u.id_utilisateur
+        WHERE
+            p.latitude BETWEEN :latitude_min AND :latitude_max AND
+            p.longitude BETWEEN :longitude_min AND :longitude_max
+        ORDER BY
+            p.creation DESC
+        LIMIT
+            30";
 
         // préparation de la requete
         $stmt = $this->connexion_bdd->prepare($requete);
 
         // sanitize
+        $id_utilisateur = htmlspecialchars(strip_tags($id_utilisateur));
         $this->latitude = htmlspecialchars(strip_tags($this->latitude));
         $this->longitude = htmlspecialchars(strip_tags($this->longitude));
 
@@ -181,6 +183,7 @@ class Publication
         $longitude_max = $this->longitude + 0.2;
 
         // liaison des variables
+        $stmt->bindParam(":id_utilisateur", $id_utilisateur, \PDO::PARAM_INT);
         $stmt->bindParam(":latitude_min", $latitude_min);
         $stmt->bindParam(":latitude_max", $latitude_max);
         $stmt->bindParam(":longitude_min", $longitude_min);
