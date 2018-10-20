@@ -1,38 +1,88 @@
 package ca.qc.cgmatane.informatique.foodshot;
 
 import android.content.Context;
+import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
+import android.location.Location;
+import android.os.Looper;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
+import android.widget.Toast;
 
-import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.location.LocationCallback;
+import com.google.android.gms.location.LocationRequest;
+import com.google.android.gms.location.LocationResult;
+import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.location.LocationSettingsRequest;
+import com.google.android.gms.location.SettingsClient;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import ca.qc.cgmatane.informatique.foodshot.constantes.Constantes;
+import ca.qc.cgmatane.informatique.foodshot.modele.ModelePublication;
+import ca.qc.cgmatane.informatique.foodshot.serveur.LocalisationAPI;
+
+import static android.Manifest.permission.ACCESS_FINE_LOCATION;
+import static com.google.android.gms.location.LocationServices.getFusedLocationProviderClient;
 
 public class ActiviteCarte extends FragmentActivity implements OnMapReadyCallback {
 
+    private List<ModelePublication> listePublication;
     private GoogleMap mMap;
+
+    //localisation
+    private final long UPDATE_INTERVAL = 10 * 1000;
+    private final long FASTEST_INTERVAL = 2000;
+    private LocationRequest locationRequest;
+    private double latitude;
+    private double longitude;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        if (getSharedPreferences(Constantes.COULEURS_PREFERENCES, Context.MODE_PRIVATE).getInt("theme", 1) == 1) {
-            setTheme(R.style.AppThemeNoirNoActionBar);
-        }
-        else {
-            setTheme(R.style.AppThemeNoirNoActionBar);
-        }
         super.onCreate(savedInstanceState);
+
+        if (ActivityCompat.checkSelfPermission(ActiviteCarte.this, ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            Toast.makeText(this, "FoodShot n'a pas la permission d'accéder à votre localisation.", Toast.LENGTH_SHORT).show();
+            this.finish();
+            return;
+        }
+
+        startLocationUpdates();
+
+        SharedPreferences preferencesPartagees = getSharedPreferences(Constantes.LOCALISATION, Context.MODE_PRIVATE);
+        this.latitude = Double.valueOf(preferencesPartagees.getString("latitude", "" + 0));
+        this.longitude = Double.valueOf(preferencesPartagees.getString("longitude", "" + 0));
+
+        if (this.latitude == 0.0 && this.longitude == 0.0) {
+            Toast.makeText(this, "Impossible de trouver votre localisation. Veuillez rééssayer dans un instant.", Toast.LENGTH_SHORT).show();
+            this.finish();
+            return;
+        }
+
+        listePublication = new ArrayList<>();
+        LocalisationAPI localisationAPI = new LocalisationAPI(latitude, longitude);
+        try {
+            localisationAPI.execute().get();
+            for (ModelePublication publication : localisationAPI.getListePublication()) {
+                listePublication.add(publication);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
         setContentView(R.layout.vue_activite_carte);
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
     }
-
 
     /**
      * Manipulates the map once available.
@@ -47,9 +97,46 @@ public class ActiviteCarte extends FragmentActivity implements OnMapReadyCallbac
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
 
-        // Add a marker in Sydney and move the camera
-        LatLng matane = new LatLng(48.82857, -67.52197);
-        mMap.addMarker(new MarkerOptions().position(matane).title("Marqueur sur Matane"));
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(matane));
+        for (ModelePublication publication : this.listePublication) {
+            LatLng position = new LatLng(publication.getLatitude(), publication.getLongitude());
+            mMap.addMarker(new MarkerOptions().position(position).title(publication.getTitre() + publication.getUsername()));
+        }
+        if (ActivityCompat.checkSelfPermission(ActiviteCarte.this, ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+            mMap.setMyLocationEnabled(true);
+        }
+    }
+
+    protected void startLocationUpdates() {
+        locationRequest = LocationRequest.create();
+        locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
+        locationRequest.setInterval(UPDATE_INTERVAL);
+        locationRequest.setFastestInterval(FASTEST_INTERVAL);
+
+        LocationSettingsRequest.Builder builder = new LocationSettingsRequest.Builder();
+        builder.addLocationRequest(locationRequest);
+        LocationSettingsRequest locationSettingsRequest = builder.build();
+
+        SettingsClient settingsClient = LocationServices.getSettingsClient(this);
+        settingsClient.checkLocationSettings(locationSettingsRequest);
+
+        if (ActivityCompat.checkSelfPermission(ActiviteCarte.this, ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+            getFusedLocationProviderClient(ActiviteCarte.this).requestLocationUpdates(locationRequest, new LocationCallback() {
+                        @Override
+                        public void onLocationResult(LocationResult locationResult) {
+                            onLocationChanged(locationResult.getLastLocation());
+                        }
+                    },
+                    Looper.myLooper());
+        }
+    }
+
+    public void onLocationChanged(Location location) {
+        SharedPreferences preferencesPartagees = getSharedPreferences(Constantes.LOCALISATION, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editeur = preferencesPartagees.edit();
+
+        editeur.putString("latitude", "" + location.getLatitude());
+        editeur.putString("longitude", "" + location.getLongitude());
+        editeur.apply();
+        editeur.commit();
     }
 }

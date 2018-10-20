@@ -82,7 +82,7 @@ public class ActiviteNouvellePublication extends AppCompatActivity {
         setContentView(R.layout.vue_activite_nouvelle_publication);
 
         this.demanderPermissions();
-        startLocationUpdates();
+        this.startLocationUpdates();
 
         this.champTitre = (EditText) findViewById(R.id.champ_titre_nouvelle_publication);
         this.champDescription = (EditText) findViewById(R.id.champ_description_nouvelle_publication);
@@ -151,8 +151,6 @@ public class ActiviteNouvellePublication extends AppCompatActivity {
                 }
             }
         });
-
-
     }
 
     @Override

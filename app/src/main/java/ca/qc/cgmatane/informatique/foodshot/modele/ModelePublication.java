@@ -56,6 +56,18 @@ public class ModelePublication {
         return username;
     }
 
+    public double getLatitude() {
+        return latitude;
+    }
+
+    public double getLongitude() {
+        return longitude;
+    }
+
+    public String getTitre(){
+        return this.titre;
+    }
+
     public int getNbLike() {
         return nbLike;
     }
@@ -63,7 +75,7 @@ public class ModelePublication {
     public boolean getJ_aime(){
         return this.j_aime;
     }
-    
+
     public static Timestamp convertStringToTimestamp(String str_date) {
         try {
             DateFormat formatter;

@@ -22,23 +22,11 @@
   <component name="ChangeListManager">
     <list default="true" id="0a46d808-7ea2-4aec-98d8-c5af3ae2c11f" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/app.iml" beforeDir="false" afterPath="$PROJECT_DIR$/app/app.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/ca/qc/cgmatane/informatique/foodshot/ActiviteCarte.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/ca/qc/cgmatane/informatique/foodshot/ActiviteCarte.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/ca/qc/cgmatane/informatique/foodshot/ActiviteConnexion.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/ca/qc/cgmatane/informatique/foodshot/ActiviteConnexion.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/ca/qc/cgmatane/informatique/foodshot/ActiviteCreationUtilisateur.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/ca/qc/cgmatane/informatique/foodshot/ActiviteCreationUtilisateur.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/ca/qc/cgmatane/informatique/foodshot/ActiviteMonProfil.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/ca/qc/cgmatane/informatique/foodshot/ActiviteMonProfil.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/ca/qc/cgmatane/informatique/foodshot/ActiviteNouvellePublication.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/ca/qc/cgmatane/informatique/foodshot/ActiviteNouvellePublication.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/ca/qc/cgmatane/informatique/foodshot/ActiviteParametres.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/ca/qc/cgmatane/informatique/foodshot/ActiviteParametres.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/ca/qc/cgmatane/informatique/foodshot/ActiviteParametresModifierInfosCompte.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/ca/qc/cgmatane/informatique/foodshot/ActiviteParametresModifierInfosCompte.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/ca/qc/cgmatane/informatique/foodshot/ActivitePersonnesSuivies.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/ca/qc/cgmatane/informatique/foodshot/ActivitePersonnesSuivies.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/ca/qc/cgmatane/informatique/foodshot/ActivitePrincipale.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/ca/qc/cgmatane/informatique/foodshot/ActivitePrincipale.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/ca/qc/cgmatane/informatique/foodshot/ActivitePublicationsAimees.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/ca/qc/cgmatane/informatique/foodshot/ActivitePublicationsAimees.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/ca/qc/cgmatane/informatique/foodshot/ActiviteRechercherProfil.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/ca/qc/cgmatane/informatique/foodshot/ActiviteRechercherProfil.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/ca/qc/cgmatane/informatique/foodshot/RecyclerViewAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/ca/qc/cgmatane/informatique/foodshot/RecyclerViewAdapter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/contenu_activite_principale.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/contenu_activite_principale.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/layout_listitem.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/layout_listitem.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/nav_header_activite_principale.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/nav_header_activite_principale.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/values/styles.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/values/styles.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/ca/qc/cgmatane/informatique/foodshot/constantes/Constantes.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/ca/qc/cgmatane/informatique/foodshot/constantes/Constantes.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/ca/qc/cgmatane/informatique/foodshot/modele/ModelePublication.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/ca/qc/cgmatane/informatique/foodshot/modele/ModelePublication.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -61,20 +49,24 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="styles.xml" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/app/src/main/res/values/styles.xml">
+      <file leaf-file-name="ActivitePrincipale.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/ca/qc/cgmatane/informatique/foodshot/ActivitePrincipale.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="482">
-              <caret line="52" column="55" selection-start-line="52" selection-start-column="55" selection-end-line="52" selection-end-column="55" />
+            <state relative-caret-position="363">
+              <caret line="247" column="24" selection-start-line="247" selection-start-column="8" selection-end-line="247" selection-end-column="24" />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ActiviteCarte.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="ActiviteCarte.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/ca/qc/cgmatane/informatique/foodshot/ActiviteCarte.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="238">
-              <caret line="25" column="52" selection-start-line="25" selection-start-column="52" selection-end-line="25" selection-end-column="52" />
+            <state relative-caret-position="521">
+              <caret line="132" column="54" selection-start-line="132" selection-start-column="54" selection-end-line="132" selection-end-column="54" />
+              <folding>
+                <element signature="e#5514#5787#0" expanded="true" />
+                <element signature="e#5786#5787#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -82,8 +74,20 @@
       <file leaf-file-name="ActiviteNouvellePublication.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/ca/qc/cgmatane/informatique/foodshot/ActiviteNouvellePublication.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="408">
-              <caret line="79" selection-start-line="79" selection-end-line="79" />
+            <state relative-caret-position="271">
+              <caret line="252" column="61" selection-start-line="252" selection-start-column="61" selection-end-line="252" selection-end-column="61" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ActiviteConnexion.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/ca/qc/cgmatane/informatique/foodshot/ActiviteConnexion.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="56">
+              <caret line="74" column="29" selection-start-line="64" selection-start-column="12" selection-end-line="74" selection-end-column="29" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -108,11 +112,11 @@
       <find>26</find>
       <find>WindowActionBar</find>
       <find>TODO</find>
-      <find>Log.d</find>
       <find>side_nav</find>
       <find>new Theme</find>
       <find>toolbar</find>
       <find>toolb</find>
+      <find>Log.d</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -2377,15 +2381,12 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/app/src/main/res/layout/vue_activite_rechercher_profil.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/java/ca/qc/cgmatane/informatique/foodshot/modele/ModeleMessage.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/ca/qc/cgmatane/informatique/foodshot/GestureListener.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/xml/network_security_config.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/ca/qc/cgmatane/informatique/foodshot/modele/ModeleUtilisateurRecherche.java" />
         <option value="$PROJECT_DIR$/build.gradle" />
         <option value="$PROJECT_DIR$/app/build.gradle" />
         <option value="$PROJECT_DIR$/app/src/main/java/ca/qc/cgmatane/informatique/foodshot/modele/ModeleUtilisateur.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/ca/qc/cgmatane/informatique/foodshot/modele/ModelePublication.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/ca/qc/cgmatane/informatique/foodshot/GestureLongClick.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/param_modifier_infos_compte.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/values/strings.xml" />
@@ -2400,7 +2401,6 @@
         <option value="$PROJECT_DIR$/app/src/main/java/ca/qc/cgmatane/informatique/foodshot/serveur/RechercherProfilAPI.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/ca/qc/cgmatane/informatique/foodshot/serveur/LireUtilisateurCourantAPI.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/ca/qc/cgmatane/informatique/foodshot/serveur/ModifierUtilisateurAPI.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/ca/qc/cgmatane/informatique/foodshot/constantes/Constantes.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/values/colors.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/vue_activite_nouvelle_publication.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/vue_activite_connexion.xml" />
@@ -2408,7 +2408,6 @@
         <option value="$PROJECT_DIR$/app/src/main/res/layout/vue_activite_parametres.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/vue_activite_parametres_modifier_infos_compte.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/drawable/side_nav_bar.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/java/ca/qc/cgmatane/informatique/foodshot/serveur/RecevoirPublicationAPI.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/ca/qc/cgmatane/informatique/foodshot/ThemeColors.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/ca/qc/cgmatane/informatique/foodshot/RecyclerViewAdapter.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/layout_listitem.xml" />
@@ -2416,7 +2415,6 @@
         <option value="$PROJECT_DIR$/app/src/main/res/layout/contenu_activite_principale.xml" />
         <option value="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/menu/activite_principale.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/java/ca/qc/cgmatane/informatique/foodshot/ActivitePrincipale.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/ca/qc/cgmatane/informatique/foodshot/ActiviteConnexion.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/ca/qc/cgmatane/informatique/foodshot/ActiviteParametres.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/ca/qc/cgmatane/informatique/foodshot/ActiviteMonProfil.java" />
@@ -2424,10 +2422,16 @@
         <option value="$PROJECT_DIR$/app/src/main/java/ca/qc/cgmatane/informatique/foodshot/ActivitePersonnesSuivies.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/ca/qc/cgmatane/informatique/foodshot/ActivitePublicationsAimees.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/ca/qc/cgmatane/informatique/foodshot/ActiviteRechercherProfil.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/ca/qc/cgmatane/informatique/foodshot/ActiviteCarte.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/ca/qc/cgmatane/informatique/foodshot/ActiviteNouvellePublication.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/ca/qc/cgmatane/informatique/foodshot/ActiviteCreationUtilisateur.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/values/styles.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/java/ca/qc/cgmatane/informatique/foodshot/ActivitePrincipale.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/ca/qc/cgmatane/informatique/foodshot/modele/ModelePublication.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/ca/qc/cgmatane/informatique/foodshot/serveur/RecevoirPublicationAPI.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/ca/qc/cgmatane/informatique/foodshot/serveur/LocalisationAPI.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/ca/qc/cgmatane/informatique/foodshot/Localisation.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/ca/qc/cgmatane/informatique/foodshot/ActiviteNouvellePublication.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/ca/qc/cgmatane/informatique/foodshot/constantes/Constantes.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/ca/qc/cgmatane/informatique/foodshot/ActiviteCarte.java" />
       </list>
     </option>
   </component>
@@ -2442,8 +2446,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="ProjectPane" />
-      <pane id="Scope" />
+      <pane id="PackagesPane" />
       <pane id="AndroidView">
         <subPane>
           <expand>
@@ -2467,30 +2470,21 @@
               <item name="app" type="feadf853:AndroidModuleNode" />
               <item name="java" type="edd41e36:AndroidSourceTypeNode" />
               <item name="foodshot" type="cbb59c9e:AndroidPsiDirectoryNode" />
+              <item name="constantes" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="FoodShot" type="1abcf292:AndroidViewProjectNode" />
+              <item name="app" type="feadf853:AndroidModuleNode" />
+              <item name="java" type="edd41e36:AndroidSourceTypeNode" />
+              <item name="foodshot" type="cbb59c9e:AndroidPsiDirectoryNode" />
+              <item name="modele" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="FoodShot" type="1abcf292:AndroidViewProjectNode" />
+              <item name="app" type="feadf853:AndroidModuleNode" />
+              <item name="java" type="edd41e36:AndroidSourceTypeNode" />
+              <item name="foodshot" type="cbb59c9e:AndroidPsiDirectoryNode" />
               <item name="serveur" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="FoodShot" type="1abcf292:AndroidViewProjectNode" />
-              <item name="app" type="feadf853:AndroidModuleNode" />
-              <item name="res" type="d4f16f75:AndroidResFolderNode" />
-            </path>
-            <path>
-              <item name="FoodShot" type="1abcf292:AndroidViewProjectNode" />
-              <item name="app" type="feadf853:AndroidModuleNode" />
-              <item name="res" type="d4f16f75:AndroidResFolderNode" />
-              <item name="layout" type="ddeffd01:AndroidResFolderTypeNode" />
-            </path>
-            <path>
-              <item name="FoodShot" type="1abcf292:AndroidViewProjectNode" />
-              <item name="app" type="feadf853:AndroidModuleNode" />
-              <item name="res" type="d4f16f75:AndroidResFolderNode" />
-              <item name="menu" type="ddeffd01:AndroidResFolderTypeNode" />
-            </path>
-            <path>
-              <item name="FoodShot" type="1abcf292:AndroidViewProjectNode" />
-              <item name="app" type="feadf853:AndroidModuleNode" />
-              <item name="res" type="d4f16f75:AndroidResFolderNode" />
-              <item name="values" type="ddeffd01:AndroidResFolderTypeNode" />
             </path>
             <path>
               <item name="FoodShot" type="1abcf292:AndroidViewProjectNode" />
@@ -2500,14 +2494,15 @@
           <select />
         </subPane>
       </pane>
-      <pane id="PackagesPane" />
+      <pane id="ProjectPane" />
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="android.project.structure.last.selected" value="app" />
     <property name="android.project.structure.proportion" value="0.15" />
     <property name="android.sdk.path" value="$USER_HOME$/AppData/Local/Android/Sdk" />
-    <property name="device.picker.selection" value="Nexus_5X_API_28" />
+    <property name="device.picker.selection" value="H9AZCY031835KYZ" />
     <property name="last_directory_selection" value="$PROJECT_DIR$/app/src/main/res/drawable" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/../../../Desktop/programmation-mobile-2018-projet-java-foodshot" />
     <property name="settings.editor.selected.configurable" value="reference.settingsdialog.project.gradle" />
@@ -2689,25 +2684,25 @@
       <window_info id="Build Variants" order="3" sideWeight="0.5016575" side_tool="true" weight="0.15671642" />
       <window_info anchor="right" id="Capture Analysis" order="3" />
       <window_info anchor="bottom" id="Event Log" order="9" sideWeight="0.5021322" side_tool="true" weight="0.4243094" />
-      <window_info anchor="right" id="Preview" order="8" />
       <window_info anchor="bottom" id="Run" order="2" weight="0.32928178" />
       <window_info anchor="bottom" id="Version Control" order="10" weight="0.32928178" />
       <window_info anchor="bottom" id="Terminal" order="11" />
-      <window_info anchor="bottom" id="Logcat" order="6" sideWeight="0.4978678" visible="true" weight="0.32596686" />
+      <window_info anchor="bottom" id="Logcat" order="6" sideWeight="0.4978678" weight="0.44088396" />
       <window_info id="Captures" order="4" weight="0.25" />
       <window_info id="Capture Tool" order="6" />
       <window_info id="Designer" order="2" />
-      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.49834254" visible="true" weight="0.17324094" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.49834254" weight="0.17324094" />
       <window_info anchor="bottom" id="Build" order="8" sideWeight="0.4989339" weight="0.32928178" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32928178" />
       <window_info anchor="right" id="Gradle" order="6" />
       <window_info id="Structure" order="1" sideWeight="0.50084037" side_tool="true" weight="0.19829424" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.3723757" />
       <window_info anchor="right" id="Device File Explorer" order="5" side_tool="true" />
       <window_info anchor="right" id="Theme Preview" order="7" />
-      <window_info anchor="bottom" id="Debug" order="3" weight="0.3723757" />
       <window_info id="Favorites" order="5" side_tool="true" />
       <window_info anchor="right" id="Assistant" order="4" weight="0.32995737" />
       <window_info anchor="right" id="Commander" order="0" weight="0.4" />
+      <window_info anchor="right" id="Preview" order="8" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
@@ -2719,21 +2714,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/ca/qc/cgmatane/informatique/foodshot/modele/ModeleUtilisateurRecherche.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="34">
-          <caret line="2" column="13" selection-start-line="2" selection-start-column="13" selection-end-line="2" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/ca/qc/cgmatane/informatique/foodshot/modele/ModeleUtilisateur.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="34">
-          <caret line="2" column="13" selection-start-line="2" selection-start-column="13" selection-end-line="2" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/ca/qc/cgmatane/informatique/foodshot/modele/ModeleRecherche.java" />
     <entry file="file://$PROJECT_DIR$/app/src/main/java/ca/qc/cgmatane/informatique/foodshot/modele/ModeleMessage.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="34">
@@ -2745,13 +2725,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="293">
           <caret line="2313" column="16" selection-start-line="2313" selection-start-column="16" selection-end-line="2313" selection-end-column="16" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/ca/qc/cgmatane/informatique/foodshot/constantes/Constantes.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret column="46" lean-forward="true" selection-start-column="46" selection-end-column="46" />
         </state>
       </provider>
     </entry>
@@ -2892,34 +2865,7 @@
         <state relative-caret-position="-27" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/ca/qc/cgmatane/informatique/foodshot/modele/ModelePublication.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="476">
-          <caret line="32" column="29" lean-forward="true" selection-start-line="32" selection-start-column="29" selection-end-line="32" selection-end-column="29" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/ca/qc/cgmatane/informatique/foodshot/serveur/RecevoirPublicationAPI.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1751">
-          <caret line="118" selection-start-line="118" selection-end-line="118" />
-          <folding>
-            <element signature="e#5115#5116#0" expanded="true" />
-            <element signature="e#5151#5152#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/ca/qc/cgmatane/informatique/foodshot/ThemeColors.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="238">
-          <caret line="14" column="74" selection-start-line="14" selection-start-column="74" selection-end-line="14" selection-end-column="74" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/ca/qc/cgmatane/informatique/foodshot/ThemeColors.java" />
     <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/layout_listitem.xml">
       <provider editor-type-id="android-designer2">
         <state />
@@ -2982,9 +2928,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="187">
           <caret line="11" column="59" selection-start-line="11" selection-start-column="59" selection-end-line="11" selection-end-column="59" />
-          <folding>
-            <element signature="e#277#303#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -2995,13 +2938,13 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="85">
           <caret line="5" column="49" selection-start-line="5" selection-start-column="49" selection-end-line="5" selection-end-column="49" />
-          <folding>
-            <element signature="e#216#240#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml">
+      <provider editor-type-id="android-manifest">
+        <state />
+      </provider>
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="651">
           <caret line="31" column="34" selection-start-line="31" selection-start-column="34" selection-end-line="31" selection-end-column="34" />
@@ -3022,9 +2965,6 @@
           </folding>
         </state>
       </provider>
-      <provider editor-type-id="android-manifest">
-        <state />
-      </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/values/colors.xml">
       <provider selected="true" editor-type-id="text-editor">
@@ -3040,19 +2980,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="232">
           <caret line="8" column="55" selection-start-line="8" selection-start-column="55" selection-end-line="8" selection-end-column="55" />
-          <folding>
-            <element signature="e#271#298#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/ca/qc/cgmatane/informatique/foodshot/ActiviteConnexion.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="114">
-          <caret line="28" selection-start-line="28" selection-end-line="33" selection-end-column="9" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -3098,21 +3025,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/ca/qc/cgmatane/informatique/foodshot/ActivitePrincipale.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="240">
-          <caret line="51" selection-start-line="51" selection-end-line="56" selection-end-column="9" />
-          <folding>
-            <element signature="e#3234#3556#0" expanded="true" />
-            <element signature="e#3555#3556#0" expanded="true" />
-            <element signature="e#3478#3509#0" expanded="true" />
-            <element signature="e#3511#3543#0" expanded="true" />
-            <element signature="e#8598#9175#0" expanded="true" />
-            <element signature="e#9174#9175#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/ca/qc/cgmatane/informatique/foodshot/ActiviteParametresModifierInfosCompte.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="136">
@@ -3134,20 +3046,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/ca/qc/cgmatane/informatique/foodshot/ActiviteCarte.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="238">
-          <caret line="25" column="52" selection-start-line="25" selection-start-column="52" selection-end-line="25" selection-end-column="52" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/ca/qc/cgmatane/informatique/foodshot/ActiviteNouvellePublication.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="408">
-          <caret line="79" selection-start-line="79" selection-end-line="79" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/ca/qc/cgmatane/informatique/foodshot/ActiviteCreationUtilisateur.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="340">
@@ -3159,6 +3057,117 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="482">
           <caret line="52" column="55" selection-start-line="52" selection-start-column="55" selection-end-line="52" selection-end-column="55" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/ca/qc/cgmatane/informatique/foodshot/serveur/ModifierUtilisateurAPI.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="558">
+          <caret line="48" column="47" selection-start-line="48" selection-start-column="22" selection-end-line="48" selection-end-column="47" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/ca/qc/cgmatane/informatique/foodshot/serveur/RecevoirPublicationAPI.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="644">
+          <caret line="89" column="54" lean-forward="true" selection-start-line="89" selection-start-column="54" selection-end-line="90" selection-end-column="52" />
+          <folding>
+            <element signature="e#5115#5116#0" expanded="true" />
+            <element signature="e#5151#5152#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/ca/qc/cgmatane/informatique/foodshot/serveur/LocalisationAPI.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="143">
+          <caret line="66" selection-start-line="66" selection-end-line="66" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#1463#1464#0" expanded="true" />
+            <element signature="e#1499#1500#0" expanded="true" />
+            <element signature="e#5227#5228#0" expanded="true" />
+            <element signature="e#5265#5266#0" expanded="true" />
+            <element signature="e#5298#5299#0" expanded="true" />
+            <element signature="e#5327#5328#0" expanded="true" />
+            <element signature="e#5387#5388#0" expanded="true" />
+            <element signature="e#5426#5427#0" expanded="true" />
+            <element signature="e#5479#5480#0" expanded="true" />
+            <element signature="e#5515#5516#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/ca/qc/cgmatane/informatique/foodshot/modele/ModelePublication.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-4">
+          <caret line="6" column="22" selection-start-line="6" selection-start-column="22" selection-end-line="6" selection-end-column="22" />
+          <folding>
+            <element signature="e#1605#1606#0" expanded="true" />
+            <element signature="e#1636#1637#0" expanded="true" />
+            <element signature="e#1672#1673#0" expanded="true" />
+            <element signature="e#1704#1705#0" expanded="true" />
+            <element signature="e#1735#1736#0" expanded="true" />
+            <element signature="e#1768#1769#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/ca/qc/cgmatane/informatique/foodshot/Localisation.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1144">
+          <caret line="62" column="25" selection-start-line="62" selection-start-column="25" selection-end-line="62" selection-end-column="25" />
+          <folding>
+            <element signature="e#1258#1259#0" expanded="true" />
+            <element signature="e#1298#1299#0" expanded="true" />
+            <element signature="e#2122#2395#0" expanded="true" />
+            <element signature="e#2737#2738#0" expanded="true" />
+            <element signature="e#2773#2774#0" expanded="true" />
+            <element signature="e#2808#2809#0" expanded="true" />
+            <element signature="e#2845#2846#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/ca/qc/cgmatane/informatique/foodshot/constantes/Constantes.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="180">
+          <caret line="6" column="68" selection-start-line="6" selection-start-column="68" selection-end-line="6" selection-end-column="68" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/ca/qc/cgmatane/informatique/foodshot/ActiviteNouvellePublication.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="271">
+          <caret line="252" column="61" selection-start-line="252" selection-start-column="61" selection-end-line="252" selection-end-column="61" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/ca/qc/cgmatane/informatique/foodshot/ActiviteConnexion.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="56">
+          <caret line="74" column="29" selection-start-line="64" selection-start-column="12" selection-end-line="74" selection-end-column="29" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/ca/qc/cgmatane/informatique/foodshot/ActivitePrincipale.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="363">
+          <caret line="247" column="24" selection-start-line="247" selection-start-column="8" selection-end-line="247" selection-end-column="24" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/ca/qc/cgmatane/informatique/foodshot/ActiviteCarte.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="521">
+          <caret line="132" column="54" selection-start-line="132" selection-start-column="54" selection-end-line="132" selection-end-column="54" />
+          <folding>
+            <element signature="e#5514#5787#0" expanded="true" />
+            <element signature="e#5786#5787#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
