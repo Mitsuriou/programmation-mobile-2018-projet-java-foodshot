@@ -1,7 +1,6 @@
 package ca.qc.cgmatane.informatique.foodshot.serveur;
 
 import android.os.AsyncTask;
-import android.util.Log;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -17,12 +16,15 @@ import okhttp3.Response;
 
 public class LocalisationAPI extends AsyncTask<String, String, String> {
 
+    private int idUtilisateur;
     private boolean statut;
-    private double longitude, latitude;
+    private double longitude;
+    private double latitude;
     private List<ModelePublication> listePublication;
     private List<ModeleMessage> listeMessages;
 
-    public LocalisationAPI(double latitude, double longitude) {
+    public LocalisationAPI(int idUtilisateur, double latitude, double longitude) {
+        this.idUtilisateur = idUtilisateur;
         this.latitude = latitude;
         this.longitude = longitude;
     }
@@ -35,14 +37,17 @@ public class LocalisationAPI extends AsyncTask<String, String, String> {
     @Override
     protected String doInBackground(String... params) {
         Response reponse;
-
         OkHttpClient client = new OkHttpClient();
+
         Request request = new Request.Builder()
-                .url("http://54.37.152.134/api/publication/rechercher.php?latitude=" + this.latitude + "&longitude=" + this.longitude)
+                .url("http://54.37.152.134/api/publication/rechercher.php?latitude="
+                        + this.latitude + "&longitude=" + this.longitude
+                        + "&id_utilisateur=" + this.idUtilisateur)
                 .build();
 
         try {
             reponse = client.newCall(request).execute();
+
             String jsonDonneesString = reponse.body().string();
             JSONObject jsonDonneesObjet = new JSONObject(jsonDonneesString);
 
@@ -65,7 +70,7 @@ public class LocalisationAPI extends AsyncTask<String, String, String> {
             this.listePublication = new ArrayList<>();
             for (JSONObject valeur : listeDesPublicationsJson) {
 
-                // TODO : enlever
+                // TODO : enlever le mock
                 String urlImage = valeur.getString("url_image");
                 if ((urlImage != null) || (urlImage.equals(""))) {
                     urlImage = "https://cdn.mos.cms.futurecdn.net/FUE7XiFApEqWZQ85wYcAfM.jpg";
@@ -83,8 +88,7 @@ public class LocalisationAPI extends AsyncTask<String, String, String> {
                         urlImage,
                         valeur.getDouble("latitude"),
                         valeur.getDouble("longitude"),
-                        // TODO : changer quand API rétablie
-                        true,
+                        valeur.getBoolean("j_aime"),
                         valeur.getInt("nombre_mention_aime"),
                         valeur.getInt("id_utilisateur"),
                         valeur.getString("pseudonyme_utilisateur"),
@@ -110,7 +114,6 @@ public class LocalisationAPI extends AsyncTask<String, String, String> {
                         valeur.getString("message")
                 ));
             }
-
         } catch (Exception e) {
             e.printStackTrace();
         }

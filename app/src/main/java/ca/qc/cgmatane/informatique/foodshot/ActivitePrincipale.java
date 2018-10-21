@@ -20,7 +20,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.AbsListView;
 import android.widget.ProgressBar;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -33,49 +32,44 @@ import ca.qc.cgmatane.informatique.foodshot.serveur.RecevoirPublicationAPI;
 
 public class ActivitePrincipale extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
-    // RecyclerView
-    private int page = 1;
+    private int page;
     private RecevoirPublicationAPI recevoirPublicationAPI;
-    private RecyclerView recyclerView;
     private LinearLayoutManager manager;
-    private int currentItems, totalItems, scrollOutItems;
-    private boolean isScrolling = false;
-    private RecyclerViewAdapter adapter;
+    private int objetCourant;
+    private int nbrTotalObjets;
+    private int objetsHorsEcran;
+    private boolean isScrolling;
+    private RecyclerViewAdapter adapteur;
     private ArrayList<ModelePublication> listePublication;
-    private int dernierId = 1;
-    private ProgressBar progressBar;
+    private int dernierId;
+    private ProgressBar barreProgression;
 
-    private SharedPreferences preferencesPartagees;
+    private SharedPreferences preferencesPartageesGenerales;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        if (getSharedPreferences(Constantes.COULEURS_PREFERENCES, Context.MODE_PRIVATE).getInt("theme", 1) == 1) {
+        if (getSharedPreferences(Constantes.PREFERENCES_THEME_COULEUR, Context.MODE_PRIVATE).getInt("theme", 1) == 1) {
             setTheme(R.style.AppThemeNoActionBar);
-        }
-        else {
+        } else {
             setTheme(R.style.AppThemeNoirNoActionBar);
         }
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.vue_activite_principale);
 
-        preferencesPartagees = getSharedPreferences(Constantes.MES_PREFERENCES, Context.MODE_PRIVATE);
-        if (!preferencesPartagees.contains("id_utilisateur")) {
+        this.page = 1;
+        this.dernierId = 1;
+        this.isScrolling = false;
+
+        this.preferencesPartageesGenerales = getSharedPreferences(Constantes.PREFERENCES_GENERALES, Context.MODE_PRIVATE);
+        if (!this.preferencesPartageesGenerales.contains("id_utilisateur")) {
             Intent intentionSeConnecter = new Intent(this, ActiviteConnexion.class);
             startActivity(intentionSeConnecter);
             finish();
         }
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.barre_outils);
-        setSupportActionBar(toolbar);
-
-        // TODO everywhere
-        if (getSharedPreferences(Constantes.COULEURS_PREFERENCES, Context.MODE_PRIVATE).getInt("theme", 1) == 1) {
-            toolbar.setTitleTextColor(0xffffffff);
-        }
-        else {
-            toolbar.setTitleTextColor(0xff999999);
-        }
+        Toolbar barreOutils = (Toolbar) findViewById(R.id.barre_outils);
+        setSupportActionBar(barreOutils);
 
         FloatingActionButton boutonCreerNouvellePublication = (FloatingActionButton) findViewById(R.id.bouton_creer_nouvelle_publication);
         boutonCreerNouvellePublication.setOnClickListener(new View.OnClickListener() {
@@ -88,17 +82,16 @@ public class ActivitePrincipale extends AppCompatActivity implements NavigationV
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+                this, drawer, barreOutils, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
         this.mettreAJourHeaderDuDrawer();
 
-        progressBar = (ProgressBar) findViewById(R.id.progress);
+        barreProgression = (ProgressBar) findViewById(R.id.progress);
         listePublication = new ArrayList<>();
 
-        initRecyclerView();
-
+        initialiserRecyclerView();
     }
 
     @Override
@@ -150,19 +143,20 @@ public class ActivitePrincipale extends AppCompatActivity implements NavigationV
             Intent intentionNaviguerVersAutourDeMoi = new Intent(this, ActiviteCarte.class);
             startActivity(intentionNaviguerVersAutourDeMoi);
         } else if (id == R.id.notifications) {
-            // TODO
+            // TODO : page de notifications
             Toast.makeText(this, "A venir", Toast.LENGTH_SHORT).show();
         } else if (id == R.id.theme_noir) {
-            SharedPreferences preferencesPartagees = getSharedPreferences(Constantes.COULEURS_PREFERENCES, Context.MODE_PRIVATE);
+            SharedPreferences preferencesPartageesThemeCouleur =
+                    getSharedPreferences(Constantes.PREFERENCES_THEME_COULEUR, Context.MODE_PRIVATE);
 
-            if (preferencesPartagees.getInt("theme", 1) == 1) {
-                SharedPreferences.Editor editeur = getSharedPreferences(Constantes.COULEURS_PREFERENCES, Context.MODE_PRIVATE).edit();
+            SharedPreferences.Editor editeur =
+                    getSharedPreferences(Constantes.PREFERENCES_THEME_COULEUR, Context.MODE_PRIVATE).edit();
+
+            if (preferencesPartageesThemeCouleur.getInt("theme", 1) == 1) {
                 editeur.putInt("theme", 2);
                 editeur.apply();
                 this.recreate();
-            }
-            else {
-                SharedPreferences.Editor editeur = getSharedPreferences(Constantes.COULEURS_PREFERENCES, Context.MODE_PRIVATE).edit();
+            } else {
                 editeur.putInt("theme", 1);
                 editeur.apply();
                 this.recreate();
@@ -179,18 +173,18 @@ public class ActivitePrincipale extends AppCompatActivity implements NavigationV
         return true;
     }
 
-    private void initRecyclerView() {
-        recyclerView = findViewById(R.id.recycler_view);
-        adapter = new RecyclerViewAdapter(this, listePublication);
-        fetchData();
+    private void initialiserRecyclerView() {
+        RecyclerView recyclerView = findViewById(R.id.recycler_view);
+        adapteur = new RecyclerViewAdapter(this.preferencesPartageesGenerales.getInt("id_utilisateur", -1), this, listePublication);
+        recupererDonnees();
         manager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(manager);
-        recyclerView.setAdapter(adapter);
+        recyclerView.setAdapter(adapteur);
         recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
-            public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
-                super.onScrollStateChanged(recyclerView, newState);
-                if (newState == AbsListView.OnScrollListener.SCROLL_STATE_TOUCH_SCROLL) {
+            public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int nouvelEtat) {
+                super.onScrollStateChanged(recyclerView, nouvelEtat);
+                if (nouvelEtat == AbsListView.OnScrollListener.SCROLL_STATE_TOUCH_SCROLL) {
                     isScrolling = true;
                 }
             }
@@ -198,26 +192,28 @@ public class ActivitePrincipale extends AppCompatActivity implements NavigationV
             @Override
             public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
                 super.onScrolled(recyclerView, dx, dy);
-                currentItems = manager.getChildCount();
-                totalItems = manager.getItemCount();
-                scrollOutItems = manager.findFirstVisibleItemPosition();
+                objetCourant = manager.getChildCount();
+                nbrTotalObjets = manager.getItemCount();
+                objetsHorsEcran = manager.findFirstVisibleItemPosition();
 
-                if (isScrolling && (currentItems + scrollOutItems == totalItems)) {
+                if (isScrolling && (objetCourant + objetsHorsEcran == nbrTotalObjets)) {
                     isScrolling = false;
-                    fetchData();
+                    recupererDonnees();
                 }
             }
         });
     }
 
-    public void fetchData() {
-        progressBar.setVisibility(View.VISIBLE);
-        SharedPreferences preferencesPartagees = getSharedPreferences(Constantes.MES_PREFERENCES, Context.MODE_PRIVATE);
+    public void recupererDonnees() {
+        barreProgression.setVisibility(View.VISIBLE);
+        this.preferencesPartageesGenerales =
+                getSharedPreferences(Constantes.PREFERENCES_GENERALES, Context.MODE_PRIVATE);
 
-        if(page>1){
-            recevoirPublicationAPI = new RecevoirPublicationAPI(preferencesPartagees.getInt("id_utilisateur", -1),page, dernierId);
+        if (page > 1) {
+            recevoirPublicationAPI = new RecevoirPublicationAPI(this.preferencesPartageesGenerales.getInt("id_utilisateur", -1), page, dernierId);
+        } else {
+            recevoirPublicationAPI = new RecevoirPublicationAPI(this.preferencesPartageesGenerales.getInt("id_utilisateur", -1), page);
         }
-        else recevoirPublicationAPI = new RecevoirPublicationAPI(preferencesPartagees.getInt("id_utilisateur", -1),page);
 
         try {
             recevoirPublicationAPI.execute().get();
@@ -225,16 +221,16 @@ public class ActivitePrincipale extends AppCompatActivity implements NavigationV
             e.printStackTrace();
         }
 
-        if (recevoirPublicationAPI.getProgress()){
+        if (recevoirPublicationAPI.getProgress()) {
             page++;
             new Handler().postDelayed(new Runnable() {
                 @Override
                 public void run() {
                     for (int i = 0; i < recevoirPublicationAPI.getListePublication().size(); i++) {
-                        adapter.ajouterPublication(recevoirPublicationAPI.getListePublication().get(i));
+                        adapteur.ajouterPublication(recevoirPublicationAPI.getListePublication().get(i));
                         dernierId = recevoirPublicationAPI.getListePublication().get(i).getId();
-                        progressBar.setVisibility(View.GONE);
-                        adapter.notifyItemInserted(adapter.getItemCount() + 1);
+                        barreProgression.setVisibility(View.GONE);
+                        adapteur.notifyItemInserted(adapteur.getItemCount() + 1);
                     }
 
                 }
@@ -243,8 +239,8 @@ public class ActivitePrincipale extends AppCompatActivity implements NavigationV
     }
 
     private void deconnexion() {
-        SharedPreferences preferencesPartagees = getSharedPreferences(Constantes.MES_PREFERENCES, Context.MODE_PRIVATE);
-        SharedPreferences.Editor editeur = preferencesPartagees.edit();
+        this.preferencesPartageesGenerales = getSharedPreferences(Constantes.PREFERENCES_GENERALES, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editeur = this.preferencesPartageesGenerales.edit();
         editeur.clear();
         editeur.apply();
         editeur.commit();
@@ -253,15 +249,15 @@ public class ActivitePrincipale extends AppCompatActivity implements NavigationV
     }
 
     private void mettreProfilAJour() {
-        SharedPreferences preferencesPartagees = getSharedPreferences(Constantes.MES_PREFERENCES, Context.MODE_PRIVATE);
-        LireUtilisateurCourantAPI lireUtilisateurCourantAPI = new LireUtilisateurCourantAPI(preferencesPartagees.getInt("id_utilisateur", -1));
+        this.preferencesPartageesGenerales = getSharedPreferences(Constantes.PREFERENCES_GENERALES, Context.MODE_PRIVATE);
+        LireUtilisateurCourantAPI lireUtilisateurCourantAPI = new LireUtilisateurCourantAPI(this.preferencesPartageesGenerales.getInt("id_utilisateur", -1));
         try {
             lireUtilisateurCourantAPI.execute().get();
         } catch (Exception e) {
             e.printStackTrace();
         }
 
-        SharedPreferences.Editor editeur = preferencesPartagees.edit();
+        SharedPreferences.Editor editeur = this.preferencesPartageesGenerales.edit();
 
         editeur.putString("nom", lireUtilisateurCourantAPI.getNomUtilisateurCourant());
         editeur.putString("url_image", lireUtilisateurCourantAPI.getUrlImageUtilisateurCourant());
@@ -279,19 +275,15 @@ public class ActivitePrincipale extends AppCompatActivity implements NavigationV
         // Ajout des informations de l'utilisateur dans le header du drawer
         View vueDrawer = navigationView.getHeaderView(0);
 
-        // change to red background color for the drawer
-        // vueDrawer.setBackgroundColor(0xFFFF0000);
-        // vueDrawer.invalidate();
-
         TextView nomDrawer = (TextView) vueDrawer.findViewById(R.id.drawer_header_nom);
-        nomDrawer.setText(preferencesPartagees.getString("nom", "Nom"));
+        nomDrawer.setText(this.preferencesPartageesGenerales.getString("nom", "Nom"));
 
         TextView pseudonymeDrawer = (TextView) vueDrawer.findViewById(R.id.drawer_header_pseudonyme);
         pseudonymeDrawer.setText("@");
-        pseudonymeDrawer.append(preferencesPartagees.getString("pseudonyme", "Pseudonyme"));
+        pseudonymeDrawer.append(this.preferencesPartageesGenerales.getString("pseudonyme", "Pseudonyme"));
 
         TextView nombreMentionAime = (TextView) vueDrawer.findViewById(R.id.drawer_header_nombres_mentions_jaime);
-        nombreMentionAime.setText(String.valueOf(preferencesPartagees.getInt("nombre_mention_aime", 999999)));
+        nombreMentionAime.setText(String.valueOf(this.preferencesPartageesGenerales.getInt("nombre_mention_aime", 999999)));
         nombreMentionAime.append(" Coeurs");
     }
 

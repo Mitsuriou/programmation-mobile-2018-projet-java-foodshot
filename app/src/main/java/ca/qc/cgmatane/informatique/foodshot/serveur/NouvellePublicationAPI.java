@@ -18,21 +18,21 @@ import okhttp3.RequestBody;
 import okhttp3.Response;
 
 public class NouvellePublicationAPI extends AsyncTask<String, String, String> {
+
     private String titre;
     private String description;
     private double latitude;
     private double longitude;
-    private int id_utilisateur;
-
+    private int idUtilisateur;
     private boolean statut;
     private List<ModeleMessage> listeMessages;
 
-    public NouvellePublicationAPI(String titre, String description, double latitude, double longitude, int id_utilisateur) {
+    public NouvellePublicationAPI(String titre, String description, double latitude, double longitude, int idUtilisateur) {
         this.titre = titre;
         this.description = description;
         this.latitude = latitude;
         this.longitude = longitude;
-        this.id_utilisateur = id_utilisateur;
+        this.idUtilisateur = idUtilisateur;
     }
 
     @Override
@@ -47,28 +47,29 @@ public class NouvellePublicationAPI extends AsyncTask<String, String, String> {
 
         OkHttpClient client = new OkHttpClient();
         JSONObject data = new JSONObject();
+
         try {
             data.put("titre", this.titre)
                     .put("description", this.description)
                     .put("latitude", this.latitude)
                     .put("longitude", this.longitude)
-                    .put("id_utilisateur", this.id_utilisateur);
+                    .put("id_utilisateur", this.idUtilisateur);
         } catch (JSONException e) {
             e.printStackTrace();
         }
 
-        RequestBody body = RequestBody.create(JSON, data.toString());
+        RequestBody corps = RequestBody.create(JSON, data.toString());
 
         Request request = new Request.Builder()
                 .url("http://54.37.152.134/api/publication/creer.php")
-                .post(body)
+                .post(corps)
                 .build();
 
         try {
             reponse = client.newCall(request).execute();
 
             if (!reponse.isSuccessful())
-                throw new IOException("Unexpected code " + reponse.toString());
+                throw new IOException("Code non attendu : " + reponse.toString());
 
             String jsonDonneesString = reponse.body().string();
             JSONObject jsonDonneesObjet = new JSONObject(jsonDonneesString);
@@ -94,7 +95,6 @@ public class NouvellePublicationAPI extends AsyncTask<String, String, String> {
                         valeur.getString("message")
                 ));
             }
-
         } catch (Exception e) {
             e.printStackTrace();
         }

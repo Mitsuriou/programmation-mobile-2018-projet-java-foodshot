@@ -6,7 +6,6 @@ import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
-import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -21,11 +20,9 @@ public class ActiviteParametresModifierInfosCompte extends AppCompatActivity {
     private EditText compteChampMdp2;
     private TextView compteAffichageErreurs;
 
-    private SharedPreferences preferencesPartagees;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        if (getSharedPreferences(Constantes.COULEURS_PREFERENCES, Context.MODE_PRIVATE).getInt("theme", 1) == 1) {
+        if (getSharedPreferences(Constantes.PREFERENCES_THEME_COULEUR, Context.MODE_PRIVATE).getInt("theme", 1) == 1) {
             setTheme(R.style.AppTheme);
         }
         else {
@@ -40,7 +37,7 @@ public class ActiviteParametresModifierInfosCompte extends AppCompatActivity {
         this.compteChampMdp2 = (EditText) findViewById(R.id.param_modifier_infos_compte_champ_mdp_2);
         this.compteAffichageErreurs = (TextView) findViewById(R.id.param_compte_affichage_erreurs);
 
-        preferencesPartagees = getSharedPreferences(Constantes.MES_PREFERENCES, Context.MODE_PRIVATE);
+        SharedPreferences preferencesPartagees = getSharedPreferences(Constantes.PREFERENCES_GENERALES, Context.MODE_PRIVATE);
         this.compteChampNomUtilisateur.setText(preferencesPartagees.getString("nom", ""));
 
         Button boutonValiderModifications = (Button) findViewById(R.id.bouton_param_valider_modification_infos_compte);
@@ -56,7 +53,7 @@ public class ActiviteParametresModifierInfosCompte extends AppCompatActivity {
         this.reinitialiserErreurs();
 
         if (isNomValide() && isMotDePasseValide()) {
-            SharedPreferences preferencesPartagees = getSharedPreferences(Constantes.MES_PREFERENCES, Context.MODE_PRIVATE);
+            SharedPreferences preferencesPartagees = getSharedPreferences(Constantes.PREFERENCES_GENERALES, Context.MODE_PRIVATE);
             new ModifierUtilisateurAPI(
                     preferencesPartagees.getInt("id_utilisateur", -1),
                     this.compteChampNomUtilisateur.getText().toString(),

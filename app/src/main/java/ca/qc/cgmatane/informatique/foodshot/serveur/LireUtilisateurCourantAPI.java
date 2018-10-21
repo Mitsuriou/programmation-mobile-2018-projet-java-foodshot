@@ -12,10 +12,9 @@ import okhttp3.Request;
 import okhttp3.Response;
 
 public class LireUtilisateurCourantAPI extends AsyncTask<String, String, String> {
+
     private int idUtilisateur;
-
     private boolean statut;
-
     private String nomUtilisateurCourant;
     private String urlImageUtilisateurCourant;
     private int nbrMentionAimeUtilisateurCourant;
@@ -32,18 +31,17 @@ public class LireUtilisateurCourantAPI extends AsyncTask<String, String, String>
     @Override
     protected String doInBackground(String... params) {
         Response reponse;
-
         OkHttpClient client = new OkHttpClient();
 
-        Request request = new Request.Builder()
+        Request requete = new Request.Builder()
                 .url("http://54.37.152.134/api/utilisateur/lire_un.php?id_utilisateur=" + this.idUtilisateur)
                 .build();
 
         try {
-            reponse = client.newCall(request).execute();
+            reponse = client.newCall(requete).execute();
 
             if (!reponse.isSuccessful())
-                throw new IOException("Unexpected code " + reponse.toString());
+                throw new IOException("Code non attendu : " + reponse.toString());
 
             String jsonDonneesString = reponse.body().string();
             JSONObject jsonDonneesObjet = new JSONObject(jsonDonneesString);
@@ -56,13 +54,14 @@ public class LireUtilisateurCourantAPI extends AsyncTask<String, String, String>
             String donneeString = jsonDonneesObjet.getString("donnee");
             JSONObject jsonObjectDonnee = new JSONObject(donneeString);
 
-            String utilsateurString = jsonObjectDonnee.getString("utilisateur");
-            JSONArray utilisateurJsonArray = new JSONArray(utilsateurString);
+            String utilisateurString = jsonObjectDonnee.getString("utilisateur");
+            JSONArray utilisateurJsonArray = new JSONArray(utilisateurString);
 
             JSONObject utilisateurJson = new JSONObject(utilisateurJsonArray.getJSONObject(0).toString());
             this.nomUtilisateurCourant = utilisateurJson.getString("nom");
             this.urlImageUtilisateurCourant = utilisateurJson.getString("url_image");
             this.nbrMentionAimeUtilisateurCourant = utilisateurJson.getInt("nombre_mention_aime");
+
         } catch (Exception e) {
             e.printStackTrace();
         }

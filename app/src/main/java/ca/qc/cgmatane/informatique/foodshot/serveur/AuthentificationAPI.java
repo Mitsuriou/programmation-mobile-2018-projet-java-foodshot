@@ -19,9 +19,9 @@ import okhttp3.RequestBody;
 import okhttp3.Response;
 
 public class AuthentificationAPI extends AsyncTask<String, String, String> {
+
     private String pseudonyme;
     private String mdpHash;
-
     private boolean statut;
     private ModeleUtilisateur utilisateurCourant;
     private List<ModeleMessage> listeMessages;
@@ -50,18 +50,17 @@ public class AuthentificationAPI extends AsyncTask<String, String, String> {
             e.printStackTrace();
         }
 
-        RequestBody body = RequestBody.create(JSON, data.toString());
-
+        RequestBody corps = RequestBody.create(JSON, data.toString());
         Request request = new Request.Builder()
                 .url("http://54.37.152.134/api/utilisateur/auth.php")
-                .post(body)
+                .post(corps)
                 .build();
 
         try {
             reponse = client.newCall(request).execute();
 
             if (!reponse.isSuccessful())
-                throw new IOException("Unexpected code " + reponse.toString());
+                throw new IOException("Code non attendu : " + reponse.toString());
 
             String jsonDonneesString = reponse.body().string();
             JSONObject jsonDonneesObjet = new JSONObject(jsonDonneesString);

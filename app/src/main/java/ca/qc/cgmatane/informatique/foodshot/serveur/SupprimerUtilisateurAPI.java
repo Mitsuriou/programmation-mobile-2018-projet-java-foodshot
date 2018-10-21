@@ -11,6 +11,7 @@ import okhttp3.Request;
 import okhttp3.RequestBody;
 
 public class SupprimerUtilisateurAPI extends AsyncTask<String, String, String> {
+    
     private int idUtilisateur;
 
     public SupprimerUtilisateurAPI(int idUtilisateur) {
@@ -34,15 +35,15 @@ public class SupprimerUtilisateurAPI extends AsyncTask<String, String, String> {
             e.printStackTrace();
         }
 
-        RequestBody body = RequestBody.create(JSON, data.toString());
+        RequestBody corpsRequete = RequestBody.create(JSON, data.toString());
 
-        Request request = new Request.Builder()
+        Request requete = new Request.Builder()
                 .url("http://54.37.152.134/api/utilisateur/supprimer.php")
-                .post(body)
+                .post(corpsRequete)
                 .build();
 
         try {
-            client.newCall(request).execute();
+            client.newCall(requete).execute();
         } catch (Exception e) {
             e.printStackTrace();
         }

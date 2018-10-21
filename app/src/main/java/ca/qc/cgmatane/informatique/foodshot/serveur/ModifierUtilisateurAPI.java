@@ -14,6 +14,7 @@ import okhttp3.RequestBody;
 import okhttp3.Response;
 
 public class ModifierUtilisateurAPI extends AsyncTask<String, String, String> {
+
     private int idUtilisateur;
     private String chaineNom;
     private String chaineMdpHash;
@@ -31,6 +32,7 @@ public class ModifierUtilisateurAPI extends AsyncTask<String, String, String> {
 
     @Override
     protected String doInBackground(String... params) {
+        Response reponse;
         MediaType JSON = MediaType.parse("application/json; charset=utf-8");
 
         OkHttpClient client = new OkHttpClient();
@@ -43,17 +45,18 @@ public class ModifierUtilisateurAPI extends AsyncTask<String, String, String> {
             e.printStackTrace();
         }
 
-        RequestBody body = RequestBody.create(JSON, data.toString());
-
+        RequestBody corps = RequestBody.create(JSON, data.toString());
         Request request = new Request.Builder()
                 .url("http://54.37.152.134/api/utilisateur/modifier.php")
-                .post(body)
+                .post(corps)
                 .build();
 
         try {
-            Response reponse = client.newCall(request).execute();
+            reponse = client.newCall(request).execute();
+
             if (!reponse.isSuccessful())
-                throw new IOException("Unexpected code " + reponse.toString());
+                throw new IOException("Code non attendu : " + reponse.toString());
+
             return reponse.body().string();
         } catch (Exception e) {
             e.printStackTrace();

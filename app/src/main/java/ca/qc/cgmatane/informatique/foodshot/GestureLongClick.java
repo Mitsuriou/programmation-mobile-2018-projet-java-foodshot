@@ -8,7 +8,7 @@ public class GestureLongClick extends GestureDetector.SimpleOnGestureListener {
 
     @Override
     public void onLongPress(MotionEvent e) {
-        Log.i("LongTap", "Long tap");
+        Log.i("appui long", "appui long");
     }
 
 }

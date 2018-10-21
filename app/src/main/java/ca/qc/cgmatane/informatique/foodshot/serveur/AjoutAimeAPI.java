@@ -3,6 +3,7 @@ package ca.qc.cgmatane.informatique.foodshot.serveur;
 import android.os.AsyncTask;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
@@ -10,20 +11,21 @@ import java.util.ArrayList;
 import java.util.List;
 
 import ca.qc.cgmatane.informatique.foodshot.modele.ModeleMessage;
-import ca.qc.cgmatane.informatique.foodshot.modele.ModeleUtilisateurRecherche;
+import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
+import okhttp3.RequestBody;
 import okhttp3.Response;
 
-public class RechercherProfilAPI extends AsyncTask<String, String, String> {
+public class AjoutAimeAPI extends AsyncTask<String, String, String> {
 
-    private String pseudonymeRecherche;
-    private boolean statut;
-    private List<ModeleUtilisateurRecherche> listeUtilisateurs;
+    private int idUtilisateur;
+    private int idPublication;
     private List<ModeleMessage> listeMessages;
 
-    public RechercherProfilAPI(String pseudonymeRecherche) {
-        this.pseudonymeRecherche = pseudonymeRecherche;
+    public AjoutAimeAPI(int idUtilisateur, int idPublication) {
+        this.idUtilisateur = idUtilisateur;
+        this.idPublication = idPublication;
     }
 
     @Override
@@ -34,10 +36,23 @@ public class RechercherProfilAPI extends AsyncTask<String, String, String> {
     @Override
     protected String doInBackground(String... params) {
         Response reponse;
+        MediaType JSON = MediaType.parse("application/json; charset=utf-8");
+
         OkHttpClient client = new OkHttpClient();
+        JSONObject data = new JSONObject();
+
+        try {
+            data.put("id_utilisateur", this.idUtilisateur)
+                    .put("id_publication", this.idPublication);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        RequestBody body = RequestBody.create(JSON, data.toString());
 
         Request request = new Request.Builder()
-                .url("http://54.37.152.134/api/utilisateur/rechercher.php?pseudonyme=" + this.pseudonymeRecherche)
+                .url("http://54.37.152.134/api/aime/creer.php")
+                .post(body)
                 .build();
 
         try {
@@ -48,32 +63,6 @@ public class RechercherProfilAPI extends AsyncTask<String, String, String> {
 
             String jsonDonneesString = reponse.body().string();
             JSONObject jsonDonneesObjet = new JSONObject(jsonDonneesString);
-
-            // statut
-            String statutString = jsonDonneesObjet.getString("statut");
-
-            this.statut = statutString.equals("true");
-
-            // donnee
-            String donneeString = jsonDonneesObjet.getString("donnee");
-            JSONObject jsonObjectDonnee = new JSONObject(donneeString);
-
-            String utilsateurString = jsonObjectDonnee.getString("utilisateur");
-            JSONArray utilisateurJsonArray = new JSONArray(utilsateurString);
-
-            List<JSONObject> listeDesUtilisateursJson = new ArrayList<>();
-            for (int i = 0; i < utilisateurJsonArray.length(); i++) {
-                listeDesUtilisateursJson.add(utilisateurJsonArray.getJSONObject(i));
-            }
-
-            this.listeUtilisateurs = new ArrayList<>();
-            for (JSONObject valeur : listeDesUtilisateursJson) {
-                this.listeUtilisateurs.add(new ModeleUtilisateurRecherche(
-                        valeur.getInt("id_utilisateur"),
-                        valeur.getString("nom"),
-                        valeur.getString("pseudonyme")
-                ));
-            }
 
             // message
             String messageString = jsonDonneesObjet.getString("message");
@@ -102,14 +91,6 @@ public class RechercherProfilAPI extends AsyncTask<String, String, String> {
     @Override
     protected void onPostExecute(String s) {
         super.onPostExecute(s);
-    }
-
-    public boolean isStatut() {
-        return statut;
-    }
-
-    public List<ModeleUtilisateurRecherche> getListeUtilisateurs() {
-        return listeUtilisateurs;
     }
 
     public List<ModeleMessage> getListeMessages() {

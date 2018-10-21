@@ -20,71 +20,76 @@ import com.bumptech.glide.request.RequestOptions;
 import java.util.ArrayList;
 
 import ca.qc.cgmatane.informatique.foodshot.modele.ModelePublication;
+import ca.qc.cgmatane.informatique.foodshot.serveur.AjoutAimeAPI;
+import ca.qc.cgmatane.informatique.foodshot.serveur.SupprimerAimeAPI;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class RecyclerViewAdapter extends ListAdapter<ModelePublication, RecyclerViewAdapter.ViewHolder> {
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
-        CircleImageView photo_profil, coeur;
+        CircleImageView imageProfil;
+        CircleImageView imageCoeur;
 
-        TextView image_titre, user_name, nbCoeur;
+        TextView descriptionPublication;
+        TextView nomUtilisateur;
+        TextView nbrCoeur;
         RelativeLayout parentLayout;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            image_titre = itemView.findViewById(R.id.image_name);
+            descriptionPublication = itemView.findViewById(R.id.image_name);
             image = itemView.findViewById(R.id.imageView);
-            user_name = itemView.findViewById(R.id.user_name);
+            nomUtilisateur = itemView.findViewById(R.id.user_name);
             parentLayout = itemView.findViewById(R.id.layout_list_item);
-            photo_profil = itemView.findViewById(R.id.profile_image);
-            coeur = itemView.findViewById(R.id.coeur);
-            nbCoeur = itemView.findViewById(R.id.nb_coeur);
+            imageProfil = itemView.findViewById(R.id.profile_image);
+            imageCoeur = itemView.findViewById(R.id.coeur);
+            nbrCoeur = itemView.findViewById(R.id.nb_coeur);
         }
     }
 
-    private ArrayList<ModelePublication> listePublication;
-    private String coeur;
-    private Context context;
+    private ArrayList<ModelePublication> listePublications;
+    private int idUtilisateur;
+    // private String coeur = "/res/mipmap/ic_launcher/ic_launcher.png";
+    private Context contexte;
     private ImageView image;
 
-    public RecyclerViewAdapter(Context context, ArrayList<ModelePublication> p_listePublication) {
+    public RecyclerViewAdapter(int idUtilisateur, Context contexte, ArrayList<ModelePublication> listePublications) {
         super(DIFF_CALLBACK);
 
-        this.context = context;
-        this.listePublication = new ArrayList<>();
-        this.listePublication.addAll(p_listePublication);
+        this.idUtilisateur = idUtilisateur;
+
+        this.contexte = contexte;
+        this.listePublications = new ArrayList<>();
+        this.listePublications.addAll(listePublications);
     }
 
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_listitem, parent, false);
-        ViewHolder holder = new ViewHolder(view);
-        holder.setIsRecyclable(false);
+        View vue = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_listitem, parent, false);
+        ViewHolder holder = new ViewHolder(vue);
+        holder.setIsRecyclable(true);
         return holder;
     }
 
     @Override
     public void onBindViewHolder(@NonNull final ViewHolder holder, final int position) {
-
-        coeur = "/res/mipmap/ic_launcher/ic_launcher.png";
-
-        GestureDetector.SimpleOnGestureListener gestureListener = new GestureListener(context);
-        final GestureDetector gd = new GestureDetector(context, gestureListener);
-        final GestureDetector gestureLong = new GestureDetector(context, new GestureLongClick());
+        GestureDetector.SimpleOnGestureListener gestureListener = new GestureListener(this.contexte);
+        final GestureDetector detecteurGestes = new GestureDetector(contexte, gestureListener);
+        final GestureDetector detecteurAppuiLong = new GestureDetector(contexte, new GestureLongClick());
 
         holder.parentLayout.setClickable(true);
         holder.parentLayout.setFocusable(true);
 
-        holder.user_name.setClickable(true);
-        holder.user_name.setFocusable(true);
+        holder.nomUtilisateur.setClickable(true);
+        holder.nomUtilisateur.setFocusable(true);
 
-        holder.photo_profil.setClickable(true);
-        holder.photo_profil.setFocusable(true);
+        holder.imageProfil.setClickable(true);
+        holder.imageProfil.setFocusable(true);
 
-        holder.coeur.setClickable(true);
-        holder.coeur.setFocusable(true);
+        holder.imageCoeur.setClickable(true);
+        holder.imageCoeur.setFocusable(true);
 
         image.setClickable(true);
         image.setFocusable(true);
@@ -92,31 +97,31 @@ public class RecyclerViewAdapter extends ListAdapter<ModelePublication, Recycler
         holder.parentLayout.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View view, MotionEvent motionEvent) {
-                gd.onTouchEvent(motionEvent);
+                detecteurGestes.onTouchEvent(motionEvent);
                 return false;
             }
         });
 
-        holder.user_name.setOnTouchListener(new View.OnTouchListener() {
+        holder.nomUtilisateur.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View view, MotionEvent motionEvent) {
-                gd.onTouchEvent(motionEvent);
+                detecteurGestes.onTouchEvent(motionEvent);
                 return false;
             }
         });
 
-        holder.photo_profil.setOnTouchListener(new View.OnTouchListener() {
+        holder.imageProfil.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View view, MotionEvent motionEvent) {
-                gd.onTouchEvent(motionEvent);
+                detecteurGestes.onTouchEvent(motionEvent);
                 return false;
             }
         });
 
-        holder.coeur.setOnTouchListener(new View.OnTouchListener() {
+        holder.imageCoeur.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View view, MotionEvent motionEvent) {
-                gd.onTouchEvent(motionEvent);
+                detecteurGestes.onTouchEvent(motionEvent);
                 return false;
             }
         });
@@ -124,97 +129,86 @@ public class RecyclerViewAdapter extends ListAdapter<ModelePublication, Recycler
         image.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View view, MotionEvent motionEvent) {
-                gd.onTouchEvent(motionEvent);
-                gestureLong.onTouchEvent(motionEvent);
+                detecteurGestes.onTouchEvent(motionEvent);
+                detecteurAppuiLong.onTouchEvent(motionEvent);
                 return false;
             }
         });
 
-
-        RequestOptions ro = new RequestOptions();
-        ro.placeholder(R.drawable.ic_launcher_background);
-
-        Glide.with(context)
-                .applyDefaultRequestOptions(ro)
+        Glide.with(contexte)
                 .asBitmap()
-                .load(listePublication.get(position).getURLimage())
+                .load(listePublications.get(position).getURLImage())
                 .apply(new RequestOptions().fitCenter().override(2000, 500)) // 400,400
                 .into(image);
 
-        Glide.with(context)
-                .applyDefaultRequestOptions(ro)
+        Glide.with(contexte)
                 .asBitmap()
-                .load(listePublication.get(position).getURLprofil())
+                .load(listePublications.get(position).getURLProfil())
                 .apply(new RequestOptions().fitCenter().override(400, 400)). // 400,400
-                into(holder.photo_profil);
+                into(holder.imageProfil);
 
-        Glide.with(context)
-                .applyDefaultRequestOptions(ro)
+        Glide.with(contexte)
                 .asBitmap()
                 .load(R.drawable.ic_launcher_background)
                 .apply(new RequestOptions().fitCenter().override(60, 60)).
-                into(holder.coeur);
+                into(holder.imageCoeur);
 
-        holder.image_titre.setText(listePublication.get(position).getDescImage());
-        holder.nbCoeur.setText("" + listePublication.get(position).getNbLike());
-        holder.user_name.setText(listePublication.get(position).getUsername());
+        holder.descriptionPublication.setText(listePublications.get(position).getDescImage());
+        holder.nbrCoeur.setText("" + listePublications.get(position).getNbrLike());
+        holder.nomUtilisateur.setText(listePublications.get(position).getNomUtilisateur());
 
-
-//        image.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Log.d(TAG,"onClick: image on: "+userNames.get(position));
-//
-//                //Toast.makeText(context,imageNames.get(position),Toast.LENGTH_SHORT).show();
-//            }
-//        });
-//
-//        holder.coeur.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Log.d(TAG,"onClick: coeur on: "+userNames.get(position));
-//
-//                //Toast.makeText(context,imageNames.get(position),Toast.LENGTH_SHORT).show();
-//            }
-//        });
-//
-//        holder.user_name.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Log.d(TAG,"onClick: pseudo on: "+userNames.get(position));
-//
-//                //Toast.makeText(context,imageNames.get(position),Toast.LENGTH_SHORT).show();
-//            }
-//        });
-
+        holder.imageCoeur.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (listePublications.get(position).isJaime()){
+                    SupprimerAimeAPI supprimerAimeAPI = new SupprimerAimeAPI(idUtilisateur, listePublications.get(position).getId());
+                    try {
+                        supprimerAimeAPI.execute().get();
+                        listePublications.get(position).setJaime(false);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+                else{
+                    AjoutAimeAPI ajoutAimeAPI = new AjoutAimeAPI(idUtilisateur, listePublications.get(position).getId());
+                    try {
+                        ajoutAimeAPI.execute().get();
+                        listePublications.get(position).setJaime(true);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        });
     }
 
     public static final DiffUtil.ItemCallback<ModelePublication> DIFF_CALLBACK =
             new DiffUtil.ItemCallback<ModelePublication>() {
 
+                // les deux font la même chose, car une publication n'est pas modifiable :
                 @Override
-                public boolean areItemsTheSame(ModelePublication oldItem, ModelePublication newItem) {
-                    return oldItem.getId() == newItem.getId();
+                public boolean areItemsTheSame(ModelePublication ancienObjet, ModelePublication nouvelObjet) {
+                    return ancienObjet.getId() == nouvelObjet.getId();
                 }
 
                 @Override
-                public boolean areContentsTheSame(ModelePublication oldItem, ModelePublication newItem) {
-                    return (oldItem.getId() == newItem.getId());
+                public boolean areContentsTheSame(ModelePublication ancienObjet, ModelePublication nouvelObjet) {
+                    return (ancienObjet.getId() == nouvelObjet.getId());
                 }
-                // les deux font la même chose, car une publication n'est pas modifiable.
+
             };
 
     @Override
     public int getItemCount() {
-        return listePublication.size();
+        return listePublications.size();
     }
 
-    public ArrayList<ModelePublication> getListePublication() {
-        return this.listePublication;
+    public ArrayList<ModelePublication> getListePublications() {
+        return this.listePublications;
     }
 
     public void ajouterPublication(ModelePublication publication) {
-        this.listePublication.add(publication);
+        this.listePublications.add(publication);
     }
 
 }

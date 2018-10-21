@@ -1,7 +1,6 @@
 package ca.qc.cgmatane.informatique.foodshot.serveur;
 
 import android.os.AsyncTask;
-import android.util.Log;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -12,7 +11,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import ca.qc.cgmatane.informatique.foodshot.modele.ModeleMessage;
-import ca.qc.cgmatane.informatique.foodshot.modele.ModeleUtilisateur;
 import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -20,16 +18,16 @@ import okhttp3.RequestBody;
 import okhttp3.Response;
 
 public class CreerUtilisateurAPI extends AsyncTask<String, String, String> {
-    private String chaineNom;
-    private String chainePseudonyme;
-    private String chaineMdpHash;
 
+    private String nom;
+    private String pseudonyme;
+    private String mdpHash;
     private List<ModeleMessage> listeMessages;
 
     public CreerUtilisateurAPI(String nom, String pseudonyme, String mdpHash) {
-        chaineNom = nom;
-        chainePseudonyme = pseudonyme;
-        chaineMdpHash = mdpHash;
+        this.nom = nom;
+        this.pseudonyme = pseudonyme;
+        this.mdpHash = mdpHash;
     }
 
     @Override
@@ -45,25 +43,24 @@ public class CreerUtilisateurAPI extends AsyncTask<String, String, String> {
         OkHttpClient client = new OkHttpClient();
         JSONObject data = new JSONObject();
         try {
-            data.put("nom", chaineNom)
-                    .put("pseudonyme", chainePseudonyme)
-                    .put("mdp_hash", chaineMdpHash);
+            data.put("nom", nom)
+                    .put("pseudonyme", pseudonyme)
+                    .put("mdp_hash", mdpHash);
         } catch (JSONException e) {
             e.printStackTrace();
         }
 
-        RequestBody body = RequestBody.create(JSON, data.toString());
-
+        RequestBody corps = RequestBody.create(JSON, data.toString());
         Request request = new Request.Builder()
                 .url("http://54.37.152.134/api/utilisateur/creer.php")
-                .post(body)
+                .post(corps)
                 .build();
 
         try {
             reponse = client.newCall(request).execute();
 
             if (!reponse.isSuccessful())
-                throw new IOException("Unexpected code " + reponse.toString());
+                throw new IOException("Code non attendu : " + reponse.toString());
 
             String jsonDonneesString = reponse.body().string();
             JSONObject jsonDonneesObjet = new JSONObject(jsonDonneesString);
@@ -85,7 +82,6 @@ public class CreerUtilisateurAPI extends AsyncTask<String, String, String> {
                         valeur.getString("message")
                 ));
             }
-
         } catch (Exception e) {
             e.printStackTrace();
         }

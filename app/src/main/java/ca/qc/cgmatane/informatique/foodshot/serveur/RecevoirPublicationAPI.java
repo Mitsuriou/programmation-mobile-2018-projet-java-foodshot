@@ -1,7 +1,6 @@
 package ca.qc.cgmatane.informatique.foodshot.serveur;
 
 import android.os.AsyncTask;
-import android.util.Log;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -17,20 +16,26 @@ import okhttp3.Response;
 
 public class RecevoirPublicationAPI extends AsyncTask<String, String, String> {
 
-    private int compteur, dernierId=-1, id_utilisateur;
-    private boolean statut, progress=true;
+    private int compteur;
+    private int dernierId;
+    private int idUtilisateur;
+    private boolean statut;
+    private boolean progress;
     private List<ModelePublication> listePublication;
     private List<ModeleMessage> listeMessages;
 
-    public RecevoirPublicationAPI(int id_utilisateur ,int compteur, int dernierId) {
+    public RecevoirPublicationAPI(int idUtilisateur, int compteur) {
+        this.dernierId = -1;
         this.compteur = compteur;
-        this.dernierId = dernierId;
-        this.id_utilisateur = id_utilisateur;
+        this.idUtilisateur = idUtilisateur;
+        this.progress = true;
     }
 
-    public RecevoirPublicationAPI(int id_utilisateur, int compteur) {
+    public RecevoirPublicationAPI(int idUtilisateur, int compteur, int dernierId) {
         this.compteur = compteur;
-        this.id_utilisateur = id_utilisateur;
+        this.dernierId = dernierId;
+        this.idUtilisateur = idUtilisateur;
+        this.progress = true;
     }
 
     @Override
@@ -44,11 +49,12 @@ public class RecevoirPublicationAPI extends AsyncTask<String, String, String> {
         OkHttpClient client = new OkHttpClient();
 
         Request request = new Request.Builder()
-                .url("http://54.37.152.134/api/publication/lire_pagination.php?id_utilisateur=" + id_utilisateur + "&page=" + compteur + "&dernierId=" + dernierId)
+                .url("http://54.37.152.134/api/publication/lire_pagination.php?id_utilisateur=" + idUtilisateur + "&page=" + compteur + "&dernierId=" + dernierId)
                 .build();
 
         try {
             reponse = client.newCall(request).execute();
+
             String jsonDonneesString = reponse.body().string();
             JSONObject jsonDonneesObjet = new JSONObject(jsonDonneesString);
 
@@ -114,12 +120,10 @@ public class RecevoirPublicationAPI extends AsyncTask<String, String, String> {
                         valeur.getString("message")
                 ));
             }
-
         } catch (Exception e) {
-            e.printStackTrace();
             this.progress = false;
+            e.printStackTrace();
         }
-
 
         return "";
     }

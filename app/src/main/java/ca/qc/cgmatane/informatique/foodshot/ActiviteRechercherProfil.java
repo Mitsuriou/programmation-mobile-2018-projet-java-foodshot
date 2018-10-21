@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
-import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ListView;
@@ -26,19 +25,20 @@ import ca.qc.cgmatane.informatique.foodshot.serveur.RechercherProfilAPI;
 public class ActiviteRechercherProfil extends AppCompatActivity {
 
     private ListView listePseudonymesTrouves;
-    private SimpleAdapter adaptateur;
     protected TextView affichageTexteResultat;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        if (getSharedPreferences(Constantes.COULEURS_PREFERENCES, Context.MODE_PRIVATE).getInt("theme", 1) == 1) {
+        if (getSharedPreferences(Constantes.PREFERENCES_THEME_COULEUR, Context.MODE_PRIVATE).getInt("theme", 1) == 1) {
             setTheme(R.style.AppTheme);
         }
         else {
             setTheme(R.style.AppThemeNoir);
         }
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.vue_activite_rechercher_profil);
+
         gererChampRecherche();
 
         this.affichageTexteResultat = (TextView) findViewById(R.id.rechercher_profil_affichage_texte_resultat);
@@ -56,7 +56,7 @@ public class ActiviteRechercherProfil extends AppCompatActivity {
                     public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                         if (champPseudonyme.getText().toString().equals(""))
                             return;
-                        foo(charSequence);
+                        demanderPseudonymeViaAPI(charSequence);
                     }
 
                     @Override
@@ -65,7 +65,7 @@ public class ActiviteRechercherProfil extends AppCompatActivity {
         );
     }
 
-    public void foo(CharSequence pseudoAChercher) {
+    public void demanderPseudonymeViaAPI(CharSequence pseudoAChercher) {
         RechercherProfilAPI rechercherProfilAPI = new RechercherProfilAPI(pseudoAChercher.toString());
 
         try {
@@ -99,12 +99,12 @@ public class ActiviteRechercherProfil extends AppCompatActivity {
             listeComptes.add(compte);
         }
 
-        adaptateur = new SimpleAdapter(
+        SimpleAdapter adaptateur = new SimpleAdapter(
                 this,
                 listeComptes,
                 android.R.layout.two_line_list_item,
-                new String[] {"nom","pseudonyme"},
-                new int[] {android.R.id.text1, android.R.id.text2}
+                new String[]{"nom", "pseudonyme"},
+                new int[]{android.R.id.text1, android.R.id.text2}
         );
 
         listePseudonymesTrouves.setAdapter(adaptateur);

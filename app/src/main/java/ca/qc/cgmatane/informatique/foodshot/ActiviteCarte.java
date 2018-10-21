@@ -8,6 +8,7 @@ import android.os.Looper;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.google.android.gms.location.LocationCallback;
@@ -56,9 +57,9 @@ public class ActiviteCarte extends FragmentActivity implements OnMapReadyCallbac
 
         startLocationUpdates();
 
-        SharedPreferences preferencesPartagees = getSharedPreferences(Constantes.LOCALISATION, Context.MODE_PRIVATE);
-        this.latitude = Double.valueOf(preferencesPartagees.getString("latitude", "" + 0));
-        this.longitude = Double.valueOf(preferencesPartagees.getString("longitude", "" + 0));
+        SharedPreferences preferencesPartageesLocatisation = getSharedPreferences(Constantes.PREFERENCES_LOCALISATION, Context.MODE_PRIVATE);
+        this.latitude = Double.valueOf(preferencesPartageesLocatisation.getString("latitude", "" + 0));
+        this.longitude = Double.valueOf(preferencesPartageesLocatisation.getString("longitude", "" + 0));
 
         if (this.latitude == 0.0 && this.longitude == 0.0) {
             Toast.makeText(this, "Impossible de trouver votre localisation. Veuillez rééssayer dans un instant.", Toast.LENGTH_SHORT).show();
@@ -66,8 +67,10 @@ public class ActiviteCarte extends FragmentActivity implements OnMapReadyCallbac
             return;
         }
 
+        SharedPreferences preferencesPartageesApplication = getSharedPreferences(Constantes.PREFERENCES_GENERALES, Context.MODE_PRIVATE);
+
         listePublication = new ArrayList<>();
-        LocalisationAPI localisationAPI = new LocalisationAPI(latitude, longitude);
+        LocalisationAPI localisationAPI = new LocalisationAPI(preferencesPartageesApplication.getInt("id_utilisateur", -1), latitude, longitude);
         try {
             localisationAPI.execute().get();
             for (ModelePublication publication : localisationAPI.getListePublication()) {
@@ -99,7 +102,7 @@ public class ActiviteCarte extends FragmentActivity implements OnMapReadyCallbac
 
         for (ModelePublication publication : this.listePublication) {
             LatLng position = new LatLng(publication.getLatitude(), publication.getLongitude());
-            mMap.addMarker(new MarkerOptions().position(position).title(publication.getTitre() + publication.getUsername()));
+            mMap.addMarker(new MarkerOptions().position(position).title(publication.getTitre() + publication.getNomUtilisateur()));
         }
         if (ActivityCompat.checkSelfPermission(ActiviteCarte.this, ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
             mMap.setMyLocationEnabled(true);
@@ -131,7 +134,7 @@ public class ActiviteCarte extends FragmentActivity implements OnMapReadyCallbac
     }
 
     public void onLocationChanged(Location location) {
-        SharedPreferences preferencesPartagees = getSharedPreferences(Constantes.LOCALISATION, Context.MODE_PRIVATE);
+        SharedPreferences preferencesPartagees = getSharedPreferences(Constantes.PREFERENCES_LOCALISATION, Context.MODE_PRIVATE);
         SharedPreferences.Editor editeur = preferencesPartagees.edit();
 
         editeur.putString("latitude", "" + location.getLatitude());

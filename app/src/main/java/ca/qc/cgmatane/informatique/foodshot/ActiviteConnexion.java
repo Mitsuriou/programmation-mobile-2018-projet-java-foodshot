@@ -6,7 +6,6 @@ import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
-import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -26,7 +25,7 @@ public class ActiviteConnexion extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        if (getSharedPreferences(Constantes.COULEURS_PREFERENCES, Context.MODE_PRIVATE).getInt("theme", 1) == 1) {
+        if (getSharedPreferences(Constantes.PREFERENCES_THEME_COULEUR, Context.MODE_PRIVATE).getInt("theme", 1) == 1) {
             setTheme(R.style.AppTheme);
         }
         else {
@@ -62,10 +61,10 @@ public class ActiviteConnexion extends AppCompatActivity {
         this.reinitialiserErreurs();
 
         if (isIdentificationValide()) {
-            SharedPreferences preferencesPartagees = getSharedPreferences(Constantes.MES_PREFERENCES, Context.MODE_PRIVATE);
+            SharedPreferences preferencesPartagees = getSharedPreferences(Constantes.PREFERENCES_GENERALES, Context.MODE_PRIVATE);
             SharedPreferences.Editor editeur = preferencesPartagees.edit();
 
-            editeur.putInt("id_utilisateur", authentificationAPI.getUtilisateurCourant().getId_utilisateur());
+            editeur.putInt("id_utilisateur", authentificationAPI.getUtilisateurCourant().getIdUtilisateur());
             editeur.putString("nom", authentificationAPI.getUtilisateurCourant().getNom());
             editeur.putString("pseudonyme", authentificationAPI.getUtilisateurCourant().getPseudonyme());
             editeur.putString("url_image", authentificationAPI.getUtilisateurCourant().getUrlImage());

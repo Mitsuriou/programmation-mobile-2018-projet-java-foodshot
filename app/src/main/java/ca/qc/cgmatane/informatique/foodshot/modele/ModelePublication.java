@@ -1,82 +1,134 @@
 package ca.qc.cgmatane.informatique.foodshot.modele;
 
-import java.sql.Timestamp;
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
 public class ModelePublication {
 
     private int id;
-    private int id_utilisateur;
-    private String URLimage;
+    private int idUtilisateur;
+    private String URLImage;
     private String titre;
-    private String URLprofil;
+    private String URLProfil;
     private String descImage;
-    private String username;
-    private boolean j_aime;
-    private int  nbLike;
+    private String nomUtilisateur;
+    private boolean jAime;
+    private int nbrLike;
     private double latitude;
     private double longitude;
-    private Timestamp dateCreation;
+    private String dateCreation;
 
-    public ModelePublication(int id, String titre, String descImage, String URLimage, double latitude, double longitude, boolean j_aime, int nbLike, int id_utilisateur, String username, String URLprofil, String dateCreation) {
+    public ModelePublication(int id, String titre, String descImage, String URLImage, double latitude, double longitude, boolean jAime, int nbrLike, int idUtilisateur, String nomUtilisateur, String URLProfil, String dateCreation) {
         this.id = id;
-        this.URLimage = URLimage;
+        this.URLImage = URLImage;
         this.titre = titre;
-        this.URLprofil = URLprofil;
+        this.URLProfil = URLProfil;
         this.descImage = descImage;
-        this.username = username;
+        this.nomUtilisateur = nomUtilisateur;
         this.latitude = latitude;
         this.longitude = longitude;
-        this.j_aime = j_aime;
-        this.id_utilisateur = id_utilisateur;
-        this.nbLike = nbLike;
-        this.dateCreation = convertStringToTimestamp(dateCreation);
+        this.jAime = jAime;
+        this.idUtilisateur = idUtilisateur;
+        this.nbrLike = nbrLike;
+        // TODO convertir la string en date
+        //this.dateCreation = convertStringToTimestamp(dateCreation);
+        this.dateCreation = dateCreation;
     }
 
     public int getId() {
-        return this.id;
+        return id;
     }
 
-    public String getURLimage() {
-        return URLimage;
+    public void setId(int id) {
+        this.id = id;
     }
 
-    public String getURLprofil() {
-        return URLprofil;
+    public int getIdUtilisateur() {
+        return idUtilisateur;
+    }
+
+    public void setIdUtilisateur(int idUtilisateur) {
+        this.idUtilisateur = idUtilisateur;
+    }
+
+    public String getURLImage() {
+        return URLImage;
+    }
+
+    public void setURLImage(String URLImage) {
+        this.URLImage = URLImage;
+    }
+
+    public String getTitre() {
+        return titre;
+    }
+
+    public void setTitre(String titre) {
+        this.titre = titre;
+    }
+
+    public String getURLProfil() {
+        return URLProfil;
+    }
+
+    public void setURLProfil(String URLProfil) {
+        this.URLProfil = URLProfil;
     }
 
     public String getDescImage() {
         return descImage;
     }
 
-    public String getUsername() {
-        return username;
+    public void setDescImage(String descImage) {
+        this.descImage = descImage;
+    }
+
+    public String getNomUtilisateur() {
+        return nomUtilisateur;
+    }
+
+    public void setNomUtilisateur(String nomUtilisateur) {
+        this.nomUtilisateur = nomUtilisateur;
+    }
+
+    public boolean isJaime() {
+        return jAime;
+    }
+
+    public void setJaime(boolean j_aime) {
+        this.jAime = j_aime;
+    }
+
+    public int getNbrLike() {
+        return nbrLike;
+    }
+
+    public void setNbrLike(int nbrLike) {
+        this.nbrLike = nbrLike;
     }
 
     public double getLatitude() {
         return latitude;
     }
 
+    public void setLatitude(double latitude) {
+        this.latitude = latitude;
+    }
+
     public double getLongitude() {
         return longitude;
     }
 
-    public String getTitre(){
-        return this.titre;
+    public void setLongitude(double longitude) {
+        this.longitude = longitude;
     }
 
-    public int getNbLike() {
-        return nbLike;
+    public String getDateCreation() {
+        return dateCreation;
     }
 
-    public boolean getJ_aime(){
-        return this.j_aime;
+    public void setDateCreation(String dateCreation) {
+        this.dateCreation = dateCreation;
     }
 
-    public static Timestamp convertStringToTimestamp(String str_date) {
+    /*    public static Timestamp convertStringToTimestamp(String str_date) {
         try {
             DateFormat formatter;
             formatter = new SimpleDateFormat("dd/MM/yyyy");
@@ -89,6 +141,6 @@ public class ModelePublication {
             System.out.println("Exception :" + e);
             return null;
         }
-    }
+    }*/
 
 }

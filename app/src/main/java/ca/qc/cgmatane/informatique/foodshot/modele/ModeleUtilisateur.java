@@ -2,24 +2,25 @@ package ca.qc.cgmatane.informatique.foodshot.modele;
 
 public class ModeleUtilisateur {
 
-    private int id_utilisateur;
+    private int idUtilisateur;
     private String nom;
     private String pseudonyme;
     private String urlImage;
     private int nbrMentionAime;
     private String creation;
 
-    public ModeleUtilisateur(int id_utilisateur, String nom, String pseudonyme, String urlImage, int nbrMentionAime, String creation) {
-        this.id_utilisateur = id_utilisateur;
+    public ModeleUtilisateur(int idUtilisateur, String nom, String pseudonyme, String urlImage, int nbrMentionAime, String creation) {
+        this.idUtilisateur = idUtilisateur;
         this.nom = nom;
         this.pseudonyme = pseudonyme;
         this.urlImage = urlImage;
         this.nbrMentionAime = nbrMentionAime;
+        // TODO : changer la string en date
         this.creation = creation;
     }
 
-    public int getId_utilisateur() {
-        return id_utilisateur;
+    public int getIdUtilisateur() {
+        return idUtilisateur;
     }
 
     public String getNom() {

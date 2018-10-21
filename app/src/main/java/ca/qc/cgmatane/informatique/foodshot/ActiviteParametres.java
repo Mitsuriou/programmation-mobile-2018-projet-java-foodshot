@@ -8,7 +8,6 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
-import android.view.Window;
 import android.widget.Button;
 import android.widget.Toast;
 
@@ -19,7 +18,7 @@ public class ActiviteParametres extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        if (getSharedPreferences(Constantes.COULEURS_PREFERENCES, Context.MODE_PRIVATE).getInt("theme", 1) == 1) {
+        if (getSharedPreferences(Constantes.PREFERENCES_THEME_COULEUR, Context.MODE_PRIVATE).getInt("theme", 1) == 1) {
             setTheme(R.style.AppTheme);
         }
         else {
@@ -47,17 +46,17 @@ public class ActiviteParametres extends AppCompatActivity {
     }
 
     public void deconnexion() {
-        SharedPreferences preferencesPartagees = getSharedPreferences(Constantes.MES_PREFERENCES, Context.MODE_PRIVATE);
-        SharedPreferences.Editor editeur = preferencesPartagees.edit();
+        SharedPreferences preferencesPartageesGenerales = getSharedPreferences(Constantes.PREFERENCES_GENERALES, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editeur = preferencesPartageesGenerales.edit();
         editeur.clear();
         editeur.apply();
         editeur.commit();
-        Toast.makeText(this, "Compte supprimé", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "Votre compte a bien été supprimé.", Toast.LENGTH_SHORT).show();
         startActivity(new Intent(this, ActiviteConnexion.class));
     }
 
     public void afficherDialogueSuppresion() {
-        final SharedPreferences preferencesPartagees = getSharedPreferences(Constantes.MES_PREFERENCES, Context.MODE_PRIVATE);
+        final SharedPreferences preferencesPartageesGenerales = getSharedPreferences(Constantes.PREFERENCES_GENERALES, Context.MODE_PRIVATE);
         new AlertDialog.Builder(this)
                 .setIcon(android.R.drawable.ic_dialog_alert)
                 .setTitle("Suppression de votre compte FoodShot")
@@ -65,7 +64,7 @@ public class ActiviteParametres extends AppCompatActivity {
                 .setPositiveButton("Supprimer mon compte", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        new SupprimerUtilisateurAPI(preferencesPartagees.getInt("id_utilisateur", -1)).execute();
+                        new SupprimerUtilisateurAPI(preferencesPartageesGenerales.getInt("id_utilisateur", -1)).execute();
                         deconnexion();
                     }
                 })
