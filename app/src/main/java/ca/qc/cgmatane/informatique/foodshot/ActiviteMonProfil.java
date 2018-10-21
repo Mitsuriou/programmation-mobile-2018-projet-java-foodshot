@@ -43,6 +43,7 @@ public class ActiviteMonProfil extends AppCompatActivity {
         else {
             setTheme(R.style.AppThemeNoir);
         }
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.vue_activite_mon_profil);
 
@@ -51,16 +52,12 @@ public class ActiviteMonProfil extends AppCompatActivity {
         this.isScrolling = false;
 
         this.preferencesPartageesGenerales = getSharedPreferences(Constantes.PREFERENCES_GENERALES, Context.MODE_PRIVATE);
-        if (!this.preferencesPartageesGenerales.contains("id_utilisateur")) {
-            Intent intentionSeConnecter = new Intent(this, ActiviteConnexion.class);
-            startActivity(intentionSeConnecter);
-            finish();
-        }
 
-        barreProgression = (ProgressBar) findViewById(R.id.progressProfil);
+
+        barreProgression = (ProgressBar) findViewById(R.id.progressActiviteMonProfil);
         listePublication = new ArrayList<>();
 
-        initialiserRecyclerView();
+        this.initialiserRecyclerView();
     }
 
     private void initialiserRecyclerView() {
@@ -119,7 +116,7 @@ public class ActiviteMonProfil extends AppCompatActivity {
                     for (int i = 0; i < recevoirPublicationAPI.getListePublication().size(); i++) {
                         adapteur.ajouterPublication(recevoirPublicationAPI.getListePublication().get(i));
                         dernierId = recevoirPublicationAPI.getListePublication().get(i).getId();
-                        barreProgression.setVisibility(View.GONE);
+                        //barreProgression.setVisibility(View.GONE);
                         adapteur.notifyItemInserted(adapteur.getItemCount() + 1);
                     }
 

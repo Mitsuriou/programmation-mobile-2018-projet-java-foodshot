@@ -88,10 +88,10 @@ public class ActivitePrincipale extends AppCompatActivity implements NavigationV
 
         this.mettreAJourHeaderDuDrawer();
 
-        barreProgression = (ProgressBar) findViewById(R.id.progress);
-        listePublication = new ArrayList<>();
+        this.barreProgression = (ProgressBar) findViewById(R.id.progressActivitePrincipale);
+        this.listePublication = new ArrayList<>();
 
-        initialiserRecyclerView();
+        this.initialiserRecyclerView();
     }
 
     @Override
