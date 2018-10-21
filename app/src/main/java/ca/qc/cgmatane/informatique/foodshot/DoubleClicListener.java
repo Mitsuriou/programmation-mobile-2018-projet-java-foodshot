@@ -5,11 +5,11 @@ import android.content.Intent;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 
-public class GestureListener extends GestureDetector.SimpleOnGestureListener {
+public class DoubleClicListener extends GestureDetector.SimpleOnGestureListener {
 
     private Context contexte;
 
-    public GestureListener(Context contexte) {
+    public DoubleClicListener(Context contexte) {
         this.contexte = contexte;
     }
 

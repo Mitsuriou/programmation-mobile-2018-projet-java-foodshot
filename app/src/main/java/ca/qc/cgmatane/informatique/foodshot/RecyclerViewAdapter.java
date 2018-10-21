@@ -5,6 +5,7 @@ import android.support.annotation.NonNull;
 import android.support.v7.recyclerview.extensions.ListAdapter;
 import android.support.v7.util.DiffUtil;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.GestureDetector;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -13,6 +14,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
@@ -75,10 +77,6 @@ public class RecyclerViewAdapter extends ListAdapter<ModelePublication, Recycler
 
     @Override
     public void onBindViewHolder(@NonNull final ViewHolder holder, final int position) {
-        GestureDetector.SimpleOnGestureListener gestureListener = new GestureListener(this.contexte);
-        final GestureDetector detecteurGestes = new GestureDetector(contexte, gestureListener);
-        final GestureDetector detecteurAppuiLong = new GestureDetector(contexte, new GestureLongClick());
-
         holder.parentLayout.setClickable(true);
         holder.parentLayout.setFocusable(true);
 
@@ -93,6 +91,57 @@ public class RecyclerViewAdapter extends ListAdapter<ModelePublication, Recycler
 
         image.setClickable(true);
         image.setFocusable(true);
+
+        Glide.with(contexte)
+                .asBitmap()
+                .load(listePublications.get(position).getURLImage())
+                .apply(new RequestOptions().fitCenter().override(2000, 500)) // 400,400
+                .into(image);
+
+        Glide.with(contexte)
+                .asBitmap()
+                .load(listePublications.get(position).getURLProfil())
+                .apply(new RequestOptions().fitCenter().override(400, 400)). // 400,400
+                into(holder.imageProfil);
+
+        Glide.with(contexte)
+                .asBitmap()
+                .load(R.drawable.ic_launcher_background)
+                .apply(new RequestOptions().fitCenter().override(60, 60)).
+                into(holder.imageCoeur);
+
+        holder.descriptionPublication.setText(listePublications.get(position).getDescImage());
+        holder.nbrCoeur.setText("" + listePublications.get(position).getNbrLike());
+        holder.nomUtilisateur.setText(listePublications.get(position).getNomUtilisateur());
+
+        holder.imageCoeur.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (listePublications.get(position).isJaime()){
+                    SupprimerAimeAPI supprimerAimeAPI = new SupprimerAimeAPI(idUtilisateur, listePublications.get(position).getId());
+                    try {
+                        supprimerAimeAPI.execute().get();
+                        listePublications.get(position).setJaime(false);
+                        Toast.makeText(contexte, "Vous n'aimez plus la publication.", Toast.LENGTH_SHORT).show();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+                else{
+                    AjoutAimeAPI ajoutAimeAPI = new AjoutAimeAPI(idUtilisateur, listePublications.get(position).getId());
+                    try {
+                        ajoutAimeAPI.execute().get();
+                        listePublications.get(position).setJaime(true);
+                        Toast.makeText(contexte, "Vous aimez la publication.", Toast.LENGTH_SHORT).show();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        });
+
+        GestureDetector.SimpleOnGestureListener gestureListener = new DoubleClicListener(this.contexte);
+        final GestureDetector detecteurGestes = new GestureDetector(contexte, gestureListener);
 
         holder.parentLayout.setOnTouchListener(new View.OnTouchListener() {
             @Override
@@ -129,57 +178,12 @@ public class RecyclerViewAdapter extends ListAdapter<ModelePublication, Recycler
         image.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View view, MotionEvent motionEvent) {
-                detecteurGestes.onTouchEvent(motionEvent);
-                detecteurAppuiLong.onTouchEvent(motionEvent);
+                Log.d("size_listePublications : ", "" + listePublications.size());
+                new GestureDetector(contexte, new LongClicListener(contexte, idUtilisateur, listePublications, position)).onTouchEvent(motionEvent);
                 return false;
             }
         });
 
-        Glide.with(contexte)
-                .asBitmap()
-                .load(listePublications.get(position).getURLImage())
-                .apply(new RequestOptions().fitCenter().override(2000, 500)) // 400,400
-                .into(image);
-
-        Glide.with(contexte)
-                .asBitmap()
-                .load(listePublications.get(position).getURLProfil())
-                .apply(new RequestOptions().fitCenter().override(400, 400)). // 400,400
-                into(holder.imageProfil);
-
-        Glide.with(contexte)
-                .asBitmap()
-                .load(R.drawable.ic_launcher_background)
-                .apply(new RequestOptions().fitCenter().override(60, 60)).
-                into(holder.imageCoeur);
-
-        holder.descriptionPublication.setText(listePublications.get(position).getDescImage());
-        holder.nbrCoeur.setText("" + listePublications.get(position).getNbrLike());
-        holder.nomUtilisateur.setText(listePublications.get(position).getNomUtilisateur());
-
-        holder.imageCoeur.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (listePublications.get(position).isJaime()){
-                    SupprimerAimeAPI supprimerAimeAPI = new SupprimerAimeAPI(idUtilisateur, listePublications.get(position).getId());
-                    try {
-                        supprimerAimeAPI.execute().get();
-                        listePublications.get(position).setJaime(false);
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                }
-                else{
-                    AjoutAimeAPI ajoutAimeAPI = new AjoutAimeAPI(idUtilisateur, listePublications.get(position).getId());
-                    try {
-                        ajoutAimeAPI.execute().get();
-                        listePublications.get(position).setJaime(true);
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                }
-            }
-        });
     }
 
     public static final DiffUtil.ItemCallback<ModelePublication> DIFF_CALLBACK =
