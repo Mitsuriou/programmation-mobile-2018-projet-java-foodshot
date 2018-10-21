@@ -21,6 +21,7 @@ public class RecevoirPublicationAPI extends AsyncTask<String, String, String> {
     private int idUtilisateur;
     private boolean statut;
     private boolean progress;
+    private boolean publicationPerso;
     private List<ModelePublication> listePublication;
     private List<ModeleMessage> listeMessages;
 
@@ -28,6 +29,15 @@ public class RecevoirPublicationAPI extends AsyncTask<String, String, String> {
         this.dernierId = -1;
         this.compteur = compteur;
         this.idUtilisateur = idUtilisateur;
+        this.publicationPerso = false;
+        this.progress = true;
+    }
+
+    public RecevoirPublicationAPI(int idUtilisateur, int compteur, boolean publicationPerso) {
+        this.dernierId = -1;
+        this.compteur = compteur;
+        this.idUtilisateur = idUtilisateur;
+        this.publicationPerso = publicationPerso;
         this.progress = true;
     }
 
@@ -35,6 +45,15 @@ public class RecevoirPublicationAPI extends AsyncTask<String, String, String> {
         this.compteur = compteur;
         this.dernierId = dernierId;
         this.idUtilisateur = idUtilisateur;
+        this.publicationPerso = false;
+        this.progress = true;
+    }
+
+    public RecevoirPublicationAPI(int idUtilisateur, int compteur, int dernierId, boolean publicationPerso) {
+        this.compteur = compteur;
+        this.dernierId = dernierId;
+        this.idUtilisateur = idUtilisateur;
+        this.publicationPerso = publicationPerso;
         this.progress = true;
     }
 
@@ -49,7 +68,7 @@ public class RecevoirPublicationAPI extends AsyncTask<String, String, String> {
         OkHttpClient client = new OkHttpClient();
 
         Request request = new Request.Builder()
-                .url("http://54.37.152.134/api/publication/lire_pagination.php?id_utilisateur=" + idUtilisateur + "&page=" + compteur + "&dernierId=" + dernierId)
+                .url("http://54.37.152.134/api/publication/lire_pagination.php?id_utilisateur=" + idUtilisateur + "&page=" + compteur + "&dernierId=" + dernierId + "&publication_perso=" + publicationPerso)
                 .build();
 
         try {

@@ -33,14 +33,14 @@ public class RecyclerViewAdapter extends ListAdapter<ModelePublication, Recycler
         CircleImageView imageProfil;
         CircleImageView imageCoeur;
 
-        TextView descriptionPublication;
+        TextView titre;
         TextView nomUtilisateur;
         TextView nbrCoeur;
         RelativeLayout parentLayout;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            descriptionPublication = itemView.findViewById(R.id.image_name);
+            titre = itemView.findViewById(R.id.image_name);
             image = itemView.findViewById(R.id.imageView);
             nomUtilisateur = itemView.findViewById(R.id.user_name);
             parentLayout = itemView.findViewById(R.id.layout_list_item);
@@ -110,7 +110,7 @@ public class RecyclerViewAdapter extends ListAdapter<ModelePublication, Recycler
                 .apply(new RequestOptions().fitCenter().override(60, 60)).
                 into(holder.imageCoeur);
 
-        holder.descriptionPublication.setText(listePublications.get(position).getDescImage());
+        holder.titre.setText(listePublications.get(position).getTitre());
         holder.nbrCoeur.setText("" + listePublications.get(position).getNbrLike());
         holder.nomUtilisateur.setText(listePublications.get(position).getNomUtilisateur());
 
