@@ -1,0 +1,58 @@
+<resources>
+    <string name="app_name">FoodShot</string>
+
+    <!-- Titres de Vues -->
+    <string name="titre_vue_nouvelle_publication">Nouvelle publication</string>
+    <string name="titre_vue_profil">Mon Profil</string>
+    <string name="titre_vue_rechercher_profil">Rechercher un Profil</string>
+    <string name="titre_vue_publications_aimees">Publications Aimées</string>
+    <string name="titre_vue_personnes_suivies">Personnes Suivies</string>
+    <string name="titre_vue_activite_carte">Autour de moi</string>
+    <string name="titre_vue_parametres">Paramètres</string>
+    <string name="titre_vue_parametres_modifier_infos_compte">Modifier mes informations</string>
+
+    <!-- Drawer -->
+    <string name="navigation_drawer_open">Ouvrir le Drawer de navigation</string>
+    <string name="navigation_drawer_close">Fermer le Drawer de navigation</string>
+    <string name="nav_header_title">Nom</string>
+    <string name="nav_header_subtitle">\@Pseudonyme</string>
+    <string name="nav_header_second_subtitle">1 560 MENTIONS "J'AIME"</string>
+    <string name="nav_header_desc">Header de navigation</string>
+    <string name="action_rechercher">Rechercher un profil</string>
+
+    <string name="drawer_cat_moi">Moi</string>
+    <string name="drawer_cat_profil">Mon Profil</string>
+    <string name="drawer_cat_aime">Publications aimées</string>
+    <string name="drawer_cat_personnes_suivies">Personnes suivies</string>
+
+    <string name="drawer_cat_social">Social</string>
+    <string name="drawer_cat_map">Autour de moi</string>
+    <string name="drawer_cat_notifications">Notifications</string>
+
+    <string name="drawer_cat_outil">Outils</string>
+    <string name="drawer_cat_theme_noir">Thème noir</string>
+    <string name="drawer_cat_parametres">Paramètres</string>
+    <string name="drawer_cat_deconnexion">Déconnexion</string>
+
+    <!-- Recherche de profil -->
+    <string name="hint_rechercher_profil">Pseudonyme</string>
+
+    <!-- Connexion -->
+    <string name="titre_vue_activite_connexion">Se connecter à FoodShot</string>
+    <string name="hint_connexion_champ_pseudonyme">Pseudonyme</string>
+    <string name="hint_connexion_champ_mot_de_passe">Mot de passe</string>
+
+    <!--Creation de compte-->
+    <string name="titre_vue_activite_creation_compte">Créer un compte FoodShot</string>
+    <string name="hint_creation_compte_champ_nom">Nom (4 caractères min.)</string>
+    <string name="hint_creation_compte_champ_pseudonyme">Pseudonyme (4 caractères min.)</string>
+    <string name="hint_creation_compte_champ_mot_de_passe">Mot de passe (5 caractères min.)</string>
+    <string name="hint_creation_compte_champ_mot_de_passe_2">Répéter mot de passe</string>
+    <string name="texte_bouton_creation_compte">Créer un compte</string>
+    <string name="creer_un_compte">Créer un compte</string>
+    <string name="mot_de_passe_oublie">Mot de passe oublié</string>
+    <string name="param_bouton_supprimer_mon_compte">Supprimer mon compte</string>
+    <string name="param_bouton_compte">Compte</string>
+    <string name="param_bouton_general">Général</string>
+
+</resources>

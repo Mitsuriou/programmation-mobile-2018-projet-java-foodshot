@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:contexte=".ActiviteParametres">
+
+    <Button
+        android:id="@+id/general"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/param_bouton_general" />
+
+    <Button
+        android:id="@+id/bouton_param_compte"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/param_bouton_compte" />
+
+    <Button
+        android:id="@+id/bouton_suppr_compte"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/param_bouton_supprimer_mon_compte"
+        android:textColor="#f00" />
+
+</LinearLayout>

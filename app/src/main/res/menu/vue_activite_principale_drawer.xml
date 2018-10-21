@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <item android:title="@string/drawer_cat_moi">
+        <menu>
+            <item
+                android:id="@+id/profil"
+                android:title="@string/drawer_cat_profil" />
+            <item
+                android:id="@+id/aime"
+                android:title="@string/drawer_cat_aime" />
+            <item
+                android:id="@+id/personnes_suivies"
+                android:title="@string/drawer_cat_personnes_suivies" />
+        </menu>
+    </item>
+
+    <item android:title="@string/drawer_cat_social">
+        <menu>
+            <item
+                android:id="@+id/autour_de_moi"
+                android:title="@string/drawer_cat_map" />
+            <item
+                android:id="@+id/notifications"
+                android:title="@string/drawer_cat_notifications" />
+        </menu>
+    </item>
+
+    <item android:title="@string/drawer_cat_outil">
+        <menu>
+            <item android:id="@+id/theme_noir"
+                android:title="@string/drawer_cat_theme_noir" />
+            <item
+                android:id="@+id/parametres"
+                android:title="@string/drawer_cat_parametres" />
+            <item
+                android:id="@+id/deconnexion"
+                android:title="@string/drawer_cat_deconnexion" />
+        </menu>
+    </item>
+
+</menu>
